@@ -27,8 +27,9 @@ module.exports = {
         'accent-dark': 'var(--accent-dark)',
       },
       fontFamily: {
-        sans: ['Poppins', 'Arial', 'Helvetica', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'Roboto', 'Arial', 'sans-serif'],
         geist: ['var(--font-geist-sans)'],
+        roboto: ['Roboto', 'sans-serif'],
         mono: ['var(--font-geist-mono)'],
       },
       backgroundColor: {

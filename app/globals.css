@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 @import "tailwindcss";
 @theme inline {
   --color-background: var(--background);
@@ -12,7 +12,6 @@
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(0, 0%, 20%);
-  
   --green-50: hsl(120, 43%, 93%);
   --green-100: hsl(120, 54%, 91%);
   --green-200: hsl(144, 55%, 81%);
@@ -24,7 +23,6 @@
   --green-800: hsl(140, 65%, 26%);
   --green-900: hsl(143, 56%, 22%);
   --green-950: hsl(144, 46%, 18%);
-  
   --accent: var(--green-500);
   --accent-light: var(--green-300);
   --accent-dark: var(--green-700);
@@ -43,7 +41,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), 'Roboto', Arial, sans-serif;
 }
 
 .text-green-700 {
