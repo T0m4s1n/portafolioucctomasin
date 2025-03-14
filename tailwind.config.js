@@ -9,11 +9,22 @@ module.exports = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        wine: {
-          700: 'var(--accent)',
-          800: 'var(--accent-dark)',
-          600: 'var(--accent-light)',
+        green: {
+          50: 'var(--green-50)',
+          100: 'var(--green-100)',
+          200: 'var(--green-200)',
+          300: 'var(--green-300)',
+          400: 'var(--green-400)',
+          500: 'var(--green-500)',
+          600: 'var(--green-600)',
+          700: 'var(--green-700)',
+          800: 'var(--green-800)',
+          900: 'var(--green-900)',
+          950: 'var(--green-950)',
         },
+        accent: 'var(--accent)',
+        'accent-light': 'var(--accent-light)',
+        'accent-dark': 'var(--accent-dark)',
       },
       fontFamily: {
         sans: ['Poppins', 'Arial', 'Helvetica', 'sans-serif'],
@@ -22,11 +33,11 @@ module.exports = {
       },
       backgroundColor: {
         'gray-100': 'rgba(0, 0, 0, 0.05)',
-        'wine-700': 'var(--accent)',
+        'green-700': 'var(--green-700)',
       },
       textColor: {
-        'wine-700': 'var(--accent)',
-        'wine-800': 'var(--accent-dark)',
+        'green-700': 'var(--green-700)',
+        'green-800': 'var(--green-800)',
       },
     },
   },
