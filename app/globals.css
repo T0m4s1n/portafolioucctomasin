@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -10,49 +9,41 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
 :root {
-  --background: #ffffff;
-  --foreground: #333333;
-  --accent: #8B4513;
-  --accent-light: #A0522D;
-  --accent-dark: #6B3E26;
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 20%);
+  --accent: hsl(25, 76%, 31%);
+  --accent-light: hsl(19, 56%, 41%);
+  --accent-dark: hsl(24, 47%, 28%);
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --accent: #9e5f41;
-    --accent-light: #b67d62;
-    --accent-dark: #7a4731;
+    --background: hsl(0, 0%, 4%);
+    --foreground: hsl(0, 0%, 93%);
+    --accent: hsl(20, 41%, 44%);
+    --accent-light: hsl(20, 34%, 55%);
+    --accent-dark: hsl(20, 43%, 34%);
   }
 }
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
-
 .text-wine-700 {
   color: var(--accent);
 }
-
 .text-wine-800 {
   color: var(--accent-dark);
 }
-
 .bg-wine-700 {
   background-color: var(--accent);
 }
-
 .bg-gray-100 {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: hsla(0, 0%, 0%, 0.05);
 }
-
 @media (prefers-color-scheme: dark) {
   .bg-gray-100 {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: hsla(0, 0%, 100%, 0.1);
   }
 }
