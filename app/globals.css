@@ -35,7 +35,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--deluge-950);
+    --background: var(--deluge-500);
     --foreground: hsl(0, 0%, 93%);
 
     --accent: var(--deluge-600);
