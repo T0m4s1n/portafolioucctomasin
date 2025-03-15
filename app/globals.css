@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 @import "tailwindcss";
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -10,49 +9,42 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
 :root {
-  --background: #ffffff;
-  --foreground: #333333;
-  --accent: #8B4513;
-  --accent-light: #A0522D;
-  --accent-dark: #6B3E26;
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 20%);
+
+  --deluge-50: hsl(240, 33%, 98%);
+  --deluge-100: hsl(252, 36%, 95%);
+  --deluge-200: hsl(246, 38%, 92%);
+  --deluge-300: hsl(244, 33%, 85%);
+  --deluge-400: hsl(249, 35%, 76%);
+  --deluge-500: hsl(249, 36%, 66%);
+  --deluge-600: hsl(253, 33%, 58%);
+  --deluge-700: hsl(253, 28%, 54%);
+  --deluge-800: hsl(254, 28%, 42%);
+  --deluge-900: hsl(254, 28%, 35%);
+  --deluge-950: hsl(254, 28%, 23%);
+
+  --accent: var(--deluge-500);
+  --accent-light: var(--deluge-300);
+  --accent-dark: var(--deluge-700);
+
+  --card-background: var(--deluge-50);
+  --muted-foreground: hsl(0, 0%, 40%);
+  --border: var(--deluge-200);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --accent: #9e5f41;
-    --accent-light: #b67d62;
-    --accent-dark: #7a4731;
-  }
-}
+    --background: hsl(0, 0%, 4%);
+    --foreground: hsl(0, 0%, 93%);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;
-}
+    --accent: var(--deluge-600);
+    --accent-light: var(--deluge-500);
+    --accent-dark: var(--deluge-800);
 
-.text-wine-700 {
-  color: var(--accent);
-}
-
-.text-wine-800 {
-  color: var(--accent-dark);
-}
-
-.bg-wine-700 {
-  background-color: var(--accent);
-}
-
-.bg-gray-100 {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  .bg-gray-100 {
-    background-color: rgba(255, 255, 255, 0.1);
+    --card-background: var(--deluge-950);
+    --muted-foreground: var(--deluge-300);
+    --border: var(--deluge-800);
   }
 }

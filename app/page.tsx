@@ -70,7 +70,7 @@ const PortfolioHeader = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white font-['Poppins'] p-8 flex justify-center items-center overflow-hidden">
+        <div className="min-h-screen bg-background text-foreground font-['Poppins'] p-8 flex justify-center items-center overflow-hidden">
             <div className="relative max-w-2xl w-full mx-auto">
                 <motion.div 
                     className="relative z-10 text-center p-12"
@@ -84,7 +84,7 @@ const PortfolioHeader = () => {
                         className="mb-10"
                     >
                         <motion.h1 
-                            className="text-6xl font-bold text-wine-800"
+                            className="text-6xl font-bold text-accent-dark"
                             variants={textVariants}
                             style={{ 
                                 textShadow: "0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1)"
@@ -93,7 +93,7 @@ const PortfolioHeader = () => {
                             Tomasin
                         </motion.h1>
                         <motion.div 
-                            className="h-1 w-32 mx-auto mt-4 bg-wine-700 rounded-full shadow-md"
+                            className="h-1 w-32 mx-auto mt-4 bg-accent rounded-full shadow-md"
                             initial={{ width: 0, opacity: 0 }}
                             animate={{ width: "12rem", opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.7 }}
@@ -111,7 +111,7 @@ const PortfolioHeader = () => {
                             <motion.div
                                 animate={showHammer ? "up" : "down"}
                                 variants={hammerVariants}
-                                className="mr-6 text-wine-700"
+                                className="mr-6 text-accent"
                             >
                                 <Hammer size={48} />
                             </motion.div>
@@ -119,7 +119,7 @@ const PortfolioHeader = () => {
                             <motion.div
                                 animate={rotateCode ? "rotated" : "normal"}
                                 variants={codeVariants}
-                                className="ml-6 text-wine-700"
+                                className="ml-6 text-accent-light"
                             >
                                 <Code size={48} />
                             </motion.div>
@@ -127,7 +127,7 @@ const PortfolioHeader = () => {
                         
                         <div className="text-center">
                             <motion.span 
-                                className="font-bold text-3xl block text-wine-700"
+                                className="font-bold text-3xl block text-accent"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
@@ -139,7 +139,7 @@ const PortfolioHeader = () => {
                             </motion.span>
                             
                             <motion.span 
-                                className="font-medium text-2xl text-wine-800 block mt-3"
+                                className="font-medium text-2xl text-accent-dark block mt-3"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.8 }}
@@ -148,7 +148,7 @@ const PortfolioHeader = () => {
                             </motion.span>
                             
                             <motion.p 
-                                className="text-gray-600 mt-5 italic text-lg"
+                                className="text-muted-foreground mt-5 italic text-lg"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1 }}
