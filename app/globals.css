@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 @import "tailwindcss";
 @theme inline {
   --color-background: var(--background);
@@ -10,7 +9,7 @@
   --font-mono: var(--font-geist-mono);
 }
 :root {
-  --background: hsl(0, 0%, 100%);
+  --background: var(--deluge-100);
   --foreground: hsl(0, 0%, 20%);
 
   --deluge-50: hsl(240, 33%, 98%);
@@ -36,7 +35,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: hsl(0, 0%, 4%);
+    --background: var(--deluge-950);
     --foreground: hsl(0, 0%, 93%);
 
     --accent: var(--deluge-600);
