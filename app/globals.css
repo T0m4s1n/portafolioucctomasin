@@ -23,6 +23,7 @@
   --deluge-800: hsl(254, 28%, 42%);
   --deluge-900: hsl(254, 28%, 35%);
   --deluge-950: hsl(254, 28%, 23%);
+  --deluge-975: hsl(254, 28%, 15%);
 
   --accent: var(--deluge-500);
   --accent-light: var(--deluge-300);
@@ -35,12 +36,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--deluge-150);
+    --background: var(--deluge-975);
     --foreground: hsl(0, 0%, 93%);
 
-    --accent: var(--deluge-600);
+    --accent: var(--deluge-150);
     --accent-light: var(--deluge-500);
-    --accent-dark: var(--deluge-800);
+    --accent-dark: var(--accent-light);
 
     --card-background: var(--deluge-950);
     --muted-foreground: var(--deluge-300);
