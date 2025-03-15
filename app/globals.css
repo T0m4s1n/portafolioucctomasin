@@ -38,7 +38,7 @@
     --background: var(--deluge-500);
     --foreground: hsl(0, 0%, 93%);
 
-    --accent: var(--deluge-600);
+    --accent: var(--deluge-150);
     --accent-light: var(--deluge-500);
     --accent-dark: var(--deluge-800);
 
