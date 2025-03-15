@@ -70,15 +70,15 @@ const PortfolioHeader = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-['Poppins'] p-8 flex justify-center items-center overflow-hidden">
-            <div className="relative max-w-2xl w-full mx-auto">
-                <motion.div 
+        <main className="min-h-screen bg-background text-foreground font-sans p-8 flex justify-center items-center overflow-hidden">
+            <section className="relative max-w-2xl w-full mx-auto">
+                <motion.header 
                     className="relative z-10 text-center p-12"
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.7, type: "spring", stiffness: 100 }}
                 >
-                    <motion.div
+                    <motion.article
                         initial="hidden"
                         animate="visible"
                         className="mb-10"
@@ -92,40 +92,40 @@ const PortfolioHeader = () => {
                         >
                             Tomasin
                         </motion.h1>
-                        <motion.div 
-                            className="h-1 w-32 mx-auto mt-4 bg-accent rounded-full shadow-md"
+                        <motion.span 
+                            className="h-1 w-32 mx-auto mt-4 bg-accent rounded-full shadow-md block"
                             initial={{ width: 0, opacity: 0 }}
                             animate={{ width: "12rem", opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.7 }}
                         />
-                    </motion.div>
+                    </motion.article>
 
-                    <motion.div 
+                    <motion.section 
                         className="mt-12 flex flex-col items-center justify-center"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.3 }}
                     >
-                        <div className="flex items-center justify-center mb-8 relative">
+                        <figure className="flex items-center justify-center mb-8 relative">
                             
-                            <motion.div
+                            <motion.span
                                 animate={showHammer ? "up" : "down"}
                                 variants={hammerVariants}
                                 className="mr-6 text-accent"
                             >
                                 <Hammer size={48} />
-                            </motion.div>
+                            </motion.span>
                             
-                            <motion.div
+                            <motion.span
                                 animate={rotateCode ? "rotated" : "normal"}
                                 variants={codeVariants}
                                 className="ml-6 text-accent-light"
                             >
                                 <Code size={48} />
-                            </motion.div>
-                        </div>
+                            </motion.span>
+                        </figure>
                         
-                        <div className="text-center">
+                        <article className="text-center">
                             <motion.span 
                                 className="font-bold text-3xl block text-accent"
                                 initial={{ opacity: 0, y: 10 }}
@@ -155,14 +155,11 @@ const PortfolioHeader = () => {
                             >
                                 Construyendo mi portafolio. Soy tomasin
                             </motion.p>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </div>
-            <style jsx>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-            `}</style>
-        </div>
+                        </article>
+                    </motion.section>
+                </motion.header>
+            </section>
+        </main>
     );
 };
 
