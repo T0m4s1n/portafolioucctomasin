@@ -1,5 +1,13 @@
 @import "tailwindcss";
-
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-geist-mono);
+}
 :root {
   --background: var(--deluge-100);
   --foreground: hsl(0, 0%, 20%);
@@ -24,15 +32,7 @@
   --card-background: var(--deluge-50);
   --muted-foreground: hsl(0, 0%, 40%);
   --border: var(--deluge-200);
-  
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-light: var(--accent-light);
-  --color-accent-dark: var(--accent-dark);
-  --font-sans: var(--font-poppins);
-  --font-mono: var(--font-geist-mono);
-  
+
   --sat: env(safe-area-inset-top);
   --sar: env(safe-area-inset-right);
   --sab: env(safe-area-inset-bottom);
@@ -52,15 +52,4 @@
     --muted-foreground: var(--deluge-300);
     --border: var(--deluge-800);
   }
-}
-
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  background-color: var(--background);
-  color: var(--foreground);
-}
-
-html {
-  height: -webkit-fill-available;
 }
