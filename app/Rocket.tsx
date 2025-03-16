@@ -285,7 +285,7 @@ const MoonAstronautIntro = () => {
             stiffness: 100
           }}
         >
-          Desarrollador web y diseñador UI/UX apasionado por crear experiencias digitales impactantes.
+          Estudiante de ingeneria de Software apasionado por crear nuevas propuestas y soluciones tecnológicas.
         </motion.p>
         
         <motion.p 
@@ -299,7 +299,7 @@ const MoonAstronautIntro = () => {
             stiffness: 100
           }}
         >
-          Con enfoque en tecnologías modernas como React, Next.js y Framer Motion para dar vida a ideas innovadoras.
+          Con enfoque en tecnologías modernas de frontend como Next.js, Vue, React y backend como SpringBoot y Django.
         </motion.p>
         
         <motion.div
