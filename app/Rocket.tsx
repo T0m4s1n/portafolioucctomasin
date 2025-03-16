@@ -312,7 +312,7 @@ const MoonAstronautIntro = () => {
             stiffness: 100
           }}
         >
-          <button className="bg-card-dark hover:bg-accent-dark text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 text-lg">
+          <button className="bg-card-dark hover:bg-deluga-700 text-accent-light font-medium py-3 px-8 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 text-lg">
             Explorar Proyectos
           </button>
         </motion.div>
