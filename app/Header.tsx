@@ -16,6 +16,10 @@ const PortfolioNavHeader = () => {
             
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
                 setIsVisible(false);
+                // Cerrar el menú móvil cuando se esconde el header
+                if (isMenuOpen) {
+                    setIsMenuOpen(false);
+                }
             } 
             else {
                 setIsVisible(true);
@@ -26,7 +30,7 @@ const PortfolioNavHeader = () => {
         
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    }, [lastScrollY, isMenuOpen]);
 
     const sections = [
         { id: 'inicio', name: 'Inicio', icon: <Hammer size={20} /> },
@@ -80,7 +84,7 @@ const PortfolioNavHeader = () => {
                 isMenuOpen ? 'bg-background/95 backdrop-blur-md' : 'bg-transparent'
             } md:bg-transparent py-5`}
             initial="hidden"
-            animate="visible"
+            animate={isVisible ? "visible" : "hidden"}
             variants={navVariants}
         >
             <div className="container mx-auto px-4 flex justify-between items-center">
@@ -128,33 +132,36 @@ const PortfolioNavHeader = () => {
                     {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </motion.button>
             </div>
-            <motion.nav 
-                className={`md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg shadow-lg ${
-                    isMenuOpen ? 'block' : 'hidden'
-                }`}
-                initial="closed"
-                animate={isMenuOpen ? "open" : "closed"}
-                variants={mobileMenuVariants}
-            >
-                <div className="container mx-auto py-4 px-4">
-                    {sections.map((section) => (
-                        <motion.button
-                            key={section.id}
-                            onClick={() => handleSectionChange(section.id)}
-                            className={`flex items-center space-x-3 w-full py-3 px-4 my-1 rounded-xl ${
-                                activeSection === section.id 
-                                    ? 'bg-accent/15 text-accent' 
-                                    : 'text-muted-foreground hover:bg-accent/5 hover:text-foreground'
-                            }`}
-                            whileHover={{ x: 5 }}
-                            whileTap={{ scale: 0.98 }}
-                        >
-                            <span>{section.icon}</span>
-                            <span className="font-medium">{section.name}</span>
-                        </motion.button>
-                    ))}
-                </div>
-            </motion.nav>
+            
+            {/* Menú móvil separado que se muestra solo cuando está abierto */}
+            {isMenuOpen && isVisible && (
+                <motion.nav 
+                    className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg shadow-lg"
+                    initial="closed"
+                    animate="open"
+                    variants={mobileMenuVariants}
+                    exit="closed"
+                >
+                    <div className="container mx-auto py-4 px-4">
+                        {sections.map((section) => (
+                            <motion.button
+                                key={section.id}
+                                onClick={() => handleSectionChange(section.id)}
+                                className={`flex items-center space-x-3 w-full py-3 px-4 my-1 rounded-xl ${
+                                    activeSection === section.id 
+                                        ? 'bg-accent/15 text-accent' 
+                                        : 'text-muted-foreground hover:bg-accent/5 hover:text-foreground'
+                                }`}
+                                whileHover={{ x: 5 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <span>{section.icon}</span>
+                                <span className="font-medium">{section.name}</span>
+                            </motion.button>
+                        ))}
+                    </div>
+                </motion.nav>
+            )}
         </motion.header>
     );
 };
