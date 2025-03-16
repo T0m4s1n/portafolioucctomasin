@@ -41,7 +41,7 @@
     --foreground: hsl(0, 0%, 93%);
 
     --accent: var(--deluge-150);
-    --accent-light: var(--deluge-500);
+    --accent-light: var(--deluge-200);
     --accent-dark: var(--accent-light);
 
     --card-background: var(--deluge-950);
