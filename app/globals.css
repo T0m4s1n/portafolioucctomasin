@@ -33,10 +33,6 @@
   --muted-foreground: hsl(0, 0%, 40%);
   --border: var(--deluge-200);
 
-  --sat: env(safe-area-inset-top);
-  --sar: env(safe-area-inset-right);
-  --sab: env(safe-area-inset-bottom);
-  --sal: env(safe-area-inset-left);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,5 +47,14 @@
     --card-background: var(--deluge-950);
     --muted-foreground: var(--deluge-300);
     --border: var(--deluge-800);
+  }
+}
+
+@supports (padding: max(0px)) {
+  body {
+    padding-top: var(--sat, 0);
+    padding-bottom: var(--sab, 0);
+    padding-left: var(--sal, 0);
+    padding-right: var(--sar, 0);
   }
 }
