@@ -89,10 +89,10 @@ const PortfolioNavHeader = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <span className="text-accent">
+                    <span className="text-accent-light">
                         <Hammer size={28} />
                     </span>
-                    <span className="font-bold text-2xl text-foreground">Tomasin</span>
+                    <span className="font-bold text-2xl text-accent-light">Tomasin</span>
                 </motion.div>
                 <nav className="hidden md:flex items-center space-x-6">
                     {sections.map((section) => (
@@ -102,7 +102,7 @@ const PortfolioNavHeader = () => {
                             className={`flex items-center space-x-1 font-medium text-sm relative px-3 py-2 rounded-full ${
                                 activeSection === section.id 
                                     ? 'text-accent' 
-                                    : 'text-muted-foreground hover:text-foreground'
+                                    : 'text-accent-light hover:text-accent-dark'
                             }`}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -120,7 +120,7 @@ const PortfolioNavHeader = () => {
                     ))}
                 </nav>
                 <motion.button 
-                    className="md:hidden text-foreground p-2 rounded-full bg-background/30 backdrop-blur-sm"
+                    className="md:hidden text-accent-light p-2 rounded-full bg-background/30 backdrop-blur-sm"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}

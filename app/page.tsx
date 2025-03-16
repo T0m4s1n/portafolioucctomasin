@@ -95,7 +95,7 @@ const PortfolioHeader = () => {
                             className="mb-10"
                         >
                             <motion.h1 
-                                className="text-6xl font-bold text-foreground"
+                                className="text-6xl font-bold text-accent-light"
                                 variants={textVariants}
                                 style={{ 
                                     textShadow: "0 4px 8px rgba(0, 0, 0, 0.5), 0 6px 20px rgba(0, 0, 0, 0.3)"
@@ -150,7 +150,7 @@ const PortfolioHeader = () => {
                                 </motion.span>
                                 
                                 <motion.span 
-                                    className="font-medium text-2xl text-foreground block mt-3"
+                                    className="font-medium text-2xl text-accent-light block mt-3"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.8 }}
@@ -159,7 +159,7 @@ const PortfolioHeader = () => {
                                 </motion.span>
                                 
                                 <motion.p 
-                                    className="text-muted-foreground mt-5 italic text-lg"
+                                    className="text-accent-dark mt-5 italic text-lg"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1 }}

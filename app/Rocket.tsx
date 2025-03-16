@@ -251,7 +251,7 @@ const MoonAstronautIntro = () => {
       {/* Text section below animation with increased spacing */}
       <div className="w-full text-center mb-12">
         <motion.h2 
-          className="text-5xl font-bold mb-6"
+          className="text-5xl font-bold mb-6 text-accent-light"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -275,7 +275,7 @@ const MoonAstronautIntro = () => {
         />
         
         <motion.p 
-          className="text-xl text-accent mb-6"
+          className="text-xl text-accent-light mb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -289,7 +289,7 @@ const MoonAstronautIntro = () => {
         </motion.p>
         
         <motion.p 
-          className="text-xl text-accent mb-8"
+          className="text-xl text-accent-light mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
