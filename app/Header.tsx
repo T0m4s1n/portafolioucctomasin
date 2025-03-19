@@ -85,15 +85,165 @@ const PortfolioNavHeader = () => {
         >
             <div className="container mx-auto px-4 flex justify-between items-center">
                 <motion.div 
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-3 cursor-pointer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <span className="text-accent-light">
-                        <Hammer size={28} />
-                    </span>
-                    <span className="font-bold text-2xl text-accent-light">Tomasin</span>
+                    {/* Holographic 3D Icon */}
+                    <div className="relative w-10 h-10 flex items-center justify-center">
+                        {/* Base glossy layer */}
+                        <div className="absolute inset-0 flex items-center justify-center" 
+                             style={{
+                                 filter: 'drop-shadow(0 0 12px rgba(120, 255, 215, 0.5))'
+                             }}>
+                            <Hammer 
+                                size={32} 
+                                className="text-white" 
+                                style={{
+                                    filter: 'brightness(1.5)',
+                                    stroke: 'url(#holographicGradientIcon)'
+                                }}
+                            />
+                        </div>
+                        
+                        {/* Front reflection layer */}
+                        <div className="absolute inset-0 flex items-center justify-center"
+                             style={{
+                                 transform: 'scale(0.9) translateX(2px) translateY(-1px)',
+                                 opacity: 0.7,
+                                 filter: 'blur(1px)'
+                             }}>
+                            <Hammer 
+                                size={32} 
+                                className="text-white"
+                                style={{
+                                    filter: 'brightness(2)',
+                                }}
+                            />
+                        </div>
+                        
+                        {/* Color shift layer 1 */}
+                        <div className="absolute inset-0 flex items-center justify-center"
+                             style={{
+                                 transform: 'scale(1.03) translateX(-3px) translateY(1px)',
+                                 opacity: 0.4,
+                                 filter: 'blur(2px)'
+                             }}>
+                            <Hammer 
+                                size={32} 
+                                className="text-cyan-300"
+                            />
+                        </div>
+                        
+                        {/* Color shift layer 2 */}
+                        <div className="absolute inset-0 flex items-center justify-center"
+                             style={{
+                                 transform: 'scale(1.05) translateX(3px) translateY(1px)',
+                                 opacity: 0.4,
+                                 filter: 'blur(2px)'
+                             }}>
+                            <Hammer 
+                                size={32} 
+                                className="text-fuchsia-300"
+                            />
+                        </div>
+                    </div>
+                    
+                    {/* Holographic 3D Text */}
+                    <div className="relative font-bold text-3xl" style={{ perspective: '1000px' }}>
+                        {/* Main text with holographic effect */}
+                        <div className="relative">
+                            <span className="block text-transparent bg-clip-text"
+                                style={{
+                                    backgroundImage: 'linear-gradient(135deg, #a0ffef 10%, #ffffff 25%, #ffc1f9 50%, #a0ffef 75%, #ffffff 90%)',
+                                    textShadow: '0 0 15px rgba(255, 255, 255, 0.5)',
+                                    WebkitBackgroundClip: 'text',
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    filter: 'drop-shadow(0 0 12px rgba(160, 255, 239, 0.5))',
+                                    transform: 'translateZ(20px) rotateX(10deg)',
+                                }}>
+                                Tomasin
+                            </span>
+                            
+                            {/* Deep back layer */}
+                            <span className="absolute top-0 left-0 block text-transparent bg-clip-text"
+                                style={{
+                                    backgroundImage: 'linear-gradient(135deg, #00a088 10%, #a0a0a0 40%, #c040c0 60%, #00a088 90%)',
+                                    WebkitBackgroundClip: 'text',
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    opacity: 0.4,
+                                    transform: 'scale(1.05) translateZ(-30px) translateY(3px)',
+                                    filter: 'blur(4px)',
+                                }}>
+                                Tomasin
+                            </span>
+                            
+                            {/* Cyan offset */}
+                            <span className="absolute top-0 left-0 text-cyan-300"
+                                style={{
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    opacity: 0.4,
+                                    transform: 'translateX(-3px) translateY(1px)',
+                                    filter: 'blur(2px)',
+                                }}>
+                                Tomasin
+                            </span>
+                            
+                            {/* Magenta offset */}
+                            <span className="absolute top-0 left-0 text-fuchsia-300"
+                                style={{
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    opacity: 0.4,
+                                    transform: 'translateX(3px) translateY(1px)',
+                                    filter: 'blur(2px)',
+                                }}>
+                                Tomasin
+                            </span>
+                            
+                            {/* Light reflection */}
+                            <span className="absolute top-0 left-0 text-white"
+                                style={{
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    opacity: 0.5,
+                                    transform: 'translateX(-1px) translateY(-2px) skewX(-10deg)',
+                                    filter: 'blur(1px) brightness(2)',
+                                }}>
+                                Tomasin
+                            </span>
+                            
+                            {/* Edge highlight */}
+                            <span className="absolute top-0 left-0 text-white"
+                                style={{
+                                    letterSpacing: '0.05em',
+                                    fontWeight: '900',
+                                    opacity: 0.3,
+                                    transform: 'scale(1.03)',
+                                    filter: 'blur(8px)',
+                                }}>
+                                Tomasin
+                            </span>
+                        </div>
+                    </div>
                 </motion.div>
+                
+                {/* SVG gradient definitions */}
+                <svg width="0" height="0" className="absolute">
+                    <defs>
+                        <linearGradient id="holographicGradientIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#a0ffef" />
+                            <stop offset="25%" stopColor="#ffffff" />
+                            <stop offset="50%" stopColor="#ffc1f9" />
+                            <stop offset="75%" stopColor="#a0ffef" />
+                            <stop offset="100%" stopColor="#ffffff" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                
                 <nav className="hidden md:flex items-center space-x-6">
                     {sections.map((section) => (
                         <motion.button
