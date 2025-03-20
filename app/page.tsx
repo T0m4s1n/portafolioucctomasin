@@ -4,6 +4,7 @@ import SpaceBackground from './SpaceBackground';
 import Header from './Header';
 import Home from './Home';
 import CustomCursor from './CustomCursor';
+import Expertise from './Expertise';
 
 
 const PortfolioHeader = () => {
@@ -13,6 +14,7 @@ const PortfolioHeader = () => {
             <SpaceBackground />
             <Header />
             <Home/>
+            <Expertise/>
         </main>
     );
 };

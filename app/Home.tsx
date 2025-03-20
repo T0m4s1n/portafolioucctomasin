@@ -54,8 +54,8 @@ const PortfolioHomeSection = () => {
             <span className="text-sm text-accent font-light">introduccion</span>
           </motion.div>
           
-          <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-light mb-6">
-            Creando experiencias <span className="text-accent">digitales</span> con propósito y <span className="text-accent">precisión</span>
+          <motion.h1 variants={itemVariants} className="text-3xl md:text-6xl lg:text-7xl font-light mb-6">
+            Creando experiencias <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>digitales</span> con propósito y <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>precisión</span>
           </motion.h1>
           
           <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
@@ -94,7 +94,7 @@ const PortfolioHomeSection = () => {
           {['github', 'twitter', 'linkedin'].map((platform) => (
             <motion.a
               key={platform}
-              href={`https://${platform}.com/yourusername`}
+              href={`https://github.com/T0m4s1n`}
               target="_blank"
               rel="noreferrer"
               className="text-muted-foreground hover:text-accent transition-colors"
@@ -138,6 +138,10 @@ const PortfolioHomeSection = () => {
           transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
         />
       </motion.div>
+      <style jsx global>{`
+                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
+      `}</style>
     </section>
   );
 };
