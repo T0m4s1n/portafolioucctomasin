@@ -1,67 +1,42 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Hammer, Code, User, Briefcase, Mail, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PortfolioNavHeader = () => {
-    const [activeSection, setActiveSection] = useState('inicio');
+    const [activeSection, setActiveSection] = useState('home');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [isDarkMode, setIsDarkMode] = useState(true);
+    const [language, setLanguage] = useState('es');
+    const [isLanguageHovered, setIsLanguageHovered] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
                 setIsVisible(false);
-            } 
-            else {
+            } else {
                 setIsVisible(true);
             }
-            
             setLastScrollY(currentScrollY);
         };
-        
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
 
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', isDarkMode);
+    }, [isDarkMode]);
+
     const sections = [
-        { id: 'inicio', name: 'Inicio', icon: <Hammer size={20} /> },
-        { id: 'sobremi', name: 'Sobre Mí', icon: <User size={20} /> },
-        { id: 'proyectos', name: 'Proyectos', icon: <Briefcase size={20} /> },
-        { id: 'skills', name: 'Habilidades', icon: <Code size={20} /> },
-        { id: 'contacto', name: 'Contacto', icon: <Mail size={20} /> }
+        { id: 'home', name: 'home', number: '01' },
+        { id: 'expertise', name: 'expertise', number: '02' },
+        { id: 'work', name: 'work', number: '03' },
+        { id: 'experience', name: 'experience', number: '04' },
+        { id: 'contact', name: 'contact', number: '05' }
     ];
-
-    const navVariants = {
-        hidden: { opacity: 0, y: -50 },
-        visible: { 
-            opacity: 1,
-            y: 0,
-            transition: { 
-                type: "spring",
-                stiffness: 300,
-                damping: 25
-            }
-        }
-    };
-
-    const mobileMenuVariants = {
-        closed: { opacity: 0, scale: 0.95, x: 20 },
-        open: { 
-            opacity: 1, 
-            scale: 1, 
-            x: 0,
-            transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 25
-            }
-        }
-    };
 
     const handleSectionChange = (sectionId: string) => {
         setActiveSection(sectionId);
@@ -72,240 +47,390 @@ const PortfolioNavHeader = () => {
         }
     };
 
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
+    const changeLanguage = (newLang: string) => {
+        setLanguage(newLang);
+    };
+
+    const menuVariants = {
+        closed: { 
+            opacity: 0,
+            clipPath: "circle(0% at calc(100% - 40px) 40px)",
+            transition: {
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        },
+        open: { 
+            opacity: 1,
+            clipPath: "circle(150% at calc(100% - 40px) 40px)",
+            transition: {
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        }
+    };
+
+    const logoVariants = {
+        initial: { y: -20, opacity: 0 },
+        animate: { 
+            y: 0, 
+            opacity: 1,
+            transition: { 
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        }
+    };
+    
+    const languageVariants = {
+        container: {
+            initial: { scale: 1 },
+            hover: { 
+                scale: 1.05,
+                transition: { duration: 0.3 } 
+            }
+        },
+        button: {
+            active: { 
+                backgroundColor: "var(--accent)",
+                color: "white",
+                transition: { duration: 0.3 }
+            },
+            inactive: { 
+                backgroundColor: "transparent",
+                color: "var(--accent)",
+                transition: { duration: 0.3 }
+            },
+            hover: {
+                backgroundColor: "var(--accent-10)",
+                transition: { duration: 0.3 }
+            }
+        },
+        underline: {
+            initial: { width: "0%" },
+            hover: { width: "100%", transition: { duration: 0.3 } }
+        }
+    };
+
+    const headerControlsVariants = {
+        hidden: { y: -20, opacity: 0 },
+        visible: (custom: number) => ({
+            y: 0,
+            opacity: 1,
+            transition: { 
+                delay: custom * 0.1,
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1]
+            }
+        })
+    };
+
     return (
-        <motion.header 
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                isVisible ? 'translate-y-0' : '-translate-y-full'
-            } ${
-                isMenuOpen ? 'bg-background/95 backdrop-blur-md' : 'bg-transparent'
-            } md:bg-transparent py-5`}
-            initial="hidden"
-            animate="visible"
-            variants={navVariants}
-        >
-            <div className="container mx-auto px-4 flex justify-between items-center">
-                <motion.div 
-                    className="flex items-center space-x-3 cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    {/* Holographic 3D Icon */}
-                    <div className="relative w-10 h-10 flex items-center justify-center">
-                        {/* Base glossy layer */}
-                        <div className="absolute inset-0 flex items-center justify-center" 
-                             style={{
-                                 filter: 'drop-shadow(0 0 12px rgba(120, 255, 215, 0.5))'
-                             }}>
-                            <Hammer 
-                                size={32} 
-                                className="text-white" 
-                                style={{
-                                    filter: 'brightness(1.5)',
-                                    stroke: 'url(#holographicGradientIcon)'
-                                }}
-                            />
-                        </div>
-                        
-                        {/* Front reflection layer */}
-                        <div className="absolute inset-0 flex items-center justify-center"
-                             style={{
-                                 transform: 'scale(0.9) translateX(2px) translateY(-1px)',
-                                 opacity: 0.7,
-                                 filter: 'blur(1px)'
-                             }}>
-                            <Hammer 
-                                size={32} 
-                                className="text-white"
-                                style={{
-                                    filter: 'brightness(2)',
-                                }}
-                            />
-                        </div>
-                        
-                        {/* Color shift layer 1 */}
-                        <div className="absolute inset-0 flex items-center justify-center"
-                             style={{
-                                 transform: 'scale(1.03) translateX(-3px) translateY(1px)',
-                                 opacity: 0.4,
-                                 filter: 'blur(2px)'
-                             }}>
-                            <Hammer 
-                                size={32} 
-                                className="text-cyan-300"
-                            />
-                        </div>
-                        
-                        {/* Color shift layer 2 */}
-                        <div className="absolute inset-0 flex items-center justify-center"
-                             style={{
-                                 transform: 'scale(1.05) translateX(3px) translateY(1px)',
-                                 opacity: 0.4,
-                                 filter: 'blur(2px)'
-                             }}>
-                            <Hammer 
-                                size={32} 
-                                className="text-fuchsia-300"
-                            />
-                        </div>
-                    </div>
-                    
-                    {/* Holographic 3D Text */}
-                    <div className="relative font-bold text-3xl" style={{ perspective: '1000px' }}>
-                        {/* Main text with holographic effect */}
-                        <div className="relative">
-                            <span className="block text-transparent bg-clip-text"
-                                style={{
-                                    backgroundImage: 'linear-gradient(135deg, #a0ffef 10%, #ffffff 25%, #ffc1f9 50%, #a0ffef 75%, #ffffff 90%)',
-                                    textShadow: '0 0 15px rgba(255, 255, 255, 0.5)',
-                                    WebkitBackgroundClip: 'text',
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    filter: 'drop-shadow(0 0 12px rgba(160, 255, 239, 0.5))',
-                                    transform: 'translateZ(20px) rotateX(10deg)',
-                                }}>
-                                Tomasin
-                            </span>
-                            
-                            {/* Deep back layer */}
-                            <span className="absolute top-0 left-0 block text-transparent bg-clip-text"
-                                style={{
-                                    backgroundImage: 'linear-gradient(135deg, #00a088 10%, #a0a0a0 40%, #c040c0 60%, #00a088 90%)',
-                                    WebkitBackgroundClip: 'text',
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    opacity: 0.4,
-                                    transform: 'scale(1.05) translateZ(-30px) translateY(3px)',
-                                    filter: 'blur(4px)',
-                                }}>
-                                Tomasin
-                            </span>
-                            
-                            {/* Cyan offset */}
-                            <span className="absolute top-0 left-0 text-cyan-300"
-                                style={{
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    opacity: 0.4,
-                                    transform: 'translateX(-3px) translateY(1px)',
-                                    filter: 'blur(2px)',
-                                }}>
-                                Tomasin
-                            </span>
-                            
-                            {/* Magenta offset */}
-                            <span className="absolute top-0 left-0 text-fuchsia-300"
-                                style={{
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    opacity: 0.4,
-                                    transform: 'translateX(3px) translateY(1px)',
-                                    filter: 'blur(2px)',
-                                }}>
-                                Tomasin
-                            </span>
-                            
-                            {/* Light reflection */}
-                            <span className="absolute top-0 left-0 text-white"
-                                style={{
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    opacity: 0.5,
-                                    transform: 'translateX(-1px) translateY(-2px) skewX(-10deg)',
-                                    filter: 'blur(1px) brightness(2)',
-                                }}>
-                                Tomasin
-                            </span>
-                            
-                            {/* Edge highlight */}
-                            <span className="absolute top-0 left-0 text-white"
-                                style={{
-                                    letterSpacing: '0.05em',
-                                    fontWeight: '900',
-                                    opacity: 0.3,
-                                    transform: 'scale(1.03)',
-                                    filter: 'blur(8px)',
-                                }}>
-                                Tomasin
-                            </span>
-                        </div>
-                    </div>
-                </motion.div>
-                
-                {/* SVG gradient definitions */}
-                <svg width="0" height="0" className="absolute">
-                    <defs>
-                        <linearGradient id="holographicGradientIcon" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#a0ffef" />
-                            <stop offset="25%" stopColor="#ffffff" />
-                            <stop offset="50%" stopColor="#ffc1f9" />
-                            <stop offset="75%" stopColor="#a0ffef" />
-                            <stop offset="100%" stopColor="#ffffff" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-                
-                <nav className="hidden md:flex items-center space-x-6">
-                    {sections.map((section) => (
-                        <motion.button
-                            key={section.id}
-                            onClick={() => handleSectionChange(section.id)}
-                            className={`flex items-center space-x-1 font-medium text-sm relative px-3 py-2 rounded-full ${
-                                activeSection === section.id 
-                                    ? 'text-accent' 
-                                    : 'text-accent-light hover:text-accent-dark'
-                            }`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span>{section.icon}</span>
-                            <span>{section.name}</span>
-                            {activeSection === section.id && (
-                                <motion.span 
-                                    className="h-1 w-full bg-accent absolute bottom-0 left-0 rounded-full"
-                                    layoutId="activeSection"
-                                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                                />
-                            )}
-                        </motion.button>
-                    ))}
-                </nav>
-                <motion.button 
-                    className="md:hidden text-accent-light p-2 rounded-full bg-background/30 backdrop-blur-sm"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                >
-                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </motion.button>
-            </div>
-            <motion.nav 
-                className={`md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg shadow-lg ${
-                    isMenuOpen ? 'block' : 'hidden'
+        <>
+            <motion.header 
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-8 ${
+                    isVisible ? 'translate-y-0' : '-translate-y-full'
                 }`}
-                initial="closed"
-                animate={isMenuOpen ? "open" : "closed"}
-                variants={mobileMenuVariants}
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-                <div className="container mx-auto py-4 px-4">
-                    {sections.map((section) => (
-                        <motion.button
-                            key={section.id}
-                            onClick={() => handleSectionChange(section.id)}
-                            className={`flex items-center space-x-3 w-full py-3 px-4 my-1 rounded-xl ${
-                                activeSection === section.id 
-                                    ? 'bg-accent/15 text-accent' 
-                                    : 'text-muted-foreground hover:bg-accent/5 hover:text-foreground'
-                            }`}
-                            whileHover={{ x: 5 }}
-                            whileTap={{ scale: 0.98 }}
+                <div className="container mx-auto px-8 flex justify-between items-center">
+                    <motion.div 
+                        className="text-accent text-2xl font-light overflow-hidden"
+                        variants={logoVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover={{ 
+                            scale: 1.05,
+                            transition: { duration: 0.3 } 
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <motion.span
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            className="inline-block"
                         >
-                            <span>{section.icon}</span>
-                            <span className="font-medium">{section.name}</span>
+                            /.Tomasin
+                        </motion.span>
+                    </motion.div>
+                    
+                    <div className="flex items-center gap-4">
+                        <motion.div 
+                            className="flex items-center border border-accent/30 rounded overflow-hidden h-8 relative"
+                            variants={headerControlsVariants}
+                            initial="hidden"
+                            whileHover="hover"
+                            custom={0}
+                            animate="visible"
+                            onHoverStart={() => setIsLanguageHovered(true)}
+                            onHoverEnd={() => setIsLanguageHovered(false)}
+                        >
+                            <motion.button
+                                className={`px-2 h-full flex items-center justify-center text-sm font-medium focus:outline-none relative overflow-hidden`}
+                                variants={languageVariants.button}
+                                animate={language === 'en' ? 'active' : 'inactive'}
+                                whileHover={language === 'en' ? undefined : 'hover'}
+                                onClick={() => changeLanguage('en')}
+                                whileTap={{ scale: 0.95 }}
+                                aria-label="Switch to English"
+                            >
+                                <motion.span
+                                    initial={{ y: 20 }}
+                                    animate={{ y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    EN
+                                </motion.span>
+                                {language !== 'en' && (
+                                    <motion.div 
+                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60"
+                                        variants={languageVariants.underline}
+                                        initial="initial"
+                                        animate={isLanguageHovered ? "hover" : "initial"}
+                                    />
+                                )}
+                            </motion.button>
+                            <motion.button
+                                className={`px-2 h-full flex items-center justify-center text-sm font-medium focus:outline-none relative overflow-hidden`}
+                                variants={languageVariants.button}
+                                animate={language === 'es' ? 'active' : 'inactive'}
+                                whileHover={language === 'es' ? undefined : 'hover'}
+                                onClick={() => changeLanguage('es')}
+                                whileTap={{ scale: 0.95 }}
+                                aria-label="Switch to Spanish"
+                            >
+                                <motion.span
+                                    initial={{ y: 20 }}
+                                    animate={{ y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.1 }}
+                                >
+                                    ES
+                                </motion.span>
+                                {language !== 'es' && (
+                                    <motion.div 
+                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60"
+                                        variants={languageVariants.underline}
+                                        initial="initial"
+                                        animate={isLanguageHovered ? "hover" : "initial"}
+                                    />
+                                )}
+                            </motion.button>
+                            <motion.div 
+                                className="absolute bottom-0 h-0.5 bg-accent"
+                                initial={false}
+                                animate={{ 
+                                    left: language === 'en' ? '0%' : '50%',
+                                    width: '50%'
+                                }}
+                                transition={{ 
+                                    type: "spring", 
+                                    stiffness: 300, 
+                                    damping: 30 
+                                }}
+                            />
+                        </motion.div>
+                        <motion.button
+                            className="w-10 h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
+                            onClick={toggleDarkMode}
+                            whileHover={{ 
+                                scale: 1.1,
+                                rotate: isDarkMode ? 180 : -180,
+                                transition: { duration: 0.5 }
+                            }}
+                            whileTap={{ scale: 0.9 }}
+                            custom={1}
+                            variants={headerControlsVariants}
+                            initial="hidden"
+                            animate="visible"
+                            aria-label="Toggle dark mode"
+                        >
+                            <AnimatePresence mode="wait">
+                                {isDarkMode ? (
+                                    <motion.svg 
+                                        key="sun"
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        width="24" 
+                                        height="24" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        strokeWidth="2" 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round"
+                                        initial={{ rotate: -180, opacity: 0 }}
+                                        animate={{ rotate: 0, opacity: 1 }}
+                                        exit={{ rotate: 180, opacity: 0 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <circle cx="12" cy="12" r="4" />
+                                        <path d="M12 2v2" />
+                                        <path d="M12 20v2" />
+                                        <path d="m4.93 4.93 1.41 1.41" />
+                                        <path d="m17.66 17.66 1.41 1.41" />
+                                        <path d="M2 12h2" />
+                                        <path d="M20 12h2" />
+                                        <path d="m6.34 17.66-1.41 1.41" />
+                                        <path d="m19.07 4.93-1.41 1.41" />
+                                    </motion.svg>
+                                ) : (
+                                    <motion.svg 
+                                        key="moon"
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        width="24" 
+                                        height="24" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        strokeWidth="2" 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round"
+                                        initial={{ rotate: 180, opacity: 0 }}
+                                        animate={{ rotate: 0, opacity: 1 }}
+                                        exit={{ rotate: -180, opacity: 0 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                                    </motion.svg>
+                                )}
+                            </AnimatePresence>
                         </motion.button>
-                    ))}
+                        <motion.button
+                            className="relative w-12 h-12 flex flex-col justify-center items-center focus:outline-none z-50"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            custom={2}
+                            variants={headerControlsVariants}
+                            initial="hidden"
+                            animate="visible"
+                            whileHover={{ 
+                                scale: 1.1,
+                                transition: { duration: 0.3 } 
+                            }}
+                            aria-label="Toggle menu"
+                        >
+                            <div className="grid grid-cols-3 gap-1.5 w-8 h-8">
+                                {[...Array(9)].map((_, i) => (
+                                    <motion.span
+                                        key={i}
+                                        className={`bg-accent block`}
+                                        initial={false}
+                                        animate={{
+                                            width: isMenuOpen ? '6px' : i % 3 === 0 ? '100%' : '0%',
+                                            height: isMenuOpen ? '6px' : '2px',
+                                            opacity: isMenuOpen ? 1 : i % 3 === 0 ? 1 : 0,
+                                            borderRadius: isMenuOpen ? '50%' : '2px',
+                                            rotateZ: isMenuOpen ? i * 45 : 0,
+                                            scale: isMenuOpen ? 1 + (i * 0.05) : 1
+                                        }}
+                                        transition={{ 
+                                            duration: 0.4, 
+                                            delay: isMenuOpen ? i * 0.03 : i * 0.01,
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 20
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </motion.button>
+                    </div>
                 </div>
-            </motion.nav>
-        </motion.header>
+            </motion.header>
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div 
+                        className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 flex items-center justify-center"
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
+                        variants={menuVariants}
+                    >
+                        <motion.nav className="container mx-auto px-8 py-16 flex flex-col items-center justify-center">
+                            {sections.map((section, index) => (
+                                <motion.button
+                                    key={section.id}
+                                    className={`group py-4 text-center w-full flex items-center justify-center ${
+                                        activeSection === section.id 
+                                            ? 'text-accent' 
+                                            : 'text-muted-foreground hover:text-foreground'
+                                    }`}
+                                    onClick={() => handleSectionChange(section.id)}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        y: 0,
+                                        transition: { 
+                                            delay: index * 0.1 + 0.2,
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 24
+                                        } 
+                                    }}
+                                    exit={{ 
+                                        opacity: 0,
+                                        y: 20,
+                                        transition: { delay: (sections.length - index) * 0.05 } 
+                                    }}
+                                    whileHover={{ 
+                                        scale: 1.05, 
+                                        x: 10,
+                                        transition: { duration: 0.3 }
+                                    }}
+                                >
+                                    <div className="flex items-center text-2xl md:text-3xl">
+                                        <motion.span 
+                                            className="text-sm opacity-70 mr-2"
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ 
+                                                opacity: 0.7, 
+                                                x: 0,
+                                                transition: { delay: index * 0.1 + 0.4 }
+                                            }}
+                                        >
+                                            {section.number}
+                                        </motion.span>
+                                        <motion.span 
+                                            className="mr-2"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ 
+                                                opacity: 1,
+                                                transition: { delay: index * 0.1 + 0.3 }
+                                            }}
+                                        >
+                                            {'//'}
+                                        </motion.span>
+                                        <motion.span 
+                                            className="font-light relative overflow-hidden"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ 
+                                                opacity: 1,
+                                                transition: { delay: index * 0.1 + 0.5 }
+                                            }}
+                                        >
+                                            {section.name}
+                                            <motion.div 
+                                                className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
+                                                initial={{ scaleX: 0, originX: 0 }}
+                                                whileHover={{ 
+                                                    scaleX: 1,
+                                                    transition: { duration: 0.3 } 
+                                                }}
+                                            />
+                                        </motion.span>
+                                    </div>
+                                </motion.button>
+                            ))}
+                        </motion.nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 };
 
