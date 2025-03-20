@@ -47,7 +47,7 @@ const ExpertiseSection = () => {
           <line x1="12" y1="17" x2="12" y2="21"></line>
         </svg>
       ),
-      bgText: 'tomasin.dev magia de código'
+      bgText: 'tomasin.dev'
     },
     {
       id: 2,
@@ -64,7 +64,7 @@ const ExpertiseSection = () => {
           <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line>
         </svg>
       ),
-      bgText: 'tomasin soluciones creativas'
+      bgText: 'tomasin souls'
     },
     {
       id: 3,
@@ -78,7 +78,7 @@ const ExpertiseSection = () => {
           <path d="M2 12l10 5 10-5"></path>
         </svg>
       ),
-      bgText: 'tomasin genio móvil'
+      bgText: 'tomasin chiquito'
     }
   ];
 
