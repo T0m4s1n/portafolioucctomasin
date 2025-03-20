@@ -14,6 +14,7 @@
 
   --deluge-50: hsl(240, 33%, 98%);
   --deluge-100: hsl(252, 36%, 95%);
+  --deluge-150: hsl(249, 37%, 89%); /* Añadido deluge-150 para modo oscuro */
   --deluge-200: hsl(246, 38%, 92%);
   --deluge-300: hsl(244, 33%, 85%);
   --deluge-400: hsl(249, 35%, 76%);
@@ -48,6 +49,10 @@
     --muted-foreground: var(--deluge-300);
     --border: var(--deluge-800);
   }
+}
+
+.text-deluge-100 {
+  color: var(--deluge-100) !important;
 }
 
 @supports (padding: max(0px)) {
