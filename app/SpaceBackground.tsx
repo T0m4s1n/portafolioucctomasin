@@ -1,13 +1,25 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const GranularBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(
+    typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches 
+      ? 'dark' 
+      : 'light'
+  );
 
+  // This useEffect will completely re-initialize the animation when colorScheme changes
   useEffect(() => {
     if (!containerRef.current) return;
+
+    // Clean up previous canvas if it exists
+    if (canvasRef.current && containerRef.current.contains(canvasRef.current)) {
+      containerRef.current.removeChild(canvasRef.current);
+      canvasRef.current = null;
+    }
 
     const container = containerRef.current;
     const width = container.clientWidth;
@@ -22,7 +34,9 @@ const GranularBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const backgroundColor = '#111111';
+    const isDarkMode = colorScheme === 'dark';
+    const backgroundColor = isDarkMode ? '#111111' : 'hsl(252, 36%, 95%)'; // Use deluge-100 in light mode
+    
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
 
@@ -32,7 +46,9 @@ const GranularBackground = () => {
 
       for (let i = 0; i < data.length; i += 4) {
         if (Math.random() < 0.15) {
-          const noiseValue = Math.floor(Math.random() * 40) + 10;
+          const noiseValue = isDarkMode ? 
+            Math.floor(Math.random() * 40) + 10 : // Darker granular texture for dark mode
+            Math.floor(Math.random() * 40) + 215; // Lighter granular texture for light mode
           data[i] = noiseValue;
           data[i + 1] = noiseValue;
           data[i + 2] = noiseValue;
@@ -55,11 +71,20 @@ const GranularBackground = () => {
         centerX, centerY, maxRadius
       );
 
-      gradient.addColorStop(0, 'rgba(20, 20, 20, 0)');
-      gradient.addColorStop(0.3, 'rgba(20, 20, 20, 0.1)');
-      gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.3)');
-      gradient.addColorStop(0.7, 'rgba(20, 20, 20, 0.6)');
-      gradient.addColorStop(1, 'rgba(17, 17, 17, 0.9)');
+      if (isDarkMode) {
+        gradient.addColorStop(0, 'rgba(20, 20, 20, 0)');
+        gradient.addColorStop(0.3, 'rgba(20, 20, 20, 0.1)');
+        gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.3)');
+        gradient.addColorStop(0.7, 'rgba(20, 20, 20, 0.6)');
+        gradient.addColorStop(1, 'rgba(17, 17, 17, 0.9)');
+      } else {
+        // Light mode gradient
+        gradient.addColorStop(0, 'hsla(252, 36%, 95%, 0)');
+        gradient.addColorStop(0.3, 'hsla(252, 36%, 95%, 0.1)');
+        gradient.addColorStop(0.5, 'hsla(252, 36%, 95%, 0.3)');
+        gradient.addColorStop(0.7, 'hsla(252, 36%, 95%, 0.6)');
+        gradient.addColorStop(1, 'hsla(252, 36%, 95%, 0.9)');
+      }
 
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
@@ -75,8 +100,6 @@ const GranularBackground = () => {
 
       const diagonalLength = Math.sqrt(width * width + height * height);
       const numLines = Math.ceil(diagonalLength / spacing) * 2;
-
-      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
       const computedStyle = getComputedStyle(document.documentElement);
 
@@ -100,9 +123,7 @@ const GranularBackground = () => {
         const offset = startOffset + i * spacing;
 
         const colorIndex = i % delugeColors.length;
-        ctx.strokeStyle = isDarkMode ? 
-          `${delugeColors[colorIndex]}` : 
-          `${delugeColors[colorIndex]}`;
+        ctx.strokeStyle = delugeColors[colorIndex];
 
         ctx.globalAlpha = isDarkMode ? 0.2 : 0.15;
 
@@ -136,7 +157,7 @@ const GranularBackground = () => {
 
       canvasRef.current.width = width;
       canvasRef.current.height = height;
-
+      
       ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, width, height);
       createGranularTexture();
@@ -144,25 +165,33 @@ const GranularBackground = () => {
       drawDashPatterns();
     };
 
-    const handleColorSchemeChange = () => {
-      handleResize();
-    };
-
     window.addEventListener('resize', handleResize);
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleColorSchemeChange);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleColorSchemeChange);
 
       if (canvasRef.current && container.contains(canvasRef.current)) {
         container.removeChild(canvasRef.current);
       }
     };
+  }, [colorScheme]); // Re-run this effect when colorScheme changes
+
+  // This useEffect handles theme change detection
+  useEffect(() => {
+    const handleColorSchemeChange = (e: MediaQueryListEvent) => {
+      setColorScheme(e.matches ? 'dark' : 'light');
+    };
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', handleColorSchemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleColorSchemeChange);
+    };
   }, []);
 
   return (
-    <div ref={containerRef} className="fixed inset-0 w-full h-full overflow-hidden bg-[#111111]">
+    <div ref={containerRef} className="fixed inset-0 w-full h-full overflow-hidden bg-[var(--deluge-100)]">
     </div>
   );
 };
