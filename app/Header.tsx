@@ -31,11 +31,11 @@ const PortfolioNavHeader = () => {
     }, [isDarkMode]);
 
     const sections = [
-        { id: 'home', name: 'home', number: '01' },
-        { id: 'expertise', name: 'expertise', number: '02' },
-        { id: 'work', name: 'work', number: '03' },
-        { id: 'experience', name: 'experience', number: '04' },
-        { id: 'contact', name: 'contact', number: '05' }
+        { id: 'home', name: 'Inicio', number: '01' },
+        { id: 'expertise', name: 'Especialidades', number: '02' },
+        { id: 'work', name: 'Proyectos', number: '03' },
+        { id: 'experience', name: 'Experiencia', number: '04' },
+        { id: 'contact', name: 'Contacto', number: '05' }
     ];
 
     const handleSectionChange = (sectionId: string) => {
