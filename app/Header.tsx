@@ -131,6 +131,12 @@ const PortfolioNavHeader = () => {
 
     return (
         <>
+            {/* Import Google Fonts */}
+            <style jsx global>{`
+                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
+            `}</style>
+            
             <motion.header 
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-8 ${
                     isVisible ? 'translate-y-0' : '-translate-y-full'
@@ -141,7 +147,7 @@ const PortfolioNavHeader = () => {
             >
                 <div className="container mx-auto px-8 flex justify-between items-center">
                     <motion.div 
-                        className="text-accent text-2xl font-light overflow-hidden"
+                        className="text-accent text-2xl font-light overflow-hidden relative"
                         variants={logoVariants}
                         initial="initial"
                         animate="animate"
@@ -151,13 +157,62 @@ const PortfolioNavHeader = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                     >
+                        {/* Third layer - Playwrite HU */}
+                        <div 
+                            className="absolute top-0 left-0 opacity-10 text-accent" 
+                            style={{ 
+                                fontFamily: "'Playwrite HU', cursive", 
+                                fontWeight: 100,
+                                transform: 'translate(-8px, -4px) rotate(-2deg)',
+                                fontSize: '2.2rem'
+                            }}
+                        >
+                            /.Tomasin
+                        </div>
+                        
+                        {/* Second layer - Dancing Script */}
+                        <div 
+                            className="absolute top-0 left-0 opacity-20 text-accent" 
+                            style={{ 
+                                fontFamily: "'Dancing Script', cursive", 
+                                fontWeight: 400,
+                                transform: 'translate(-5px, -2px) rotate(-1deg)',
+                                fontSize: '2.1rem'
+                            }}
+                        >
+                            /.Tomasin
+                        </div>
+                        
+                        {/* First layer - Playwrite HU thinner */}
+                        <div 
+                            className="absolute top-0 left-0 opacity-15 text-accent" 
+                            style={{ 
+                                fontFamily: "'Playwrite HU', cursive", 
+                                fontWeight: 100,
+                                transform: 'translate(-3px, -1px) rotate(-0.5deg)',
+                                fontSize: '2rem'
+                            }}
+                        >
+                            /.Tomasin
+                        </div>
+                        
+                        {/* Main text */}
                         <motion.span
                             initial={{ y: '100%' }}
                             animate={{ y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            className="inline-block"
+                            className="inline-block relative"
                         >
                             /.Tomasin
+                            <motion.span 
+                                className="absolute -top-1 -right-1 text-xs text-accent"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.8 }}
+                                style={{ fontFamily: "'Dancing Script', cursive" }}
+                            >
+                                dev
+                            </motion.span>
                         </motion.span>
                     </motion.div>
                     
