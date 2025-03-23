@@ -120,7 +120,7 @@ const Window = () => {
               {/* Grid background pattern */}
               <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
               
-              <Inside />
+              <Inside onClose={() => {}} />
               
               {/* Improved home button - Fixed position */}
               <motion.button 
