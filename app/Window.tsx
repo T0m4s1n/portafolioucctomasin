@@ -1,93 +1,72 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Inside from './Inside'; // Import the Inside component
 
-import { ReactNode } from 'react';
-
-const PortfolioWindow = ({ children }: { children: ReactNode }) => {
+const Window = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const windowVariants = {
     closed: {
-      width: '300px',
-      height: '200px',
-      borderRadius: '12px',
-      position: 'fixed' as const,
-      bottom: '32px',
-      right: '32px',
-      zIndex: 1000,
+      width: '280px',
+      height: '170px',
+      position: 'relative' as const,
+      scale: 1,
+      zIndex: 10,
     },
     open: {
       width: '100vw',
       height: '100vh',
-      borderRadius: '0px',
       position: 'fixed' as const,
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
+      scale: 1,
       zIndex: 1000,
     }
   };
 
   const contentVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
+      scale: 1,
       transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
         staggerChildren: 0.1,
-        delayChildren: 0.3
+        delayChildren: 0.2
       }
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-    }
-  };
 
   const handleToggleWindow = () => {
     setIsOpen(!isOpen);
   };
 
-  return (
-    <motion.div
-      variants={windowVariants}
-      initial="closed"
-      animate={isOpen ? "open" : "closed"}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className={`bg-deluge-100 dark:bg-deluge-975 shadow-2xl overflow-hidden cursor-pointer border border-accent/30`}
-      onClick={!isOpen ? handleToggleWindow : undefined}
-    >
-      {/* Window header */}
-      <div className="h-8 bg-accent/10 flex items-center justify-between px-4 border-b border-accent/20">
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-accent opacity-80">portfolio.exe</span>
-        </div>
-        
-        {isOpen && (
-          <button 
-            onClick={handleToggleWindow}
-            className="text-accent hover:text-accent-dark transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        )}
-      </div>
+  const handleBackToStart = () => {
+    setIsOpen(false);
+  };
 
-      {/* Window content */}
-      <AnimatePresence>
-        {!isOpen ? (
-          <div className="p-4 flex flex-col items-center justify-center h-full">
+  return (
+    <div className="flex items-center justify-center">
+      {!isOpen ? (
+        <motion.div
+          variants={windowVariants}
+          initial="closed"
+          animate="closed"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-background/90 border border-accent/20 rounded-lg overflow-hidden cursor-pointer"
+          onClick={handleToggleWindow}
+        >
+
+          {/* Closed window content */}
+          <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="text-center">
-              <p className="text-accent font-light mb-2" style={{ fontFamily: "'Dancing Script', cursive" }}>Click to open</p>
-              <div className="opacity-50">
+              <p className="text-accent font-light mb-2" style={{ fontFamily: "'Dancing Script', cursive" }}>Clickeame!</p>
+              <div className="text-accent/50">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                   <polyline points="15 3 21 3 21 9"></polyline>
@@ -96,46 +75,87 @@ const PortfolioWindow = ({ children }: { children: ReactNode }) => {
               </div>
             </div>
           </div>
-        ) : (
+          
+          {/* Window footer with rotated text */}
+          <div className="h-6 bg-background/10 flex items-center justify-end px-2 border-t border-accent/20 relative">
+            <span className="text-xs text-accent/60 rotate-90 origin-center absolute right-0 transform translate-x-6">portfolio.exe</span>
+          </div>
+        </motion.div>
+      ) : (
+        <>
+          {/* Full overlay to prevent seeing anything behind */}
           <motion.div
-            variants={contentVariants}
-            initial="hidden"
-            animate="visible"
-            className="h-full overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-background z-40"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+              width: '100vw',
+              height: '100vh',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 50,
+              borderRadius: 0
+            }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-background overflow-auto"
           >
-            {/* Grid background pattern */}
-            <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-            
-            {/* Big watermark */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-              <h1 className="text-[20vw] font-bold text-stroke text-transparent opacity-5 whitespace-nowrap tracking-tighter"
-                style={{ 
-                WebkitTextStroke: '2px var(--accent)'
-                }}>
-                PORTFOLIO
-              </h1>
-            </div>
-            
-            {/* Actual content */}
-            <div className="relative z-10 p-8">
-              <motion.div variants={itemVariants} className="flex items-center mb-6">
-                <span className="text-sm text-accent opacity-80 mr-2">02</span>
-                <span className="text-sm text-accent mr-2">{'//'}</span>
-                <span className="text-sm text-accent font-light">portfolio</span>
-              </motion.div>
+            <motion.div
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              className="h-full overflow-y-auto"
+            >
+              {/* Grid background pattern */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
               
-              <motion.h2 variants={itemVariants} className="text-3xl md:text-5xl font-light mb-8">
-                Proyectos <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>destacados</span>
-              </motion.h2>
+              <Inside />
               
-              {/* Portfolio content goes here */}
-              {children}
-            </div>
+              {/* Improved home button - Fixed position */}
+              <motion.button 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="fixed bottom-6 right-6 flex items-center justify-center bg-accent text-background w-12 h-12 rounded-full shadow-lg hover:bg-accent/80 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2"
+                onClick={handleBackToStart}
+                aria-label="Volver al inicio"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </motion.button>
+              
+              <motion.button
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="fixed top-6 right-6 flex items-center justify-center bg-background/80 text-accent w-10 h-10 rounded-full shadow-md hover:bg-background transition-all duration-300 border border-accent/20 hover:border-accent/50"
+                onClick={handleBackToStart}
+                aria-label="Cerrar"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </motion.button>
+            </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+        </>
+      )}
+    </div>
   );
 };
 
-export default PortfolioWindow;
+export default Window;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Window from './Window'; // Import the Window component
 
 const PortfolioHomeSection = () => {
   const containerVariants = {
@@ -42,46 +43,60 @@ const PortfolioHomeSection = () => {
         </div>
       
       <div className="container mx-auto px-8 relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl"
-        >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
-            <span className="text-sm text-accent opacity-80 mr-2">01</span>
-            <span className="text-sm text-accent mr-2">{'//'}</span>
-            <span className="text-sm text-accent font-light">introduccion</span>
-          </motion.div>
-          
-          <motion.h1 variants={itemVariants} className="text-3xl md:text-6xl lg:text-7xl font-light mb-6">
-            Creando experiencias <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>digitales</span> con propósito y <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>precisión</span>
-          </motion.h1>
-          
-          <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
-            Desarrollador frontend y diseñador especializado en crear aplicaciones web elegantes, funcionales y accesibles con un enfoque en movimiento y experiencia de usuario.
-          </motion.p>
-          
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-            <motion.button
-              onClick={() => scrollToSection('contact')}
-              className="px-6 py-3 bg-accent text-background rounded-lg hover:bg-accent-dark transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Contactarme
-            </motion.button>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          {/* Left side - Text content */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-3xl flex-1"
+          >
+            <motion.div variants={itemVariants} className="flex items-center mb-6">
+              <span className="text-sm text-accent opacity-80 mr-2">01</span>
+              <span className="text-sm text-accent mr-2">{'//'}</span>
+              <span className="text-sm text-accent font-light">introduccion</span>
+            </motion.div>
             
-            <motion.button
-              onClick={() => scrollToSection('work')}
-              className="px-6 py-3 border border-accent/30 text-accent rounded-lg hover:bg-accent/10 transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Ver proyectos
-            </motion.button>
+            <motion.h1 variants={itemVariants} className="text-3xl md:text-6xl lg:text-7xl font-light mb-6">
+            Me llamo <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>Tomasin</span><br />
+            <span> y soy un </span> <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>software developer</span>
+          </motion.h1>
+                      
+            <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
+              Desarrollador frontend y diseñador especializado en crear aplicaciones web elegantes, funcionales y accesibles con un enfoque en movimiento y experiencia de usuario.
+            </motion.p>
+            
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+              <motion.button
+                onClick={() => scrollToSection('contact')}
+                className="px-6 py-3 bg-accent text-background rounded-lg hover:bg-accent-dark transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Contactarme
+              </motion.button>
+              
+              <motion.button
+                onClick={() => scrollToSection('work')}
+                className="px-6 py-3 border border-accent/30 text-accent rounded-lg hover:bg-accent/10 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Ver proyectos
+              </motion.button>
+            </motion.div>
           </motion.div>
-        </motion.div>
+          
+          {/* Right side - Window component */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="flex-shrink-0"
+          >
+            <Window />
+          </motion.div>
+        </div>
       </div>
       
       <div className="absolute bottom-12 left-8 md:bottom-16 md:left-16">
