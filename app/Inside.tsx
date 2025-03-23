@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion';
 
 // Import SpaceBackground component
@@ -11,6 +11,22 @@ interface InsideProps {
 const Inside: React.FC<InsideProps> = ({ onClose }) => {
   // Using props for close functionality instead of internal state
   // This allows the Window component to control visibility
+  
+  // Add state to track container dimensions
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  // Add resize observer to detect container size changes
+  useEffect(() => {
+    if (!containerRef) return;
+
+    const resizeObserver = new ResizeObserver(() => {});
+    resizeObserver.observe(containerRef);
+
+    return () => {
+      if (containerRef) {
+        resizeObserver.unobserve(containerRef);
+      }
+    };
+  }, [containerRef]);
   
   // Define the CloseButton component
   const CloseButton: React.FC<{ onClick: () => void; accentColor?: string }> = ({ onClick, accentColor = 'var(--deluge-600)' }) => {
@@ -300,15 +316,20 @@ const Inside: React.FC<InsideProps> = ({ onClose }) => {
     : sampleProjects.filter(project => project.category === filter);
 
   return (
-    <div className="relative h-full">
-      {/* Add SpaceBackground component */}
-      <SpaceBackground />
+    <div 
+      ref={setContainerRef}
+      className="relative h-full w-full overflow-hidden"
+    >
+      {/* Space background with fixed positioning that adapts to container dimensions */}
+      <div className="absolute inset-0 overflow-hidden">
+        <SpaceBackground />
+      </div>
       
       {/* Close button - now uses the onClose prop */}
       <CloseButton onClick={onClose} accentColor="var(--deluge-600)" />
       
       {/* Main content container with higher z-index to appear above the background */}
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="container mx-auto px-4 py-8 relative z-10 h-full overflow-auto">
         {/* Improved header with animation */}
         <motion.div 
           className="mb-12"
@@ -342,7 +363,7 @@ const Inside: React.FC<InsideProps> = ({ onClose }) => {
         
         {/* Project grid with staggered layout */}
         <motion.div 
-          className="flex flex-col gap-8"
+          className="flex flex-col gap-8 pb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
