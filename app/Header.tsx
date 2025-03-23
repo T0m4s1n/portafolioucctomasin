@@ -2,15 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from './themeutils';
 
 const PortfolioNavHeader = () => {
     const [activeSection, setActiveSection] = useState('home');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const [isDarkMode, setIsDarkMode] = useState(true);
+    const { theme, toggleTheme } = useTheme(); // Usando nuestro hook personalizado
     const [language, setLanguage] = useState('es');
     const [isLanguageHovered, setIsLanguageHovered] = useState(false);
+
+    const isDarkMode = theme === 'dark';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,10 +28,6 @@ const PortfolioNavHeader = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
-
-    useEffect(() => {
-        document.documentElement.classList.toggle('dark', isDarkMode);
-    }, [isDarkMode]);
 
     const sections = [
         { id: 'home', name: 'Inicio', number: '01' },
@@ -45,10 +44,6 @@ const PortfolioNavHeader = () => {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
-    };
-
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
     };
 
     const changeLanguage = (newLang: string) => {
@@ -293,7 +288,7 @@ const PortfolioNavHeader = () => {
                         </motion.div>
                         <motion.button
                             className="w-10 h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
-                            onClick={toggleDarkMode}
+                            onClick={toggleTheme} // Usando la función de nuestro hook
                             whileHover={{ 
                                 scale: 1.1,
                                 rotate: isDarkMode ? 180 : -180,
