@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Window from './Window'; // Import the Window component
 
 const PortfolioHomeSection = () => {
   const containerVariants = {
@@ -44,7 +43,6 @@ const PortfolioHomeSection = () => {
       
       <div className="container mx-auto px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Left side - Text content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -87,14 +85,12 @@ const PortfolioHomeSection = () => {
             </motion.div>
           </motion.div>
           
-          {/* Right side - Window component */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
             className="flex-shrink-0"
           >
-            <Window />
           </motion.div>
         </div>
       </div>

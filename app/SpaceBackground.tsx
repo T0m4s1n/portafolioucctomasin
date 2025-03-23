@@ -11,11 +11,9 @@ const GranularBackground = () => {
       : 'light'
   );
 
-  // This useEffect will completely re-initialize the animation when colorScheme changes
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Clean up previous canvas if it exists
     if (canvasRef.current && containerRef.current.contains(canvasRef.current)) {
       containerRef.current.removeChild(canvasRef.current);
       canvasRef.current = null;
@@ -35,7 +33,7 @@ const GranularBackground = () => {
     if (!ctx) return;
 
     const isDarkMode = colorScheme === 'dark';
-    const backgroundColor = isDarkMode ? '#111111' : 'hsl(252, 36%, 95%)'; // Use deluge-100 in light mode
+    const backgroundColor = isDarkMode ? '#111111' : 'hsl(252, 36%, 95%)';
     
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
@@ -47,8 +45,8 @@ const GranularBackground = () => {
       for (let i = 0; i < data.length; i += 4) {
         if (Math.random() < 0.15) {
           const noiseValue = isDarkMode ? 
-            Math.floor(Math.random() * 40) + 10 : // Darker granular texture for dark mode
-            Math.floor(Math.random() * 40) + 215; // Lighter granular texture for light mode
+            Math.floor(Math.random() * 40) + 10 :
+            Math.floor(Math.random() * 40) + 215;
           data[i] = noiseValue;
           data[i + 1] = noiseValue;
           data[i + 2] = noiseValue;
@@ -78,7 +76,6 @@ const GranularBackground = () => {
         gradient.addColorStop(0.7, 'rgba(20, 20, 20, 0.6)');
         gradient.addColorStop(1, 'rgba(17, 17, 17, 0.9)');
       } else {
-        // Light mode gradient
         gradient.addColorStop(0, 'hsla(252, 36%, 95%, 0)');
         gradient.addColorStop(0.3, 'hsla(252, 36%, 95%, 0.1)');
         gradient.addColorStop(0.5, 'hsla(252, 36%, 95%, 0.3)');
@@ -174,9 +171,8 @@ const GranularBackground = () => {
         container.removeChild(canvasRef.current);
       }
     };
-  }, [colorScheme]); // Re-run this effect when colorScheme changes
+  }, [colorScheme]);
 
-  // This useEffect handles theme change detection
   useEffect(() => {
     const handleColorSchemeChange = (e: MediaQueryListEvent) => {
       setColorScheme(e.matches ? 'dark' : 'light');

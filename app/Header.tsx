@@ -9,7 +9,7 @@ const PortfolioNavHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const { theme, toggleTheme } = useTheme(); // Usando nuestro hook personalizado
+    const { theme, toggleTheme } = useTheme();
     const [language, setLanguage] = useState('es');
     const [isLanguageHovered, setIsLanguageHovered] = useState(false);
 
@@ -31,8 +31,8 @@ const PortfolioNavHeader = () => {
 
     const sections = [
         { id: 'home', name: 'Inicio', number: '01' },
-        { id: 'expertise', name: 'Especialidades', number: '02' },
-        { id: 'work', name: 'Proyectos', number: '03' },
+        { id: 'work', name: 'Proyectos', number: '02' },
+        { id: 'expertise', name: 'Especialidades', number: '03' },
         { id: 'experience', name: 'Experiencia', number: '04' },
         { id: 'contact', name: 'Contacto', number: '05' }
     ];
@@ -126,7 +126,6 @@ const PortfolioNavHeader = () => {
 
     return (
         <>
-            {/* Import Google Fonts */}
             <style jsx global>{`
                 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
@@ -152,7 +151,6 @@ const PortfolioNavHeader = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        {/* Third layer - Playwrite HU */}
                         <div 
                             className="absolute top-0 left-0 opacity-10 text-accent" 
                             style={{ 
@@ -165,7 +163,6 @@ const PortfolioNavHeader = () => {
                             /.Tomasin
                         </div>
                         
-                        {/* Second layer - Dancing Script */}
                         <div 
                             className="absolute top-0 left-0 opacity-20 text-accent" 
                             style={{ 
@@ -178,7 +175,6 @@ const PortfolioNavHeader = () => {
                             /.Tomasin
                         </div>
                         
-                        {/* First layer - Playwrite HU thinner */}
                         <div 
                             className="absolute top-0 left-0 opacity-15 text-accent" 
                             style={{ 
@@ -191,7 +187,6 @@ const PortfolioNavHeader = () => {
                             /.Tomasin
                         </div>
                         
-                        {/* Main text */}
                         <motion.span
                             initial={{ y: '100%' }}
                             animate={{ y: 0 }}
@@ -288,7 +283,7 @@ const PortfolioNavHeader = () => {
                         </motion.div>
                         <motion.button
                             className="w-10 h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
-                            onClick={toggleTheme} // Usando la función de nuestro hook
+                            onClick={toggleTheme}
                             whileHover={{ 
                                 scale: 1.1,
                                 rotate: isDarkMode ? 180 : -180,

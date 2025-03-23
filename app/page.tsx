@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useEffect } from 'react';
+import CustomCursor from './CustomCursor';
 import SpaceBackground from './SpaceBackground';
 import Header from './Header';
 import Home from './Home';
-import CustomCursor from './CustomCursor';
+import Inside from './Inside';
 import Expertise from './Expertise';
+
 import { ThemeManager, useTheme } from './themeutils';
 
 const PortfolioPage = () => {
     const { theme } = useTheme();
-    console.log('Current theme:', theme); // Use the theme variable
+    console.log('Current theme:', theme);
     
-    // Inicializar el tema cuando se monta el componente
     useEffect(() => {
         ThemeManager.initTheme();
     }, []);
@@ -23,6 +24,7 @@ const PortfolioPage = () => {
             <SpaceBackground />
             <Header />
             <Home />
+            <Inside />
             <Expertise />
         </main>
     );

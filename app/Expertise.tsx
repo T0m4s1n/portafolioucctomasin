@@ -6,7 +6,6 @@ const ExpertiseSection = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const sectionRef = useRef(null);
 
-  // Variants for container animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -18,7 +17,6 @@ const ExpertiseSection = () => {
     }
   };
 
-  // Variants for individual item animations
   const itemVariants = {
     hidden: { y: 60, opacity: 0 },
     visible: {
@@ -33,7 +31,6 @@ const ExpertiseSection = () => {
     }
   };
 
-  // Expertise items data
   const expertiseItems = [
     {
       id: 1,
@@ -82,7 +79,6 @@ const ExpertiseSection = () => {
     }
   ];
 
-  // Detect scroll direction
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -98,12 +94,10 @@ const ExpertiseSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  // Custom hook to check if each card is in view
   const CardItem = ({ item }: { item: typeof expertiseItems[number] }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false, amount: 0.3 });
 
-    // Animation state based on scroll direction and view status
     const animationState = isInView 
       ? 'visible' 
       : scrollDirection === 'up' 
@@ -119,31 +113,25 @@ const ExpertiseSection = () => {
         animate={animationState}
         className="border border-accent/10 rounded-md p-8 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md relative overflow-hidden"
       >
-        {/* Background text */}
         <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
           {Array(8).fill(item.bgText).map((text, idx) => (
             <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
           ))}
         </div>
         
-        {/* Icon */}
         <div className="flex mb-4 relative z-10">
           <div className="text-4xl text-accent mr-4">
             {item.icon}
           </div>
         </div>
         
-        {/* Title */}
         <h3 className="text-xl font-mono mb-1 text-accent">
           {item.title}
         </h3>
-        
-        {/* Subtitle */}
         <h4 className="text-xl font-light mb-4">
           {item.subtitle}
         </h4>
-        
-        {/* Description */}
+      
         <p className="text-muted-foreground opacity-80 relative z-10 text-sm">
           {item.description}
         </p>
@@ -157,7 +145,6 @@ const ExpertiseSection = () => {
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975 relative"
     >
-      {/* Background patterns */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       
