@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion';
 
-// Import SpaceBackground component
-import SpaceBackground from './SpaceBackground';
-
 interface InsideProps {
   onClose: () => void;
 }
@@ -320,10 +317,8 @@ const Inside: React.FC<InsideProps> = ({ onClose }) => {
       ref={setContainerRef}
       className="relative h-full w-full overflow-hidden"
     >
-      {/* Space background with fixed positioning that adapts to container dimensions */}
-      <div className="absolute inset-0 overflow-hidden">
-        <SpaceBackground />
-      </div>
+      {/* Simple gray background */}
+      <div className="absolute inset-0 bg-gray-100"></div>
       
       {/* Close button - now uses the onClose prop */}
       <CloseButton onClick={onClose} accentColor="var(--deluge-600)" />
