@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './themeutils';
+import Link from 'next/link';
+import { Sun, Moon} from 'lucide-react';
 
 const PortfolioNavHeader = () => {
     const [activeSection, setActiveSection] = useState('home');
@@ -35,6 +37,14 @@ const PortfolioNavHeader = () => {
         { id: 'expertise', name: 'Especialidades', number: '03' },
         { id: 'experience', name: 'Experiencia', number: '04' },
         { id: 'contact', name: 'Contacto', number: '05' }
+    ];
+
+    const personalSections = [
+        { id: 'about', name: 'Sobre Mí', number: '06', route: '/person#about' },
+        { id: 'skills', name: 'Habilidades', number: '07', route: '/person#skills' },
+        { id: 'education', name: 'Educación', number: '08', route: '/person#education' },
+        { id: 'hobbies', name: 'Pasatiempos', number: '09', route: '/person#hobbies' },
+        { id: 'recommendations', name: 'Recomendaciones', number: '10', route: '/person#recommendations' }
     ];
 
     const handleSectionChange = (sectionId: string) => {
@@ -298,51 +308,25 @@ const PortfolioNavHeader = () => {
                         >
                             <AnimatePresence mode="wait">
                                 {isDarkMode ? (
-                                    <motion.svg 
+                                    <motion.div 
                                         key="sun"
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        width="24" 
-                                        height="24" 
-                                        viewBox="0 0 24 24" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="2" 
-                                        strokeLinecap="round" 
-                                        strokeLinejoin="round"
                                         initial={{ rotate: -180, opacity: 0 }}
                                         animate={{ rotate: 0, opacity: 1 }}
                                         exit={{ rotate: 180, opacity: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <circle cx="12" cy="12" r="4" />
-                                        <path d="M12 2v2" />
-                                        <path d="M12 20v2" />
-                                        <path d="m4.93 4.93 1.41 1.41" />
-                                        <path d="m17.66 17.66 1.41 1.41" />
-                                        <path d="M2 12h2" />
-                                        <path d="M20 12h2" />
-                                        <path d="m6.34 17.66-1.41 1.41" />
-                                        <path d="m19.07 4.93-1.41 1.41" />
-                                    </motion.svg>
+                                        <Sun className="w-6 h-6" />
+                                    </motion.div>
                                 ) : (
-                                    <motion.svg 
+                                    <motion.div 
                                         key="moon"
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        width="24" 
-                                        height="24" 
-                                        viewBox="0 0 24 24" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="2" 
-                                        strokeLinecap="round" 
-                                        strokeLinejoin="round"
                                         initial={{ rotate: 180, opacity: 0 }}
                                         animate={{ rotate: 0, opacity: 1 }}
                                         exit={{ rotate: -180, opacity: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                                    </motion.svg>
+                                        <Moon className="w-6 h-6" />
+                                    </motion.div>
                                 )}
                             </AnimatePresence>
                         </motion.button>
@@ -397,80 +381,164 @@ const PortfolioNavHeader = () => {
                         variants={menuVariants}
                     >
                         <motion.nav className="container mx-auto px-8 py-16 flex flex-col items-center justify-center">
-                            {sections.map((section, index) => (
-                                <motion.button
-                                    key={section.id}
-                                    className={`group py-4 text-center w-full flex items-center justify-center ${
-                                        activeSection === section.id 
-                                            ? 'text-accent' 
-                                            : 'text-muted-foreground hover:text-foreground'
-                                    }`}
-                                    onClick={() => handleSectionChange(section.id)}
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={{ 
-                                        opacity: 1, 
-                                        y: 0,
-                                        transition: { 
-                                            delay: index * 0.1 + 0.2,
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 24
-                                        } 
-                                    }}
-                                    exit={{ 
-                                        opacity: 0,
-                                        y: 20,
-                                        transition: { delay: (sections.length - index) * 0.05 } 
-                                    }}
-                                    whileHover={{ 
-                                        scale: 1.05, 
-                                        x: 10,
-                                        transition: { duration: 0.3 }
-                                    }}
-                                >
-                                    <div className="flex items-center text-2xl md:text-3xl">
-                                        <motion.span 
-                                            className="text-sm opacity-70 mr-2"
-                                            initial={{ opacity: 0, x: -10 }}
+                            <div className="flex w-full">
+                                <div className="w-1/2 pr-8 border-r border-accent/20">
+                                    {sections.map((section, index) => (
+                                        <motion.button
+                                            key={section.id}
+                                            className={`group py-4 text-center w-full flex items-center justify-center ${
+                                                activeSection === section.id 
+                                                    ? 'text-accent' 
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                            onClick={() => handleSectionChange(section.id)}
+                                            initial={{ opacity: 0, y: 40 }}
                                             animate={{ 
-                                                opacity: 0.7, 
-                                                x: 0,
-                                                transition: { delay: index * 0.1 + 0.4 }
+                                                opacity: 1, 
+                                                y: 0,
+                                                transition: { 
+                                                    delay: index * 0.1 + 0.2,
+                                                    type: "spring",
+                                                    stiffness: 300,
+                                                    damping: 24
+                                                } 
+                                            }}
+                                            exit={{ 
+                                                opacity: 0,
+                                                y: 20,
+                                                transition: { delay: (sections.length - index) * 0.05 } 
+                                            }}
+                                            whileHover={{ 
+                                                scale: 1.05, 
+                                                x: 10,
+                                                transition: { duration: 0.3 }
                                             }}
                                         >
-                                            {section.number}
-                                        </motion.span>
-                                        <motion.span 
-                                            className="mr-2"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ 
-                                                opacity: 1,
-                                                transition: { delay: index * 0.1 + 0.3 }
-                                            }}
+                                            <div className="flex items-center text-2xl md:text-3xl">
+                                                <motion.span 
+                                                    className="text-sm opacity-70 mr-2"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ 
+                                                        opacity: 0.7, 
+                                                        x: 0,
+                                                        transition: { delay: index * 0.1 + 0.4 }
+                                                    }}
+                                                >
+                                                    {section.number}
+                                                </motion.span>
+                                                <motion.span 
+                                                    className="mr-2"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ 
+                                                        opacity: 1,
+                                                        transition: { delay: index * 0.1 + 0.3 }
+                                                    }}
+                                                >
+                                                    {'//'}
+                                                </motion.span>
+                                                <motion.span 
+                                                    className="font-light relative overflow-hidden"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ 
+                                                        opacity: 1,
+                                                        transition: { delay: index * 0.1 + 0.5 }
+                                                    }}
+                                                >
+                                                    {section.name}
+                                                    <motion.div 
+                                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
+                                                        initial={{ scaleX: 0, originX: 0 }}
+                                                        whileHover={{ 
+                                                            scaleX: 1,
+                                                            transition: { duration: 0.3 } 
+                                                        }}
+                                                    />
+                                                </motion.span>
+                                            </div>
+                                        </motion.button>
+                                    ))}
+                                </div>
+                                <div className="w-1/2 pl-8">
+                                    {personalSections.map((section, index) => (
+                                        <Link 
+                                            href={section.route} 
+                                            key={section.id}
+                                            onClick={() => setIsMenuOpen(false)}
                                         >
-                                            {'//'}
-                                        </motion.span>
-                                        <motion.span 
-                                            className="font-light relative overflow-hidden"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ 
-                                                opacity: 1,
-                                                transition: { delay: index * 0.1 + 0.5 }
-                                            }}
-                                        >
-                                            {section.name}
-                                            <motion.div 
-                                                className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
-                                                initial={{ scaleX: 0, originX: 0 }}
-                                                whileHover={{ 
-                                                    scaleX: 1,
-                                                    transition: { duration: 0.3 } 
+                                            <motion.div
+                                                className={`group py-4 text-center w-full flex items-center justify-center cursor-pointer ${
+                                                    activeSection === section.id 
+                                                        ? 'text-accent' 
+                                                        : 'text-muted-foreground hover:text-foreground'
+                                                }`}
+                                                initial={{ opacity: 0, y: 40 }}
+                                                animate={{ 
+                                                    opacity: 1, 
+                                                    y: 0,
+                                                    transition: { 
+                                                        delay: index * 0.1 + 0.2,
+                                                        type: "spring",
+                                                        stiffness: 300,
+                                                        damping: 24
+                                                    } 
                                                 }}
-                                            />
-                                        </motion.span>
-                                    </div>
-                                </motion.button>
-                            ))}
+                                                exit={{ 
+                                                    opacity: 0,
+                                                    y: 20,
+                                                    transition: { delay: (personalSections.length - index) * 0.05 } 
+                                                }}
+                                                whileHover={{ 
+                                                    scale: 1.05, 
+                                                    x: -10,
+                                                    transition: { duration: 0.3 }
+                                                }}
+                                            >
+                                                <div className="flex items-center text-2xl md:text-3xl">
+                                                    <motion.span 
+                                                        className="text-sm opacity-70 mr-2"
+                                                        initial={{ opacity: 0, x: 10 }}
+                                                        animate={{ 
+                                                            opacity: 0.7, 
+                                                            x: 0,
+                                                            transition: { delay: index * 0.1 + 0.4 }
+                                                        }}
+                                                    >
+                                                        {section.number}
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        className="mr-2"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ 
+                                                            opacity: 1,
+                                                            transition: { delay: index * 0.1 + 0.3 }
+                                                        }}
+                                                    >
+                                                        {'//'}
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        className="font-light relative overflow-hidden"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ 
+                                                            opacity: 1,
+                                                            transition: { delay: index * 0.1 + 0.5 }
+                                                        }}
+                                                    >
+                                                        {section.name}
+                                                        <motion.div 
+                                                            className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
+                                                            initial={{ scaleX: 0, originX: 0 }}
+                                                            whileHover={{ 
+                                                                scaleX: 1,
+                                                                transition: { duration: 0.3 } 
+                                                            }}
+                                                        />
+                                                    </motion.span>
+                                                </div>
+                                            </motion.div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                         </motion.nav>
                     </motion.div>
                 )}

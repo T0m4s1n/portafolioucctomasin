@@ -67,7 +67,7 @@ const PortfolioHomeSection = () => {
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
               <motion.button
                 onClick={() => scrollToSection('contact')}
-                className="px-6 py-3 bg-accent text-background rounded-lg hover:bg-accent-dark transition-colors"
+                className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

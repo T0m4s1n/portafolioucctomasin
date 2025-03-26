@@ -1,54 +1,50 @@
-// themeutils.ts
-import React from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
 
-// Clase para manejar el tema de la aplicación
 export class ThemeManager {
-  // Clave para almacenar la preferencia de tema en localStorage
   private static STORAGE_KEY = 'portfolio-theme-preference';
 
-  // Obtener el tema actual
   static getTheme(): Theme {
-    // Verificar localStorage primero
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem(this.STORAGE_KEY) as Theme | null;
-      if (savedTheme) {
-        return savedTheme;
-      }
-      
-      // Si no hay preferencia guardada, usar la preferencia del sistema
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
+    if (typeof window === 'undefined') return 'dark';
+
+    const savedTheme = localStorage.getItem(this.STORAGE_KEY) as Theme | null;
+    
+    // If a theme is explicitly saved, return it
+    if (savedTheme) {
+      return savedTheme;
     }
     
-    // Por defecto, usar tema oscuro
-    return 'dark';
+    // If no saved theme, check system preference
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDarkMode ? 'dark' : 'light';
   }
 
-  // Establecer el tema
   static setTheme(theme: Theme): void {
     if (typeof window === 'undefined') return;
     
-    // Guardar en localStorage
+    // Save theme preference
     localStorage.setItem(this.STORAGE_KEY, theme);
     
-    // Aplicar al DOM
+    // Apply theme to document
     const root = document.documentElement;
+    
     if (theme === 'dark') {
       root.classList.add('dark');
+      root.classList.remove('light');
+      root.setAttribute('data-theme', 'dark');
       root.style.colorScheme = 'dark';
     } else {
       root.classList.remove('dark');
+      root.classList.add('light');
+      root.setAttribute('data-theme', 'light');
       root.style.colorScheme = 'light';
     }
     
-    // Disparar evento personalizado para que otros componentes puedan reaccionar
+    // Dispatch custom theme change event
     window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme } }));
   }
 
-  // Alternar entre temas
   static toggleTheme(): Theme {
     const currentTheme = this.getTheme();
     const newTheme: Theme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -56,47 +52,58 @@ export class ThemeManager {
     return newTheme;
   }
 
-  // Inicializar el tema en la carga de la aplicación
-  static initTheme(): void {
+  static initTheme(): (() => void) | void {
     if (typeof window === 'undefined') return;
     
     const theme = this.getTheme();
     this.setTheme(theme);
     
-    // Escuchar cambios en la preferencia del sistema
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      // Only change theme if no explicit preference is set
       if (!localStorage.getItem(this.STORAGE_KEY)) {
         this.setTheme(e.matches ? 'dark' : 'light');
       }
-    });
+    };
+    
+    mediaQuery.addEventListener('change', handleThemeChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange);
+    };
   }
 }
 
-// Hook personalizado para usar el tema en componentes React
 export function useTheme() {
-  const [theme, setThemeState] = React.useState<Theme>(() => 
-    typeof window !== 'undefined' ? ThemeManager.getTheme() : 'dark'
-  );
+  const [theme, setTheme] = useState<Theme>('dark');
 
-  React.useEffect(() => {
-    // Inicializar tema
-    ThemeManager.initTheme();
-    setThemeState(ThemeManager.getTheme());
+  useEffect(() => {
+    // Initialize theme when component mounts
+    const cleanup = ThemeManager.initTheme();
+    return cleanup instanceof Function ? cleanup : undefined;
     
-    // Escuchar cambios de tema
+    // Set initial theme
+    const initialTheme = ThemeManager.getTheme();
+    setTheme(initialTheme);
+    
+    // Listen for theme changes
     const handleThemeChange = (e: CustomEvent<{ theme: Theme }>) => {
-      setThemeState(e.detail.theme);
+      setTheme(e.detail.theme);
     };
     
     window.addEventListener('theme-change', handleThemeChange as EventListener);
     
+    // Cleanup listener
     return () => {
       window.removeEventListener('theme-change', handleThemeChange as EventListener);
     };
   }, []);
 
-  const toggleTheme = React.useCallback(() => {
-    ThemeManager.toggleTheme();
+  const toggleTheme = useCallback(() => {
+    const newTheme = ThemeManager.toggleTheme();
+    setTheme(newTheme);
   }, []);
 
   return { theme, toggleTheme };

@@ -79,26 +79,32 @@ const ExpertiseSection = () => {
     }
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
-        setScrollDirection('down');
-      } else {
-        setScrollDirection('up');
-      }
-      setLastScrollY(currentScrollY);
-    };
+  // Use useInView for the entire section
+  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  useEffect(() => {
+    // Only update viewport state when section is in view
+    if (isInView) {
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY) {
+          setScrollDirection('down');
+        } else {
+          setScrollDirection('up');
+        }
+        setLastScrollY(currentScrollY);
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isInView, lastScrollY]);
 
   const CardItem = ({ item }: { item: typeof expertiseItems[number] }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: false, amount: 0.3 });
+    const isCardInView = useInView(ref, { once: false, amount: 0.3 });
 
-    const animationState = isInView 
+    const animationState = isCardInView 
       ? 'visible' 
       : scrollDirection === 'up' 
         ? 'exit' 

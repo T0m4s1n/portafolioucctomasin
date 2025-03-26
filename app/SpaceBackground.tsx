@@ -5,11 +5,54 @@ import React, { useEffect, useRef, useState } from 'react';
 const GranularBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(
-    typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches 
-      ? 'dark' 
-      : 'light'
-  );
+  const [colorScheme, setColorScheme] = useState<'dark' | 'light'>('light');
+
+  // Utility function to convert color to RGBA
+  const convertToRGBA = (color: string, alpha: number = 1) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+    ctx.fillStyle = color;
+    const rgbColor = ctx.fillStyle;
+    
+    // Extract RGB values
+    const match = rgbColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    if (match) {
+      return `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})`;
+    }
+    
+    // If RGB extraction fails, fallback to a default
+    return `rgba(17, 17, 17, ${alpha})`;
+  };
+
+  useEffect(() => {
+    // Function to detect current theme
+    const detectTheme = () => {
+      const rootElement = document.documentElement;
+      return rootElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    };
+
+    // Initial theme detection
+    setColorScheme(detectTheme());
+
+    // Theme change observer
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          setColorScheme(detectTheme());
+        }
+      }
+    });
+
+    // Start observing the html element for data-theme changes
+    observer.observe(document.documentElement, { 
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -26,14 +69,16 @@ const GranularBackground = () => {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
+    canvas.style.transition = 'opacity 0.5s ease-in-out'; // Smooth transition
     container.appendChild(canvas);
     canvasRef.current = canvas;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const isDarkMode = colorScheme === 'dark';
-    const backgroundColor = isDarkMode ? '#111111' : 'hsl(252, 36%, 95%)';
+    // Get theme-specific colors from CSS variables
+    const rootStyles = getComputedStyle(document.documentElement);
+    const backgroundColor = rootStyles.getPropertyValue('--background').trim();
     
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
@@ -44,7 +89,7 @@ const GranularBackground = () => {
 
       for (let i = 0; i < data.length; i += 4) {
         if (Math.random() < 0.15) {
-          const noiseValue = isDarkMode ? 
+          const noiseValue = colorScheme === 'dark' ? 
             Math.floor(Math.random() * 40) + 10 :
             Math.floor(Math.random() * 40) + 215;
           data[i] = noiseValue;
@@ -69,22 +114,18 @@ const GranularBackground = () => {
         centerX, centerY, maxRadius
       );
 
-      if (isDarkMode) {
-        gradient.addColorStop(0, 'rgba(20, 20, 20, 0)');
-        gradient.addColorStop(0.3, 'rgba(20, 20, 20, 0.1)');
-        gradient.addColorStop(0.5, 'rgba(20, 20, 20, 0.3)');
-        gradient.addColorStop(0.7, 'rgba(20, 20, 20, 0.6)');
-        gradient.addColorStop(1, 'rgba(17, 17, 17, 0.9)');
-      } else {
-        gradient.addColorStop(0, 'hsla(252, 36%, 95%, 0)');
-        gradient.addColorStop(0.3, 'hsla(252, 36%, 95%, 0.1)');
-        gradient.addColorStop(0.5, 'hsla(252, 36%, 95%, 0.3)');
-        gradient.addColorStop(0.7, 'hsla(252, 36%, 95%, 0.6)');
-        gradient.addColorStop(1, 'hsla(252, 36%, 95%, 0.9)');
-      }
+      if (colorScheme === 'dark') {
+        // Dark mode gradient
+        gradient.addColorStop(0, convertToRGBA(backgroundColor, 0));
+        gradient.addColorStop(0.3, convertToRGBA(backgroundColor, 0.1));
+        gradient.addColorStop(0.5, convertToRGBA(backgroundColor, 0.3));
+        gradient.addColorStop(0.7, convertToRGBA(backgroundColor, 0.6));
+        gradient.addColorStop(1, convertToRGBA(backgroundColor, 0.9));
 
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+      }
+      // No gradient for light mode
     };
 
     createCircularMask();
@@ -100,16 +141,16 @@ const GranularBackground = () => {
 
       const computedStyle = getComputedStyle(document.documentElement);
 
-      const delugeColors = isDarkMode ? 
+      const delugeColors = colorScheme === 'dark' ? 
         [
-          computedStyle.getPropertyValue('--deluge-150').trim() || 'hsl(249, 37%, 89%)',
-          computedStyle.getPropertyValue('--deluge-300').trim() || 'hsl(244, 33%, 85%)',
-          computedStyle.getPropertyValue('--deluge-500').trim() || 'hsl(249, 36%, 66%)'
+          computedStyle.getPropertyValue('--deluge-150').trim(),
+          computedStyle.getPropertyValue('--deluge-300').trim(),
+          computedStyle.getPropertyValue('--deluge-500').trim()
         ] : 
         [
-          computedStyle.getPropertyValue('--deluge-300').trim() || 'hsl(244, 33%, 85%)',
-          computedStyle.getPropertyValue('--deluge-500').trim() || 'hsl(249, 36%, 66%)',
-          computedStyle.getPropertyValue('--deluge-700').trim() || 'hsl(253, 28%, 54%)'
+          computedStyle.getPropertyValue('--deluge-300').trim(),
+          computedStyle.getPropertyValue('--deluge-500').trim(),
+          computedStyle.getPropertyValue('--deluge-700').trim()
         ];
 
       ctx.lineWidth = lineWidth;
@@ -122,7 +163,7 @@ const GranularBackground = () => {
         const colorIndex = i % delugeColors.length;
         ctx.strokeStyle = delugeColors[colorIndex];
 
-        ctx.globalAlpha = isDarkMode ? 0.2 : 0.15;
+        ctx.globalAlpha = colorScheme === 'dark' ? 0.2 : 0.15;
 
         ctx.save();
 
@@ -155,6 +196,9 @@ const GranularBackground = () => {
       canvasRef.current.width = width;
       canvasRef.current.height = height;
       
+      const rootStyles = getComputedStyle(document.documentElement);
+      const backgroundColor = rootStyles.getPropertyValue('--background').trim();
+      
       ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, width, height);
       createGranularTexture();
@@ -173,21 +217,11 @@ const GranularBackground = () => {
     };
   }, [colorScheme]);
 
-  useEffect(() => {
-    const handleColorSchemeChange = (e: MediaQueryListEvent) => {
-      setColorScheme(e.matches ? 'dark' : 'light');
-    };
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', handleColorSchemeChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleColorSchemeChange);
-    };
-  }, []);
-
   return (
-    <div ref={containerRef} className="fixed inset-0 w-full h-full overflow-hidden bg-[var(--deluge-100)]">
+    <div 
+      ref={containerRef} 
+      className="fixed inset-0 w-full h-full overflow-hidden bg-[var(--background)] transition-colors duration-500"
+    >
     </div>
   );
 };
