@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 
 const ProjectExplorer: React.FC = () => {
-  const [activeProject, setActiveProject] = useState<string | null>("loginar"); // Default to first project
+  const [activeProject, setActiveProject] = useState<string | null>("loginar");
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   interface Project {
@@ -133,7 +133,6 @@ const ProjectExplorer: React.FC = () => {
 
   return (
     <div className="relative h-full">
-      {/* Background image that changes on hover - faster transition */}
       <AnimatePresence mode="wait">
         <motion.div
           key={hoveredProject || activeProject}
@@ -153,7 +152,6 @@ const ProjectExplorer: React.FC = () => {
       </AnimatePresence>
 
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 relative z-10">
-        {/* Left Side - Project List */}
         <div className="md:w-1/2 lg:w-5/12">
           <motion.div 
             variants={{
@@ -184,8 +182,6 @@ const ProjectExplorer: React.FC = () => {
               </p>
             </div>
           </motion.div>
-          
-          {/* Project List */}
           <div className="space-y-0">
             {projects.map((project, index) => (
               <motion.div
@@ -223,8 +219,6 @@ const ProjectExplorer: React.FC = () => {
             ))}
           </div>
         </div>
-
-        {/* Right Side - Project Preview - Adapted for responsive */}
         <div className="md:w-1/2 lg:w-7/12">
           <AnimatePresence mode="wait">
             <motion.div
@@ -235,29 +229,21 @@ const ProjectExplorer: React.FC = () => {
               transition={fastTransition}
               className="h-full"
             >
-              {/* Project Image - Responsive height adjustments */}
               <motion.div 
                 className="h-full rounded-lg overflow-hidden shadow-lg"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={fastTransition}
               >
-                {/* Image Container - Taller in mobile */}
                 <div className="relative bg-transparent h-auto md:h-full">
-                  {/* Aspect ratio taller on mobile */}
                   <div className="aspect-[4/5] md:aspect-video w-full">
-                    {/* Main Image */}
                     <img 
                       src={getCurrentProjectImage() || "/api/placeholder/800/500"} 
                       alt={getCurrentProject()?.title || "Project Image"}
                       className="w-full h-full object-cover transition-opacity duration-200" 
                     />
-                  </div>
-                  
-                  {/* Gradient Overlay */}
+                  </div>               
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  
-                  {/* Project Info Overlay - More padding in mobile */}
                   <motion.div 
                     className="absolute bottom-0 left-0 p-4 md:p-6 w-full"
                     initial={{ opacity: 0, y: 10 }}
@@ -282,8 +268,6 @@ const ProjectExplorer: React.FC = () => {
                     <p className="text-white/80 mb-4 md:mb-6 text-xs md:text-sm max-w-xl">
                       {getCurrentProject()?.description}
                     </p>
-                    
-                    {/* Technologies */}
                     <div className="flex flex-wrap gap-2">
                       {getCurrentProject()?.technologies.map((tech) => (
                         <motion.span
@@ -295,8 +279,6 @@ const ProjectExplorer: React.FC = () => {
                         </motion.span>
                       ))}
                     </div>
-                    
-                    {/* View Project Button - Only if liveUrl exists */}
                     {getCurrentProject()?.liveUrl && (
                       <a 
                         href={getCurrentProject()?.liveUrl} 
