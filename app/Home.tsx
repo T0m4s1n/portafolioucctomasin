@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 
 const PortfolioHomeSection = () => {
   const containerVariants = {
@@ -28,6 +29,128 @@ const PortfolioHomeSection = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Ref for the Three.js container
+  const threeContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Three.js setup and animation
+  useEffect(() => {
+    if (!threeContainerRef.current) return;
+    
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
+      alpha: true 
+    });
+    // Aumentando el tamaño del renderizador para la T 3D
+    renderer.setSize(350, 350);
+    renderer.setClearColor(0x000000, 0);
+    
+    // Clear any existing canvas
+    if (threeContainerRef.current.firstChild) {
+      threeContainerRef.current.removeChild(threeContainerRef.current.firstChild);
+    }
+    
+    threeContainerRef.current.appendChild(renderer.domElement);
+    
+    // Extract accent color from CSS variable
+    const getAccentColor = () => {
+      const accentColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent')
+        .trim();
+      return accentColor.startsWith('#') ? accentColor : '--accent';
+    };
+    
+    const material = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(getAccentColor()),
+      metalness: 0.3,
+      roughness: 0.4,
+      emissive: new THREE.Color(getAccentColor()),
+      emissiveIntensity: 0.2,
+    });
+    
+    const createTShape = () => {
+      const shape = new THREE.Shape();
+      
+      // Draw a wider 'T' shape
+      shape.moveTo(-0.7, 1);       // Top-left of the T
+      shape.lineTo(0.7, 1);        // Top-right of the T
+      shape.lineTo(0.7, 0.7);      // Right edge of top bar
+      shape.lineTo(0.2, 0.7);      // Inner right corner
+      shape.lineTo(0.2, -1);       // Bottom right
+      shape.lineTo(-0.2, -1);      // Bottom left
+      shape.lineTo(-0.2, 0.7);     // Inner left corner
+      shape.lineTo(-0.7, 0.7);     // Left edge of top bar
+      shape.lineTo(-0.7, 1);       // Back to start
+
+      const extrudeSettings = {
+        steps: 1,
+        depth: 0.2,
+        bevelEnabled: true,
+        bevelThickness: 0.05,
+        bevelSize: 0.05,
+        bevelOffset: 0,
+        bevelSegments: 5
+      };
+      
+      return new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    };
+    
+    // Create mesh
+    const tGeometry = createTShape();
+    const tMesh = new THREE.Mesh(tGeometry, material);
+    
+    // Add to scene
+    scene.add(tMesh);
+    
+    // Add lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    
+    const frontLight = new THREE.DirectionalLight(0xffffff, 1);
+    frontLight.position.set(0, 0, 1);
+    scene.add(frontLight);
+    
+    const backLight = new THREE.DirectionalLight(new THREE.Color(getAccentColor()), 0.7);
+    backLight.position.set(0, 0, -1);
+    scene.add(backLight);
+    
+    // Position camera
+    camera.position.z = 3;
+    
+    // Animation
+    const animate = () => {
+      requestAnimationFrame(animate);
+      
+      // Rotate on Y axis (to the right)
+      tMesh.rotation.y += 0.01;
+      
+      renderer.render(scene, camera);
+    };
+    
+    animate();
+    
+    // Handle resize
+    const handleResize = () => {
+      renderer.setSize(350, 350);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (threeContainerRef.current) {
+        threeContainerRef.current.removeChild(renderer.domElement);
+      }
+      tGeometry.dispose();
+      material.dispose();
+      renderer.dispose();
+    };
+  }, []);
 
   return (
     <section id="home" className="min-h-screen relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
@@ -89,8 +212,12 @@ const PortfolioHomeSection = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 flex flex-col items-center justify-center"
           >
+            <div 
+              ref={threeContainerRef} 
+              className="w-100 h-70 flex items-center justify-center"
+            />
           </motion.div>
         </div>
       </div>
@@ -149,9 +276,10 @@ const PortfolioHomeSection = () => {
           transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
         />
       </motion.div>
+      
       <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
       `}</style>
     </section>
   );

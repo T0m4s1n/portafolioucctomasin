@@ -7,6 +7,8 @@ import Header from './Header';
 import Home from './Home';
 import Inside from './Inside';
 import Expertise from './Expertise';
+import Experience from './Experience';
+import Contact from './Contact';
 import LoadingScreen from './LoadingScreen';
 
 import { ThemeManager, useTheme } from './themeutils';
@@ -48,6 +50,8 @@ const PortfolioPage = () => {
                     <Home />
                     <Inside />
                     <Expertise />
+                    <Experience/>
+                    <Contact />
                 </>
             )}
         </main>

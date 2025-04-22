@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const ExpertiseSection = () => {
-  const [scrollDirection, setScrollDirection] = useState('down');
-  const [lastScrollY, setLastScrollY] = useState(0);
   const sectionRef = useRef(null);
 
   const containerVariants = {
@@ -23,11 +21,6 @@ const ExpertiseSection = () => {
       y: 0,
       opacity: 1,
       transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-    },
-    exit: {
-      y: -60,
-      opacity: 0,
-      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
@@ -79,36 +72,19 @@ const ExpertiseSection = () => {
     }
   ];
 
-  // Use useInView for the entire section
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  interface ExpertiseItem {
+    id: number;
+    title: string;
+    subtitle: string;
+    description: string;
+    //@ts-expect-error: Icon property is dynamically assigned and may not match strict type checks
+    icon: JSX.Element;
+    bgText: string;
+  }
 
-  useEffect(() => {
-    // Only update viewport state when section is in view
-    if (isInView) {
-      const handleScroll = () => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY) {
-          setScrollDirection('down');
-        } else {
-          setScrollDirection('up');
-        }
-        setLastScrollY(currentScrollY);
-      };
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, [isInView, lastScrollY]);
-
-  const CardItem = ({ item }: { item: typeof expertiseItems[number] }) => {
+  const CardItem = ({ item }: { item: ExpertiseItem }) => {
     const ref = useRef(null);
-    const isCardInView = useInView(ref, { once: false, amount: 0.3 });
-
-    const animationState = isCardInView 
-      ? 'visible' 
-      : scrollDirection === 'up' 
-        ? 'exit' 
-        : 'hidden';
+    const isCardInView = useInView(ref, { once: true, amount: 0.3 });
 
     return (
       <motion.div
@@ -116,7 +92,7 @@ const ExpertiseSection = () => {
         key={item.id}
         variants={itemVariants}
         initial="hidden"
-        animate={animationState}
+        animate={isCardInView ? "visible" : "hidden"}
         className="border border-accent/10 rounded-md p-8 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md relative overflow-hidden"
       >
         <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
@@ -159,7 +135,7 @@ const ExpertiseSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16"
         >
           <motion.div variants={itemVariants} className="flex items-center mb-6">

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './themeutils';
 import Link from 'next/link';
-import { Sun, Moon} from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 
 const PortfolioNavHeader = () => {
     const [activeSection, setActiveSection] = useState('home');
@@ -142,16 +142,16 @@ const PortfolioNavHeader = () => {
             `}</style>
             
             <motion.header 
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-8 ${
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 md:py-8 ${
                     isVisible ? 'translate-y-0' : '-translate-y-full'
                 }`}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-                <div className="container mx-auto px-8 flex justify-between items-center">
+                <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
                     <motion.div 
-                        className="text-accent text-2xl font-light overflow-hidden relative"
+                        className="text-accent text-xl md:text-2xl font-light overflow-hidden relative"
                         variants={logoVariants}
                         initial="initial"
                         animate="animate"
@@ -162,7 +162,7 @@ const PortfolioNavHeader = () => {
                         whileTap={{ scale: 0.95 }}
                     >
                         <div 
-                            className="absolute top-0 left-0 opacity-10 text-accent" 
+                            className="absolute top-0 left-0 opacity-10 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Playwrite HU', cursive", 
                                 fontWeight: 100,
@@ -174,7 +174,7 @@ const PortfolioNavHeader = () => {
                         </div>
                         
                         <div 
-                            className="absolute top-0 left-0 opacity-20 text-accent" 
+                            className="absolute top-0 left-0 opacity-20 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Dancing Script', cursive", 
                                 fontWeight: 400,
@@ -186,7 +186,7 @@ const PortfolioNavHeader = () => {
                         </div>
                         
                         <div 
-                            className="absolute top-0 left-0 opacity-15 text-accent" 
+                            className="absolute top-0 left-0 opacity-15 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Playwrite HU', cursive", 
                                 fontWeight: 100,
@@ -216,7 +216,7 @@ const PortfolioNavHeader = () => {
                         </motion.span>
                     </motion.div>
                     
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 md:gap-4">
                         <motion.div 
                             className="flex items-center border border-accent/30 rounded overflow-hidden h-8 relative"
                             variants={headerControlsVariants}
@@ -228,7 +228,7 @@ const PortfolioNavHeader = () => {
                             onHoverEnd={() => setIsLanguageHovered(false)}
                         >
                             <motion.button
-                                className={`px-2 h-full flex items-center justify-center text-sm font-medium focus:outline-none relative overflow-hidden`}
+                                className={`px-1 md:px-2 h-full flex items-center justify-center text-xs md:text-sm font-medium focus:outline-none relative overflow-hidden`}
                                 variants={languageVariants.button}
                                 animate={language === 'en' ? 'active' : 'inactive'}
                                 whileHover={language === 'en' ? undefined : 'hover'}
@@ -253,7 +253,7 @@ const PortfolioNavHeader = () => {
                                 )}
                             </motion.button>
                             <motion.button
-                                className={`px-2 h-full flex items-center justify-center text-sm font-medium focus:outline-none relative overflow-hidden`}
+                                className={`px-1 md:px-2 h-full flex items-center justify-center text-xs md:text-sm font-medium focus:outline-none relative overflow-hidden`}
                                 variants={languageVariants.button}
                                 animate={language === 'es' ? 'active' : 'inactive'}
                                 whileHover={language === 'es' ? undefined : 'hover'}
@@ -292,7 +292,7 @@ const PortfolioNavHeader = () => {
                             />
                         </motion.div>
                         <motion.button
-                            className="w-10 h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
+                            className="w-8 h-8 md:w-10 md:h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
                             onClick={toggleTheme}
                             whileHover={{ 
                                 scale: 1.1,
@@ -315,7 +315,7 @@ const PortfolioNavHeader = () => {
                                         exit={{ rotate: 180, opacity: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <Sun className="w-6 h-6" />
+                                        <Sun className="w-5 h-5 md:w-6 md:h-6" />
                                     </motion.div>
                                 ) : (
                                     <motion.div 
@@ -325,13 +325,13 @@ const PortfolioNavHeader = () => {
                                         exit={{ rotate: -180, opacity: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <Moon className="w-6 h-6" />
+                                        <Moon className="w-5 h-5 md:w-6 md:h-6" />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
                         </motion.button>
                         <motion.button
-                            className="relative w-12 h-12 flex flex-col justify-center items-center focus:outline-none z-50"
+                            className="relative w-10 h-10 md:w-12 md:h-12 flex flex-col justify-center items-center focus:outline-none z-50"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             custom={2}
                             variants={headerControlsVariants}
@@ -343,15 +343,15 @@ const PortfolioNavHeader = () => {
                             }}
                             aria-label="Toggle menu"
                         >
-                            <div className="grid grid-cols-3 gap-1.5 w-8 h-8">
+                            <div className="grid grid-cols-3 gap-1 md:gap-1.5 w-6 h-6 md:w-8 md:h-8">
                                 {[...Array(9)].map((_, i) => (
                                     <motion.span
                                         key={i}
                                         className={`bg-accent block`}
                                         initial={false}
                                         animate={{
-                                            width: isMenuOpen ? '6px' : i % 3 === 0 ? '100%' : '0%',
-                                            height: isMenuOpen ? '6px' : '2px',
+                                            width: isMenuOpen ? '5px' : i % 3 === 0 ? '100%' : '0%',
+                                            height: isMenuOpen ? '5px' : '2px',
                                             opacity: isMenuOpen ? 1 : i % 3 === 0 ? 1 : 0,
                                             borderRadius: isMenuOpen ? '50%' : '2px',
                                             rotateZ: isMenuOpen ? i * 45 : 0,
@@ -374,19 +374,19 @@ const PortfolioNavHeader = () => {
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div 
-                        className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 flex items-center justify-center"
+                        className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 flex items-center justify-center overflow-y-auto"
                         initial="closed"
                         animate="open"
                         exit="closed"
                         variants={menuVariants}
                     >
-                        <motion.nav className="container mx-auto px-8 py-16 flex flex-col items-center justify-center">
-                            <div className="flex w-full">
-                                <div className="w-1/2 pr-8 border-r border-accent/20">
+                        <motion.nav className="container mx-auto px-4 md:px-8 py-16 flex flex-col items-center justify-center min-h-screen">
+                            <div className="flex flex-col md:flex-row w-full">
+                                <div className="w-full md:w-1/2 md:pr-8 border-b md:border-b-0 md:border-r border-accent/20 pb-6 md:pb-0">
                                     {sections.map((section, index) => (
                                         <motion.button
                                             key={section.id}
-                                            className={`group py-4 text-center w-full flex items-center justify-center ${
+                                            className={`group py-3 md:py-4 text-center w-full flex items-center justify-center ${
                                                 activeSection === section.id 
                                                     ? 'text-accent' 
                                                     : 'text-muted-foreground hover:text-foreground'
@@ -414,9 +414,9 @@ const PortfolioNavHeader = () => {
                                                 transition: { duration: 0.3 }
                                             }}
                                         >
-                                            <div className="flex items-center text-2xl md:text-3xl">
+                                            <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
                                                 <motion.span 
-                                                    className="text-sm opacity-70 mr-2"
+                                                    className="text-xs md:text-sm opacity-70 mr-2"
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ 
                                                         opacity: 0.7, 
@@ -458,7 +458,7 @@ const PortfolioNavHeader = () => {
                                         </motion.button>
                                     ))}
                                 </div>
-                                <div className="w-1/2 pl-8">
+                                <div className="w-full md:w-1/2 md:pl-8 pt-6 md:pt-0">
                                     {personalSections.map((section, index) => (
                                         <Link 
                                             href={section.route} 
@@ -466,7 +466,7 @@ const PortfolioNavHeader = () => {
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <motion.div
-                                                className={`group py-4 text-center w-full flex items-center justify-center cursor-pointer ${
+                                                className={`group py-3 md:py-4 text-center w-full flex items-center justify-center cursor-pointer ${
                                                     activeSection === section.id 
                                                         ? 'text-accent' 
                                                         : 'text-muted-foreground hover:text-foreground'
@@ -493,9 +493,9 @@ const PortfolioNavHeader = () => {
                                                     transition: { duration: 0.3 }
                                                 }}
                                             >
-                                                <div className="flex items-center text-2xl md:text-3xl">
+                                                <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
                                                     <motion.span 
-                                                        className="text-sm opacity-70 mr-2"
+                                                        className="text-xs md:text-sm opacity-70 mr-2"
                                                         initial={{ opacity: 0, x: 10 }}
                                                         animate={{ 
                                                             opacity: 0.7, 
