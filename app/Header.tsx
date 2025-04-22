@@ -40,11 +40,11 @@ const PortfolioNavHeader = () => {
     ];
 
     const personalSections = [
-        { id: 'about', name: 'Sobre Mí', number: '06', route: '/person#about' },
-        { id: 'skills', name: 'Habilidades', number: '07', route: '/person#skills' },
-        { id: 'education', name: 'Educación', number: '08', route: '/person#education' },
-        { id: 'hobbies', name: 'Pasatiempos', number: '09', route: '/person#hobbies' },
-        { id: 'recommendations', name: 'Recomendaciones', number: '10', route: '/person#recommendations' }
+        { id: 'about', name: 'Sobre Mí', number: '06', route: '/' },
+        { id: 'skills', name: 'Habilidades', number: '07', route: '/' },
+        { id: 'education', name: 'Educación', number: '08', route: '/' },
+        { id: 'hobbies', name: 'Pasatiempos', number: '09', route: '/' },
+        { id: 'recommendations', name: 'Recomendaciones', number: '10', route: '/' }
     ];
 
     const handleSectionChange = (sectionId: string) => {

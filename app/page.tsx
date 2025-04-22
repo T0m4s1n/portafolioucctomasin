@@ -9,7 +9,13 @@ import Inside from './Inside';
 import Expertise from './Expertise';
 import Experience from './Experience';
 import Contact from './Contact';
+import About from './About';
+import Habilities from './Habilities';
+import Education from './Education';
+import Hobbies from './Hobbies';
+import Recomendations from './Recomendations';
 import LoadingScreen from './LoadingScreen';
+import Footer from './Footer';
 
 import { ThemeManager, useTheme } from './themeutils';
 
@@ -19,8 +25,6 @@ const PortfolioPage = () => {
     
     useEffect(() => {
         ThemeManager.initTheme();
-        
-        // Add keyboard event listener to allow skipping the loading animation
         const handleKeyDown = () => {
             if (isLoading) setIsLoading(false);
         };
@@ -34,15 +38,12 @@ const PortfolioPage = () => {
 
     return (
         <main className="min-h-screen text-foreground font-sans overflow-hidden relative">
-            {/* SpaceBackground is always visible, even during loading */}
             <SpaceBackground />
             
-            {/* Loading screen shown over SpaceBackground */}
             {isLoading && (
                 <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
             )}
             
-            {/* Main content shows up after loading completes */}
             {!isLoading && (
                 <>
                     <CustomCursor />
@@ -52,6 +53,12 @@ const PortfolioPage = () => {
                     <Expertise />
                     <Experience/>
                     <Contact />
+                    <About />
+                    <Habilities />
+                    <Education />
+                    <Hobbies />
+                    <Recomendations />
+                    <Footer />
                 </>
             )}
         </main>

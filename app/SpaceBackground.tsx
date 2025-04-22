@@ -7,34 +7,28 @@ const GranularBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [colorScheme, setColorScheme] = useState<'dark' | 'light'>('light');
 
-  // Utility function to convert color to RGBA
   const convertToRGBA = (color: string, alpha: number = 1) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d')!;
     ctx.fillStyle = color;
     const rgbColor = ctx.fillStyle;
     
-    // Extract RGB values
     const match = rgbColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
     if (match) {
       return `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})`;
     }
     
-    // If RGB extraction fails, fallback to a default
     return `rgba(17, 17, 17, ${alpha})`;
   };
 
   useEffect(() => {
-    // Function to detect current theme
     const detectTheme = () => {
       const rootElement = document.documentElement;
       return rootElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
     };
 
-    // Initial theme detection
     setColorScheme(detectTheme());
 
-    // Theme change observer
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
@@ -43,7 +37,6 @@ const GranularBackground = () => {
       }
     });
 
-    // Start observing the html element for data-theme changes
     observer.observe(document.documentElement, { 
       attributes: true,
       attributeFilter: ['data-theme']
@@ -69,14 +62,13 @@ const GranularBackground = () => {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    canvas.style.transition = 'opacity 0.5s ease-in-out'; // Smooth transition
+    canvas.style.transition = 'opacity 0.5s ease-in-out';
     container.appendChild(canvas);
     canvasRef.current = canvas;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Get theme-specific colors from CSS variables
     const rootStyles = getComputedStyle(document.documentElement);
     const backgroundColor = rootStyles.getPropertyValue('--background').trim();
     
@@ -115,7 +107,6 @@ const GranularBackground = () => {
       );
 
       if (colorScheme === 'dark') {
-        // Dark mode gradient
         gradient.addColorStop(0, convertToRGBA(backgroundColor, 0));
         gradient.addColorStop(0.3, convertToRGBA(backgroundColor, 0.1));
         gradient.addColorStop(0.5, convertToRGBA(backgroundColor, 0.3));
@@ -125,7 +116,6 @@ const GranularBackground = () => {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, width, height);
       }
-      // No gradient for light mode
     };
 
     createCircularMask();
