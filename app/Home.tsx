@@ -153,7 +153,7 @@ const PortfolioHomeSection = () => {
   }, []);
 
   return (
-    <section id="home" className="min-h-screen relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
+    <section id="home" className="min-h-screen md:min-h-screen pt-20 md:pt-0 relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
         <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
           <h1 className="text-[20vw] font-bold text-stroke text-transparent opacity-5 whitespace-nowrap tracking-tighter"

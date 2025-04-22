@@ -168,22 +168,22 @@ const ProjectExplorer: React.FC = () => {
           </motion.div>
 
           <motion.div 
-          className="mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div className="flex items-center gap-4 mb-2">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-deluge-500 to-deluge-700 bg-clip-text">
-              <span style={{ fontFamily: "'Dancing Script', cursive", color: "var(--deluge-500)" }}>Proyectos destacados</span>
-            </h2>
-          </div>
-          <div>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
-              Explora mi trabajo creativo en diferentes categorías y tecnologías.
-            </p>
-          </div>
-        </motion.div>
+            className="mb-12"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="flex items-center gap-4 mb-2">
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-deluge-500 to-deluge-700 bg-clip-text">
+                <span style={{ fontFamily: "'Dancing Script', cursive", color: "var(--deluge-500)" }}>Proyectos destacados</span>
+              </h2>
+            </div>
+            <div>
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
+                Explora mi trabajo creativo en diferentes categorías y tecnologías.
+              </p>
+            </div>
+          </motion.div>
           
           {/* Project List */}
           <div className="space-y-0">
@@ -224,7 +224,7 @@ const ProjectExplorer: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Side - Project Preview - Faster transitions */}
+        {/* Right Side - Project Preview - Adapted for responsive */}
         <div className="md:w-1/2 lg:w-7/12">
           <AnimatePresence mode="wait">
             <motion.div
@@ -235,48 +235,51 @@ const ProjectExplorer: React.FC = () => {
               transition={fastTransition}
               className="h-full"
             >
-              {/* Project Image - Always Present - Faster scale */}
+              {/* Project Image - Responsive height adjustments */}
               <motion.div 
                 className="h-full rounded-lg overflow-hidden shadow-lg"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={fastTransition}
               >
-                {/* Image Container */}
-                <div className="relative aspect-video bg-transparent h-full">
-                  {/* Main Image */}
-                  <img 
-                    src={getCurrentProjectImage() || "/api/placeholder/800/500"} 
-                    alt={getCurrentProject()?.title || "Project Image"}
-                    className="w-full h-full object-cover transition-opacity duration-200" 
-                  />
+                {/* Image Container - Taller in mobile */}
+                <div className="relative bg-transparent h-auto md:h-full">
+                  {/* Aspect ratio taller on mobile */}
+                  <div className="aspect-[4/5] md:aspect-video w-full">
+                    {/* Main Image */}
+                    <img 
+                      src={getCurrentProjectImage() || "/api/placeholder/800/500"} 
+                      alt={getCurrentProject()?.title || "Project Image"}
+                      className="w-full h-full object-cover transition-opacity duration-200" 
+                    />
+                  </div>
                   
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                   
-                  {/* Project Info Overlay - Faster animations */}
+                  {/* Project Info Overlay - More padding in mobile */}
                   <motion.div 
-                    className="absolute bottom-0 left-0 p-6 w-full"
+                    className="absolute bottom-0 left-0 p-4 md:p-6 w-full"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2, delay: 0.1 }}
                   >
-                    <div className="flex justify-between items-end mb-3">
-                      <h2 className="text-3xl font-bold text-white">
+                    <div className="flex justify-between items-end mb-2 md:mb-3">
+                      <h2 className="text-2xl md:text-3xl font-bold text-white">
                         {getCurrentProject()?.title}
                       </h2>
-                      <span className="text-white/80 text-sm">
+                      <span className="text-white/80 text-xs md:text-sm">
                         {getCurrentProject()?.date}
                       </span>
                     </div>
                     
-                    <div className="mb-4">
-                      <p className="text-white/90 text-sm font-medium">
+                    <div className="mb-2 md:mb-4">
+                      <p className="text-white/90 text-xs md:text-sm font-medium">
                         {getCurrentProject()?.category} • {getCurrentProject()?.type}
                       </p>
                     </div>
                     
-                    <p className="text-white/80 mb-6 text-sm max-w-xl">
+                    <p className="text-white/80 mb-4 md:mb-6 text-xs md:text-sm max-w-xl">
                       {getCurrentProject()?.description}
                     </p>
                     
@@ -286,7 +289,7 @@ const ProjectExplorer: React.FC = () => {
                         <motion.span
                           key={tech}
                           whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-                          className="px-3 py-1 rounded-full text-xs backdrop-blur-sm bg-white/10"
+                          className="px-2 md:px-3 py-1 rounded-full text-xs backdrop-blur-sm bg-white/10"
                         >
                           {tech}
                         </motion.span>
@@ -299,10 +302,10 @@ const ProjectExplorer: React.FC = () => {
                         href={getCurrentProject()?.liveUrl} 
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-6 inline-flex items-center px-4 py-2 rounded text-sm bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200"
+                        className="mt-4 md:mt-6 inline-flex items-center px-3 md:px-4 py-1.5 md:py-2 rounded text-xs md:text-sm bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200"
                       >
                         Ver proyecto
-                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                       </a>
