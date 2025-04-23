@@ -240,9 +240,12 @@ const EducationSection = () => {
                           {React.cloneElement(category.icon, { className: `w-6 h-6 text-accent` })}
                         </div>
                       </motion.div>
-                      <span className={`font-medium text-sm ${activeCategory === idx ? 'text-accent' : 'text-muted-foreground'}`}>
-                        {category.title}
-                      </span>
+                      {/* Texto alineado con width fijo y centrado para evitar saltos */}
+                      <div className="w-24 text-center">
+                        <span className={`font-medium text-sm ${activeCategory === idx ? 'text-accent' : 'text-muted-foreground'}`}>
+                          {category.title}
+                        </span>
+                      </div>
                     </motion.div>
                   ))}
                 </div>

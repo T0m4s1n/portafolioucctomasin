@@ -49,7 +49,7 @@ const AboutSection = () => {
         </motion.div>
         
         <div className="flex flex-col-reverse md:flex-row relative">
-          <div className="w-full md:w-2/3 relative z-10">
+          <div className="w-full md:w-2/3 relative z-10 md:pr-12">
             <motion.div 
               variants={containerVariants}
               initial="hidden"
@@ -96,7 +96,7 @@ const AboutSection = () => {
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="md:absolute md:top-0 md:right-0 md:max-w-xs"
+              className="md:absolute md:top-0 md:-left-6"
             >
               <motion.div 
                 variants={itemVariants}

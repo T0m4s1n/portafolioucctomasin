@@ -75,7 +75,6 @@ const PortfolioHomeSection = () => {
     const createTShape = () => {
       const shape = new THREE.Shape();
       
-      // Draw a wider 'T' shape
       shape.moveTo(-0.7, 1);       // Top-left of the T
       shape.lineTo(0.7, 1);        // Top-right of the T
       shape.lineTo(0.7, 0.7);      // Right edge of top bar

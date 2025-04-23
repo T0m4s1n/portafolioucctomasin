@@ -3,17 +3,30 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './themeutils';
-import Link from 'next/link';
 import { Sun, Moon } from 'lucide-react';
 
-const PortfolioNavHeader = () => {
-    const [activeSection, setActiveSection] = useState('home');
+// Define the props interface for Header component
+interface PortfolioNavHeaderProps {
+  activeSection: string;
+  onSectionChange: (
+    sectionId: "home" | "work" | "expertise" | "experience" | "contact" | 
+    "about" | "skills" | "education" | "hobbies" | "games" | "recommendations" | "recomendations"
+  ) => void;
+}
+
+const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: propActiveSection, onSectionChange }) => {
+    const [activeSection, setActiveSection] = useState(propActiveSection || 'home');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const { theme, toggleTheme } = useTheme();
     const [language, setLanguage] = useState('es');
     const [isLanguageHovered, setIsLanguageHovered] = useState(false);
+
+    // Update component state when prop changes
+    useEffect(() => {
+        setActiveSection(propActiveSection);
+    }, [propActiveSection]);
 
     const isDarkMode = theme === 'dark';
 
@@ -40,16 +53,20 @@ const PortfolioNavHeader = () => {
     ];
 
     const personalSections = [
-        { id: 'about', name: 'Sobre Mí', number: '06', route: '/' },
-        { id: 'skills', name: 'Habilidades', number: '07', route: '/' },
-        { id: 'education', name: 'Educación', number: '08', route: '/' },
-        { id: 'hobbies', name: 'Pasatiempos', number: '09', route: '/' },
-        { id: 'recommendations', name: 'Recomendaciones', number: '10', route: '/' }
+        { id: 'about', name: 'Sobre Mí', number: '06' },
+        { id: 'skills', name: 'Habilidades', number: '07' },
+        { id: 'education', name: 'Educación', number: '08' },
+        { id: 'hobbies', name: 'Pasatiempos', number: '09' },
+        { id: 'recomendations', name: 'Recomendaciones', number: '10' }
     ];
 
     const handleSectionChange = (sectionId: string) => {
         setActiveSection(sectionId);
         setIsMenuOpen(false);
+        
+        // Call the parent's onSectionChange function
+        onSectionChange(sectionId as "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "education" | "hobbies" | "games" | "recommendations" | "recomendations");
+        
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
@@ -427,7 +444,7 @@ const PortfolioNavHeader = () => {
                                                     {section.number}
                                                 </motion.span>
                                                 <motion.span 
-                                                    className="mr-2"
+                                                    className="mr-2 text-sm md:text-base lg:text-lg opacity-70"
                                                     initial={{ opacity: 0 }}
                                                     animate={{ 
                                                         opacity: 1,
@@ -460,82 +477,78 @@ const PortfolioNavHeader = () => {
                                 </div>
                                 <div className="w-full md:w-1/2 md:pl-8 pt-6 md:pt-0">
                                     {personalSections.map((section, index) => (
-                                        <Link 
-                                            href={section.route} 
+                                        <motion.button
                                             key={section.id}
-                                            onClick={() => setIsMenuOpen(false)}
+                                            className={`group py-3 md:py-4 text-center w-full flex items-center justify-center ${
+                                                activeSection === section.id 
+                                                    ? 'text-accent' 
+                                                    : 'text-muted-foreground hover:text-foreground'
+                                            }`}
+                                            onClick={() => handleSectionChange(section.id)}
+                                            initial={{ opacity: 0, y: 40 }}
+                                            animate={{ 
+                                                opacity: 1, 
+                                                y: 0,
+                                                transition: { 
+                                                    delay: index * 0.1 + 0.2,
+                                                    type: "spring",
+                                                    stiffness: 300,
+                                                    damping: 24
+                                                } 
+                                            }}
+                                            exit={{ 
+                                                opacity: 0,
+                                                y: 20,
+                                                transition: { delay: (personalSections.length - index) * 0.05 } 
+                                            }}
+                                            whileHover={{ 
+                                                scale: 1.05, 
+                                                x: -10,
+                                                transition: { duration: 0.3 }
+                                            }}
                                         >
-                                            <motion.div
-                                                className={`group py-3 md:py-4 text-center w-full flex items-center justify-center cursor-pointer ${
-                                                    activeSection === section.id 
-                                                        ? 'text-accent' 
-                                                        : 'text-muted-foreground hover:text-foreground'
-                                                }`}
-                                                initial={{ opacity: 0, y: 40 }}
-                                                animate={{ 
-                                                    opacity: 1, 
-                                                    y: 0,
-                                                    transition: { 
-                                                        delay: index * 0.1 + 0.2,
-                                                        type: "spring",
-                                                        stiffness: 300,
-                                                        damping: 24
-                                                    } 
-                                                }}
-                                                exit={{ 
-                                                    opacity: 0,
-                                                    y: 20,
-                                                    transition: { delay: (personalSections.length - index) * 0.05 } 
-                                                }}
-                                                whileHover={{ 
-                                                    scale: 1.05, 
-                                                    x: -10,
-                                                    transition: { duration: 0.3 }
-                                                }}
-                                            >
-                                                <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
-                                                    <motion.span 
-                                                        className="text-xs md:text-sm opacity-70 mr-2"
-                                                        initial={{ opacity: 0, x: 10 }}
-                                                        animate={{ 
-                                                            opacity: 0.7, 
-                                                            x: 0,
-                                                            transition: { delay: index * 0.1 + 0.4 }
+                                            <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
+                                                <motion.span 
+                                                    className="text-xs md:text-sm opacity-70 mr-2"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ 
+                                                        opacity: 0.7, 
+                                                        x: 0,
+                                                        transition: { delay: index * 0.1 + 0.4 }
+                                                    }}
+                                                >
+                                                    {section.number}
+                                                </motion.span>
+                                                <motion.span 
+                                                    className="mr-2 text-sm md:text-base lg:text-lg opacity-70"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ 
+                                                        opacity: 1,
+                                                        transition: { delay: index * 0.1 + 0.3 }
+                                                    }}
+                                                >
+                                                    {'//'}
+                                                </motion.span>
+                                                <motion.span 
+                                                    className="font-light relative overflow-hidden"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ 
+                                                        opacity: 1,
+                                                        transition: { delay: index * 0.1 + 0.5 }
+                                                    }}
+                                                >
+                                                    {section.name}
+                                                    <motion.div 
+                                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
+                                                        initial={{ scaleX: 0, originX: 0 }}
+                                                        whileHover={{ 
+                                                            scaleX: 1,
+                                                            transition: { duration: 0.3 } 
                                                         }}
-                                                    >
-                                                        {section.number}
-                                                    </motion.span>
-                                                    <motion.span 
-                                                        className="mr-2"
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ 
-                                                            opacity: 1,
-                                                            transition: { delay: index * 0.1 + 0.3 }
-                                                        }}
-                                                    >
-                                                        {'//'}
-                                                    </motion.span>
-                                                    <motion.span 
-                                                        className="font-light relative overflow-hidden"
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ 
-                                                            opacity: 1,
-                                                            transition: { delay: index * 0.1 + 0.5 }
-                                                        }}
-                                                    >
-                                                        {section.name}
-                                                        <motion.div 
-                                                            className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
-                                                            initial={{ scaleX: 0, originX: 0 }}
-                                                            whileHover={{ 
-                                                                scaleX: 1,
-                                                                transition: { duration: 0.3 } 
-                                                            }}
-                                                        />
-                                                    </motion.span>
-                                                </div>
-                                            </motion.div>
-                                        </Link>
+                                                    />
+                                                </motion.span>
+                                            </div>
+                                        </motion.button>
                                     ))}
                                 </div>
                             </div>
