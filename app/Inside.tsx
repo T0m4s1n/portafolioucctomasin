@@ -32,7 +32,7 @@ const ProjectExplorer: React.FC = () => {
       id: "loginar",
       title: "LOGINAR",
       date: "Dec.2024",
-      category: "Logistica e Inventario",
+      category: "HACKATHON",
       type: "Desarrollo",
       description: "Organiza tu inventario con IA, busca items instantáneamente y optimiza los tiempos de tu negocio. Desarrollado con Vue y Node.js.",
       liveUrl: "https://loginar.vercel.app/",
@@ -105,10 +105,10 @@ const ProjectExplorer: React.FC = () => {
       date: "jun.2023",
       category: "Competencia",
       type: "Desarrollo",
-      description: "",
+      description: "Competencia de café en la que se desarrolló una plataforma para la recolección de votos y se realizo en la ciudad de Pasto.",
       accentColor: delugeColors[3],
       technologies: ["React/CSS", "Node.js"],
-      imageUrl: "/api/placeholder/800/500"
+      imageUrl: "./mastercoffe.png"
     }
   ];
 

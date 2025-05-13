@@ -64,7 +64,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
         setActiveSection(sectionId);
         setIsMenuOpen(false);
         
-        // Call the parent's onSectionChange function
         onSectionChange(sectionId as "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "education" | "hobbies" | "games" | "recommendations" | "recomendations");
         
         const element = document.getElementById(sectionId);
