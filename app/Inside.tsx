@@ -132,9 +132,9 @@ const ProjectExplorer: React.FC = () => {
   };
 
   return (
-    <div className="relative h-full">
+    <section className="relative h-full">
       <AnimatePresence mode="wait">
-        <motion.div
+        <motion.section
           key={hoveredProject || activeProject}
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.15 }}
@@ -148,12 +148,12 @@ const ProjectExplorer: React.FC = () => {
             alt="Background" 
             className="w-full h-full object-cover"
           />
-        </motion.div>
+        </motion.section>
       </AnimatePresence>
 
-      <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 relative z-10">
-        <div className="md:w-1/2 lg:w-5/12">
-          <motion.div 
+      <section className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 relative z-10">
+        <section className="md:w-1/2 lg:w-5/12">
+          <motion.section 
             variants={{
               hidden: { opacity: 0, y: -10 },
               visible: { opacity: 1, y: 0, transition: fastTransition }
@@ -163,28 +163,28 @@ const ProjectExplorer: React.FC = () => {
             <span className="text-sm text-accent opacity-80 mr-2">02</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Proyectos</span>
-          </motion.div>
+          </motion.section>
 
-          <motion.div 
+          <motion.section 
             className="mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="flex items-center gap-4 mb-2">
+            <section className="flex items-center gap-4 mb-2">
               <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-deluge-500 to-deluge-700 bg-clip-text">
                 <span style={{ fontFamily: "'Dancing Script', cursive", color: "var(--deluge-500)" }}>Proyectos destacados</span>
               </h2>
-            </div>
-            <div>
+            </section>
+            <section>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
                 Explora mi trabajo creativo en diferentes categorías y tecnologías.
               </p>
-            </div>
-          </motion.div>
-          <div className="space-y-0">
+            </section>
+          </motion.section>
+          <section className="space-y-0">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.section
                 key={project.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -192,7 +192,7 @@ const ProjectExplorer: React.FC = () => {
                 className="border-b last:border-b-0"
                 style={{ borderColor: `${delugeColors[0]}30` }}
               >
-                <div 
+                <section 
                   className={`
                     cursor-pointer py-4 px-2 flex justify-between items-center group
                     transition-all duration-200 hover:pl-4
@@ -202,26 +202,26 @@ const ProjectExplorer: React.FC = () => {
                   onMouseEnter={() => setHoveredProject(project.id)}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <div className="flex items-center">
-                    <motion.div 
+                  <section className="flex items-center">
+                    <motion.section 
                       className={`w-1 h-4 mr-3 rounded-full transition-all duration-200 ${
                         activeProject === project.id || hoveredProject === project.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-60'
                       }`}
                       style={{ backgroundColor: project.accentColor }}
                     />
                     <h3 className="text-lg font-medium">{project.title}</h3>
-                  </div>
-                  <div className="text-sm text-right">
+                  </section>
+                  <section className="text-sm text-right">
                     <span className="text-muted-foreground">{project.category}</span>
-                  </div>
-                </div>
-              </motion.div>
+                  </section>
+                </section>
+              </motion.section>
             ))}
-          </div>
-        </div>
-        <div className="md:w-1/2 lg:w-7/12">
+          </section>
+        </section>
+        <section className="md:w-1/2 lg:w-7/12">
           <AnimatePresence mode="wait">
-            <motion.div
+            <motion.section
               key={hoveredProject || activeProject}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -229,46 +229,46 @@ const ProjectExplorer: React.FC = () => {
               transition={fastTransition}
               className="h-full"
             >
-              <motion.div 
+              <motion.section 
                 className="h-full rounded-lg overflow-hidden shadow-lg"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={fastTransition}
               >
-                <div className="relative bg-transparent h-auto md:h-full">
-                  <div className="aspect-[4/5] md:aspect-video w-full">
+                <section className="relative bg-transparent h-auto md:h-full">
+                  <section className="aspect-[4/5] md:aspect-video w-full">
                     <img 
                       src={getCurrentProjectImage() || "/api/placeholder/800/500"} 
                       alt={getCurrentProject()?.title || "Project Image"}
                       className="w-full h-full object-cover transition-opacity duration-200" 
                     />
-                  </div>               
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <motion.div 
+                  </section>               
+                  <section className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></section>
+                  <motion.section 
                     className="absolute bottom-0 left-0 p-4 md:p-6 w-full"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2, delay: 0.1 }}
                   >
-                    <div className="flex justify-between items-end mb-2 md:mb-3">
+                    <section className="flex justify-between items-end mb-2 md:mb-3">
                       <h2 className="text-2xl md:text-3xl font-bold text-white">
                         {getCurrentProject()?.title}
                       </h2>
                       <span className="text-white/80 text-xs md:text-sm">
                         {getCurrentProject()?.date}
                       </span>
-                    </div>
+                    </section>
                     
-                    <div className="mb-2 md:mb-4">
+                    <section className="mb-2 md:mb-4">
                       <p className="text-white/90 text-xs md:text-sm font-medium">
                         {getCurrentProject()?.category} • {getCurrentProject()?.type}
                       </p>
-                    </div>
+                    </section>
                     
                     <p className="text-white/80 mb-4 md:mb-6 text-xs md:text-sm max-w-xl">
                       {getCurrentProject()?.description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <section className="flex flex-wrap gap-2">
                       {getCurrentProject()?.technologies.map((tech) => (
                         <motion.span
                           key={tech}
@@ -278,7 +278,7 @@ const ProjectExplorer: React.FC = () => {
                           {tech}
                         </motion.span>
                       ))}
-                    </div>
+                    </section>
                     {getCurrentProject()?.liveUrl && (
                       <a 
                         href={getCurrentProject()?.liveUrl} 
@@ -292,14 +292,14 @@ const ProjectExplorer: React.FC = () => {
                         </svg>
                       </a>
                     )}
-                  </motion.div>
-                </div>
-              </motion.div>
-            </motion.div>
+                  </motion.section>
+                </section>
+              </motion.section>
+            </motion.section>
           </AnimatePresence>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
   );
 };
 

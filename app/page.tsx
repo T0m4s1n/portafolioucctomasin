@@ -25,22 +25,20 @@ const PortfolioPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('home');
     
-    // Create references for all sections
     const sectionRefs = {
         home: useRef(null),
-        work: useRef(null), // Assuming Inside component is for 'work' section
+        work: useRef(null),
         expertise: useRef(null),
         experience: useRef(null),
         contact: useRef(null),
         about: useRef(null),
-        skills: useRef(null), // Assuming Habilities component is for 'skills' section
+        skills: useRef(null),
         education: useRef(null),
         hobbies: useRef(null),
-        games: useRef(null), // This seems to be an additional section compared to your header
-        recommendations: useRef(null) // Assuming Recomendations component is for 'recommendations' section
+        games: useRef(null),
+        recommendations: useRef(null)
     };
     
-    // Function to handle section navigation from header
     const handleSectionChange = (sectionId: keyof typeof sectionRefs) => {
         setActiveSection(sectionId);
         const sectionRef = sectionRefs[sectionId];
@@ -80,49 +78,49 @@ const PortfolioPage = () => {
                     {/* @ts-expect-error: Icon property is dynamically assigned and may not match strict type checks */}
                     <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
                     
-                    <div ref={sectionRefs.home} id="home">
+                    <section ref={sectionRefs.home} id="home">
                         <Home />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.work} id="work">
+                    <section ref={sectionRefs.work} id="work">
                         <Inside />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.expertise} id="expertise">
+                    <section ref={sectionRefs.expertise} id="expertise">
                         <Expertise />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.experience} id="experience">
+                    <section ref={sectionRefs.experience} id="experience">
                         <Experience />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.contact} id="contact">
+                    <section ref={sectionRefs.contact} id="contact">
                         <Contact />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.about} id="about">
+                    <section ref={sectionRefs.about} id="about">
                         <About />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.skills} id="skills">
+                    <section ref={sectionRefs.skills} id="skills">
                         <Habilities />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.education} id="education">
+                    <section ref={sectionRefs.education} id="education">
                         <Education />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.hobbies} id="hobbies">
+                    <section ref={sectionRefs.hobbies} id="hobbies">
                         <Hobbies />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.games} id="games">
+                    <section ref={sectionRefs.games} id="games">
                         <Games />
-                    </div>
+                    </section>
                     
-                    <div ref={sectionRefs.recommendations} id="recommendations">
+                    <section ref={sectionRefs.recommendations} id="recommendations">
                         <Recomendations />
-                    </div>
+                    </section>
                     
                     <Footer />
                 </>

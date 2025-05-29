@@ -31,29 +31,29 @@ const PortfolioHomeSection = () => {
 
   return (
     <section id="home" className="min-h-screen md:min-h-screen pt-20 md:pt-0 relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
-        <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+        <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
           <h1 className="text-[20vw] font-bold text-stroke text-transparent opacity-5 whitespace-nowrap tracking-tighter"
             style={{ 
             WebkitTextStroke: '2px var(--accent)'
             }}>
             TOMASIN
           </h1>
-        </div>
+        </section>
       
-      <div className="container mx-auto px-8 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <motion.div
+      <section className="container mx-auto px-8 relative z-10">
+        <section className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <motion.section
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="max-w-3xl flex-1"
           >
-            <motion.div variants={itemVariants} className="flex items-center mb-6">
+            <motion.section variants={itemVariants} className="flex items-center mb-6">
               <span className="text-sm text-accent opacity-80 mr-2">01</span>
               <span className="text-sm text-accent mr-2">{'//'}</span>
               <span className="text-sm text-accent font-light">introduccion</span>
-            </motion.div>
+            </motion.section>
             
             <motion.h1 variants={itemVariants} className="text-3xl md:text-6xl lg:text-7xl font-light mb-6">
             Me llamo <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>Tomasin</span><br />
@@ -64,7 +64,7 @@ const PortfolioHomeSection = () => {
               Desarrollador frontend y diseñador especializado en crear aplicaciones web elegantes, funcionales y accesibles con un enfoque en movimiento y experiencia de usuario.
             </motion.p>
             
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+            <motion.section variants={itemVariants} className="flex flex-wrap gap-4">
               <motion.button
                 onClick={() => scrollToSection('contact')}
                 className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
@@ -82,17 +82,16 @@ const PortfolioHomeSection = () => {
               >
                 Ver proyectos
               </motion.button>
-            </motion.div>
-          </motion.div>
+            </motion.section>
+          </motion.section>
           
-          <motion.div 
+          <motion.section 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
             className="flex-shrink-0 flex flex-col items-center justify-center md:mx-auto md:pr-16"
           >
-            {/* Photo container with vine decorations */}
-            <motion.div 
+            <motion.section 
               className="border border-accent/10 rounded-md p-2 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md overflow-hidden shadow-md relative"
               style={{ maxWidth: "350px" }}
               whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
@@ -102,20 +101,19 @@ const PortfolioHomeSection = () => {
                 alt="Profile photo" 
                 className="w-full h-auto object-cover rounded-sm"
               />
-              <div className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
+              <section className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
+            </motion.section>
+          </motion.section>
+        </section>
+      </section>
       
-      <div className="absolute bottom-12 left-8 md:bottom-16 md:left-16">
-        <motion.div 
+      <section className="absolute bottom-12 left-8 md:bottom-16 md:left-16">
+        <motion.section 
           className="flex gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
-          {/* Only GitHub and LinkedIn icons with proper links */}
           <motion.a
             href="https://github.com/T0m4s1n"
             target="_blank"
@@ -145,23 +143,23 @@ const PortfolioHomeSection = () => {
               <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </motion.a>
-        </motion.div>
-      </div>
+        </motion.section>
+      </section>
       
-      <motion.div 
+      <motion.section 
         className="absolute bottom-8 right-8 md:bottom-16 md:right-16 flex flex-col items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.4, duration: 0.6 }}
       >
         <span className="text-xs text-muted-foreground mb-2 rotate-90 origin-bottom-right">scrollea</span>
-        <motion.div 
+        <motion.section 
           className="w-px h-16 bg-accent/30"
           initial={{ scaleY: 0, originY: 0 }}
           animate={{ scaleY: 1 }}
           transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
         />
-      </motion.div>
+      </motion.section>
       
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');

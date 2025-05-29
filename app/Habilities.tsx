@@ -68,57 +68,57 @@ const SkillsSection = () => {
 
   const SkillCard = ({ category }: { category: SkillCategory }) => {
     return (
-      <motion.div
+      <motion.section
         variants={itemVariants}
         className="relative border border-accent/10 rounded-md p-6 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md shadow-md h-full overflow-hidden mx-auto"
       >
-        <div className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
+        <section className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
           {Array(3).fill(category.title.toLowerCase().replace(/\s/g, "")).map((text, idx) => (
             <span key={idx} className="block whitespace-nowrap">{text}</span>
           ))}
-        </div>
+        </section>
         
-        <div className="mb-4 flex items-center">
-          <div className="mr-4 bg-accent/10 p-3 rounded-md">
+        <section className="mb-4 flex items-center">
+          <section className="mr-4 bg-accent/10 p-3 rounded-md">
             {category.icon}
-          </div>
+          </section>
           <h3 className="text-xl font-light text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>
             {category.title}
           </h3>
-        </div>
+        </section>
         
         <p className="text-sm text-muted-foreground mb-5 line-clamp-3">
           {category.description}
         </p>
         
-        <div className="space-y-4 relative z-10">
+        <section className="space-y-4 relative z-10">
           {category.skills.map((skill, idx) => (
-            <div key={idx} className="space-y-2">
-              <div className="flex justify-between text-sm">
+            <section key={idx} className="space-y-2">
+              <section className="flex justify-between text-sm">
                 <span>{skill.name}</span>
                 <span className="text-accent">{skill.level}%</span>
-              </div>
-              <div className="w-full h-2 bg-accent/10 rounded-full overflow-hidden">
-                <motion.div
+              </section>
+              <section className="w-full h-2 bg-accent/10 rounded-full overflow-hidden">
+                <motion.section
                   initial={{ width: 0 }}
                   whileInView={{ width: `${skill.level}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 1, delay: 0.2 + idx * 0.1 }}
                   className="h-full bg-accent rounded-full"
                 />
-              </div>
-            </div>
+              </section>
+            </section>
           ))}
-        </div>
+        </section>
         
-        <motion.div
+        <motion.section
           initial={{ scale: 0, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
           className="absolute -bottom-8 -right-8 w-24 h-24 bg-accent/5 blur-3xl rounded-full pointer-events-none"
         />
-      </motion.div>
+      </motion.section>
     );
   };
 
@@ -128,22 +128,22 @@ const SkillsSection = () => {
       ref={sectionRef}
       className="py-24 relative bg-deluge-50 dark:bg-deluge-950"
     >
-      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <section className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
       
-      <div className="container mx-auto px-8">
-        <motion.div
+      <section className="container mx-auto px-8">
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16 relative z-10"
         >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
+          <motion.section variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">07</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Habilidades</span>
-          </motion.div>
+          </motion.section>
           
           <style jsx global>{`
             @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
@@ -156,15 +156,15 @@ const SkillsSection = () => {
             Mis <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>habilidades</span>
           </motion.h2>
           
-          <motion.div variants={itemVariants} className="text-lg max-w-3xl mb-8">
+          <motion.section variants={itemVariants} className="text-lg max-w-3xl mb-8">
             <p className="mb-4 text-muted-foreground">
               A lo largo de mi carrera, he desarrollado un conjunto diverso de habilidades que me permiten abordar 
               proyectos digitales de forma integral.
             </p>
-          </motion.div>
-        </motion.div>
+          </motion.section>
+        </motion.section>
         
-        <motion.div
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -174,9 +174,9 @@ const SkillsSection = () => {
           {skillCategories.map((category, idx) => (
             <SkillCard key={idx} category={category} />
           ))}
-        </motion.div>
+        </motion.section>
 
-        <motion.div
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -188,9 +188,9 @@ const SkillsSection = () => {
             incluyendo desarrollo backend con Node.js y metodologías ágiles para 
             gestión de proyectos.
           </motion.p>
-        </motion.div>
+        </motion.section>
         
-        <motion.div
+        <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -198,7 +198,7 @@ const SkillsSection = () => {
           className="absolute -bottom-10 right-0 w-32 h-32 bg-accent/5 blur-3xl rounded-full pointer-events-none"
         />
         
-        <motion.div
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -206,8 +206,8 @@ const SkillsSection = () => {
           className="absolute bottom-8 left-6 text-accent/50 text-xs"
         >
           <motion.span variants={itemVariants}>© 2025</motion.span>
-        </motion.div>
-      </div>
+        </motion.section>
+      </section>
     </section>
   );
 };

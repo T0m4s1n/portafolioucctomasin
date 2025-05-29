@@ -92,7 +92,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
   if (!showContent) return null;
 
   return (
-    <motion.div 
+    <motion.section 
       className="fixed inset-0 z-50 flex flex-col items-center justify-center font-mono text-accent overflow-hidden"
       initial={{ opacity: 1 }}
       animate={{ opacity: showContent ? 1 : 0 }}
@@ -100,9 +100,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
       onClick={loadingComplete ? handleClick : undefined}
       style={{ cursor: loadingComplete ? 'pointer' : 'default' }}
     >
-      <div className="w-full max-w-2xl px-4 sm:px-6 relative z-10">
-        {/* Fixed size container */}
-        <motion.div 
+      <section className="w-full max-w-2xl px-4 sm:px-6 relative z-10">
+        <motion.section 
           className="border border-accent/50 rounded p-3 sm:p-4 bg-background/80 backdrop-blur-sm"
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -114,19 +113,19 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
             flexDirection: 'column'
           }}
         >
-          <div className="flex items-center justify-between mb-2 border-b border-accent/30 pb-2">
-            <div className="text-xs sm:text-sm opacity-80">portafolio@tomasin:~</div>
-            <div className="flex gap-1 sm:gap-2">
-              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
-              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
-            </div>
-          </div>
+          <section className="flex items-center justify-between mb-2 border-b border-accent/30 pb-2">
+            <section className="text-xs sm:text-sm opacity-80">portafolio@tomasin:~</section>
+            <section className="flex gap-1 sm:gap-2">
+              <section className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></section>
+              <section className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></section>
+              <section className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></section>
+            </section>
+          </section>
 
-          <div className="text-xs sm:text-sm mb-4 text-accent/80 flex-grow overflow-y-auto px-1 w-full overflow-x-hidden">
-            <div className="h-full flex flex-col">
+          <section className="text-xs sm:text-sm mb-4 text-accent/80 flex-grow overflow-y-auto px-1 w-full overflow-x-hidden">
+            <section className="h-full flex flex-col">
               {terminalLines.slice(0, visibleLineIndex + 1).map((line, index) => (
-                <motion.div
+                <motion.section
                   key={index}
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -134,24 +133,24 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
                   className="mb-1"
                 >
                   {line}
-                </motion.div>
+                </motion.section>
               ))}
               {loadingComplete && (
-                <motion.div
+                <motion.section
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="mt-2"
                 >
                   {'> ¡Portafolio listo! Presiona cualquier tecla o haz clic en cualquier lugar para entrar...'}
-                </motion.div>
+                </motion.section>
               )}
-            </div>
-          </div>
+            </section>
+          </section>
 
-          <div className="mt-auto">
-            <div className="relative w-full mb-1 overflow-hidden">
-              <motion.div 
+          <section className="mt-auto">
+            <section className="relative w-full mb-1 overflow-hidden">
+              <motion.section 
                 initial={{ opacity: 0.7 }}
                 animate={{ 
                   opacity: pulseEffect ? [0.7, 1, 0.7] : 0.9,
@@ -169,11 +168,11 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
                 >
                   {getASCIIProgressBar(progress)}
                 </motion.span>
-              </motion.div>
-            </div>
+              </motion.section>
+            </section>
             
-            <div className="flex justify-between items-center px-2 text-xs sm:text-sm opacity-80 overflow-hidden">
-              <motion.div
+            <section className="flex justify-between items-center px-2 text-xs sm:text-sm opacity-80 overflow-hidden">
+              <motion.section
                 animate={{ 
                   rotateY: [0, 180, 360],
                   opacity: [0.7, 1, 0.7]
@@ -185,9 +184,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
                 }}
               >
                 {progress < 100 ? '◁' : '◀'}
-              </motion.div>
+              </motion.section>
               
-              <motion.div
+              <motion.section
                 animate={{ 
                   rotateY: [0, 180, 360],
                   opacity: [0.7, 1, 0.7]
@@ -200,11 +199,11 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
                 }}
               >
                 {progress < 100 ? '▷' : '▶'}
-              </motion.div>
-            </div>
+              </motion.section>
+            </section>
             
             {showContinueText && (
-              <motion.div 
+              <motion.section 
                 className="font-mono text-xs sm:text-sm mt-2 sm:mt-3 text-accent/90 text-center"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ 
@@ -218,12 +217,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
                 }}
               >
                 Presiona cualquier tecla o haz clic para continuar...
-              </motion.div>
+              </motion.section>
             )}
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
+          </section>
+        </motion.section>
+      </section>
+    </motion.section>
   );
 };
 

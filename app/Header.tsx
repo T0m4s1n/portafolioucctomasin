@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './themeutils';
 import { Sun, Moon } from 'lucide-react';
 
-// Define the props interface for Header component
+
 interface PortfolioNavHeaderProps {
   activeSection: string;
   onSectionChange: (
@@ -21,7 +21,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
     const [lastScrollY, setLastScrollY] = useState(0);
     const { theme, toggleTheme } = useTheme();
 
-    // Update component state when prop changes
     useEffect(() => {
         setActiveSection(propActiveSection);
     }, [propActiveSection]);
@@ -129,8 +128,8 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-                <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-                    <motion.div 
+                <section className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+                    <motion.section 
                         className="text-accent text-xl md:text-2xl font-light overflow-hidden relative"
                         variants={logoVariants}
                         initial="initial"
@@ -141,7 +140,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                         }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <div 
+                        <section 
                             className="absolute top-0 left-0 opacity-10 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Playwrite HU', cursive", 
@@ -151,9 +150,9 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                             }}
                         >
                             /.Tomasin
-                        </div>
+                        </section>
                         
-                        <div 
+                        <section 
                             className="absolute top-0 left-0 opacity-20 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Dancing Script', cursive", 
@@ -163,9 +162,9 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                             }}
                         >
                             /.Tomasin
-                        </div>
+                        </section>
                         
-                        <div 
+                        <section 
                             className="absolute top-0 left-0 opacity-15 text-accent hidden md:block" 
                             style={{ 
                                 fontFamily: "'Playwrite HU', cursive", 
@@ -175,7 +174,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                             }}
                         >
                             /.Tomasin
-                        </div>
+                        </section>
                         
                         <motion.span
                             initial={{ y: '100%' }}
@@ -194,9 +193,9 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                 dev
                             </motion.span>
                         </motion.span>
-                    </motion.div>
+                    </motion.section>
                     
-                    <div className="flex items-center gap-2 md:gap-4">
+                    <section className="flex items-center gap-2 md:gap-4">
                         <motion.button
                             className="w-8 h-8 md:w-10 md:h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
                             onClick={toggleTheme}
@@ -214,7 +213,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                         >
                             <AnimatePresence mode="wait">
                                 {isDarkMode ? (
-                                    <motion.div 
+                                    <motion.section 
                                         key="sun"
                                         initial={{ rotate: -180, opacity: 0 }}
                                         animate={{ rotate: 0, opacity: 1 }}
@@ -222,9 +221,9 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                         transition={{ duration: 0.5 }}
                                     >
                                         <Sun className="w-5 h-5 md:w-6 md:h-6" />
-                                    </motion.div>
+                                    </motion.section>
                                 ) : (
-                                    <motion.div 
+                                    <motion.section 
                                         key="moon"
                                         initial={{ rotate: 180, opacity: 0 }}
                                         animate={{ rotate: 0, opacity: 1 }}
@@ -232,7 +231,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                         transition={{ duration: 0.5 }}
                                     >
                                         <Moon className="w-5 h-5 md:w-6 md:h-6" />
-                                    </motion.div>
+                                    </motion.section>
                                 )}
                             </AnimatePresence>
                         </motion.button>
@@ -249,7 +248,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                             }}
                             aria-label="Toggle menu"
                         >
-                            <div className="grid grid-cols-3 gap-1 md:gap-1.5 w-6 h-6 md:w-8 md:h-8">
+                            <section className="grid grid-cols-3 gap-1 md:gap-1.5 w-6 h-6 md:w-8 md:h-8">
                                 {[...Array(9)].map((_, i) => (
                                     <motion.span
                                         key={i}
@@ -272,14 +271,14 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                         }}
                                     />
                                 ))}
-                            </div>
+                            </section>
                         </motion.button>
-                    </div>
-                </div>
+                    </section>
+                </section>
             </motion.header>
             <AnimatePresence>
                 {isMenuOpen && (
-                    <motion.div 
+                    <motion.section 
                         className="fixed inset-0 bg-background/95 backdrop-blur-lg z-40 flex items-center justify-center overflow-y-auto"
                         initial="closed"
                         animate="open"
@@ -287,8 +286,8 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                         variants={menuVariants}
                     >
                         <motion.nav className="container mx-auto px-4 md:px-8 py-16 flex flex-col items-center justify-center min-h-screen">
-                            <div className="flex flex-col md:flex-row w-full">
-                                <div className="w-full md:w-1/2 md:pr-8 border-b md:border-b-0 md:border-r border-accent/20 pb-6 md:pb-0">
+                            <section className="flex flex-col md:flex-row w-full">
+                                <section className="w-full md:w-1/2 md:pr-8 border-b md:border-b-0 md:border-r border-accent/20 pb-6 md:pb-0">
                                     {sections.map((section, index) => (
                                         <motion.button
                                             key={section.id}
@@ -320,7 +319,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                 transition: { duration: 0.3 }
                                             }}
                                         >
-                                            <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
+                                            <section className="flex items-center text-xl md:text-2xl lg:text-3xl">
                                                 <motion.span 
                                                     className="text-xs md:text-sm opacity-70 mr-2"
                                                     initial={{ opacity: 0, x: -10 }}
@@ -351,7 +350,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                     }}
                                                 >
                                                     {section.name}
-                                                    <motion.div 
+                                                    <motion.section 
                                                         className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
                                                         initial={{ scaleX: 0, originX: 0 }}
                                                         whileHover={{ 
@@ -360,11 +359,11 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                         }}
                                                     />
                                                 </motion.span>
-                                            </div>
+                                            </section>
                                         </motion.button>
                                     ))}
-                                </div>
-                                <div className="w-full md:w-1/2 md:pl-8 pt-6 md:pt-0">
+                                </section>
+                                <section className="w-full md:w-1/2 md:pl-8 pt-6 md:pt-0">
                                     {personalSections.map((section, index) => (
                                         <motion.button
                                             key={section.id}
@@ -396,7 +395,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                 transition: { duration: 0.3 }
                                             }}
                                         >
-                                            <div className="flex items-center text-xl md:text-2xl lg:text-3xl">
+                                            <section className="flex items-center text-xl md:text-2xl lg:text-3xl">
                                                 <motion.span 
                                                     className="text-xs md:text-sm opacity-70 mr-2"
                                                     initial={{ opacity: 0, x: 10 }}
@@ -427,7 +426,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                     }}
                                                 >
                                                     {section.name}
-                                                    <motion.div 
+                                                    <motion.section 
                                                         className="absolute bottom-0 left-0 h-0.5 bg-accent/60 w-full"
                                                         initial={{ scaleX: 0, originX: 0 }}
                                                         whileHover={{ 
@@ -436,13 +435,13 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                                         }}
                                                     />
                                                 </motion.span>
-                                            </div>
+                                            </section>
                                         </motion.button>
                                     ))}
-                                </div>
-                            </div>
+                                </section>
+                            </section>
                         </motion.nav>
-                    </motion.div>
+                    </motion.section>
                 )}
             </AnimatePresence>
         </>

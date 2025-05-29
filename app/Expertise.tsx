@@ -87,7 +87,7 @@ const ExpertiseSection = () => {
     const isCardInView = useInView(ref, { once: true, amount: 0.3 });
 
     return (
-      <motion.div
+      <motion.section
         ref={ref}
         key={item.id}
         variants={itemVariants}
@@ -95,17 +95,17 @@ const ExpertiseSection = () => {
         animate={isCardInView ? "visible" : "hidden"}
         className="border border-accent/10 rounded-md p-8 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md relative overflow-hidden"
       >
-        <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
+        <section className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
           {Array(8).fill(item.bgText).map((text, idx) => (
             <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
           ))}
-        </div>
+        </section>
         
-        <div className="flex mb-4 relative z-10">
-          <div className="text-4xl text-accent mr-4">
+        <section className="flex mb-4 relative z-10">
+          <section className="text-4xl text-accent mr-4">
             {item.icon}
-          </div>
-        </div>
+          </section>
+        </section>
         
         <h3 className="text-xl font-mono mb-1 text-accent">
           {item.title}
@@ -117,7 +117,7 @@ const ExpertiseSection = () => {
         <p className="text-muted-foreground opacity-80 relative z-10 text-sm">
           {item.description}
         </p>
-      </motion.div>
+      </motion.section>
     );
   };
 
@@ -127,22 +127,22 @@ const ExpertiseSection = () => {
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975 relative"
     >
-      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <section className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       
-      <div className="container mx-auto px-8">
-        <motion.div
+      <section className="container mx-auto px-8">
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16"
         >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
+          <motion.section variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">03</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Especialidades</span>
-          </motion.div>
+          </motion.section>
           
           <>
           <style jsx global>{`
@@ -160,14 +160,14 @@ const ExpertiseSection = () => {
           <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
             Combinando habilidades técnicas con soluciones creativas para construir experiencias digitales modernas y eficientes.
           </motion.p>
-        </motion.div>
+        </motion.section>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {expertiseItems.map((item) => (
             <CardItem key={item.id} item={item} />
           ))}
-        </div>
-      </div>
+        </section>
+      </section>
     </section>
   );
 };

@@ -69,7 +69,7 @@ const ExperienceSection = () => {
     const isItemInView = useInView(itemRef, { once: true, amount: 0.3 });
 
     return (
-      <motion.div
+      <motion.section
         ref={itemRef}
         variants={itemVariants}
         initial="hidden"
@@ -77,22 +77,22 @@ const ExperienceSection = () => {
         className="mb-12 relative"
         whileHover={{ x: 10, transition: { duration: 0.2 } }}
       >
-        <div className="flex flex-col md:flex-row md:items-center border-b border-accent/20 pb-4">
-          <div className="md:w-2/5">
+        <section className="flex flex-col md:flex-row md:items-center border-b border-accent/20 pb-4">
+          <section className="md:w-2/5">
             <h2 className="text-4xl md:text-5xl font-light text-accent mb-2 tracking-wider">{project.name}</h2>
-            <div className="flex items-center mb-4 md:mb-0">
+            <section className="flex items-center mb-4 md:mb-0">
               <span className="text-xs text-accent/70 uppercase tracking-wider">— {project.type}</span>
               {project.isNew && (
                 <span className="ml-3 text-xs px-2 py-0.5 bg-accent/10 rounded-full uppercase tracking-wider text-accent">Reciente</span>
               )}
-            </div>
-          </div>
+            </section>
+          </section>
           
-          <div className="md:w-3/5 md:pl-8">
+          <section className="md:w-3/5 md:pl-8">
             <p className="text-sm md:text-base">{project.description}</p>
-          </div>
-        </div>
-      </motion.div>
+          </section>
+        </section>
+      </motion.section>
     );
   };
 
@@ -102,18 +102,18 @@ const ExperienceSection = () => {
       ref={sectionRef}
       className="py-24 relative"
     >
-      <div className="container mx-auto px-8">
-        <motion.div
+      <section className="container mx-auto px-8">
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="mb-16"
         >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
+          <motion.section variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">04</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Experiencia</span>
-          </motion.div>
+          </motion.section>
           
           <style jsx>{`
             @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
@@ -129,10 +129,10 @@ const ExperienceSection = () => {
           <motion.p variants={itemVariants} className="text-lg mb-8 max-w-2xl">
             Un recorrido por mi camino profesional y las experiencias que han forjado mis habilidades.
           </motion.p>
-        </motion.div>
+        </motion.section>
         
-        <div className="mt-12">
-          <motion.div
+        <section className="mt-12">
+          <motion.section
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -143,13 +143,13 @@ const ExperienceSection = () => {
                 project={project}
               />
             ))}
-          </motion.div>
-        </div>
+          </motion.section>
+        </section>
         
-        <div className="absolute bottom-8 left-6 text-accent/50 text-sm">
+        <section className="absolute bottom-8 left-6 text-accent/50 text-sm">
           © 2025
-        </div>
-      </div>
+        </section>
+      </section>
     </section>
   );
 };

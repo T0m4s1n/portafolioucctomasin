@@ -145,24 +145,22 @@ const EducationSection = () => {
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975 relative"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <section className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       
-      <div className="container mx-auto px-4 md:px-8">
-        {/* Section header */}
-        <motion.div
+      <section className="container mx-auto px-4 md:px-8">
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16 relative z-10"
         >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
+          <motion.section variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">08</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Educación</span>
-          </motion.div>
+          </motion.section>
           
           <style jsx global>{`
             @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
@@ -175,24 +173,23 @@ const EducationSection = () => {
             Mi <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>formación</span>
           </motion.h2>
           
-          <motion.div variants={itemVariants} className="text-lg max-w-3xl mb-8">
+          <motion.section variants={itemVariants} className="text-lg max-w-3xl mb-8">
             <p className="mb-4 text-muted-foreground">
               Mi trayectoria formativa combina <span className="text-accent">educación formal</span> con
               <span className="text-accent"> aprendizaje continuo</span>, permitiéndome mantenerme 
               a la vanguardia de las tecnologías y metodologías emergentes.
             </p>
-          </motion.div>
-        </motion.div>
+          </motion.section>
+        </motion.section>
         
-        {/* Timeline Navigation - Fixed for iOS/macOS */}
-        <motion.div
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
-          <div className="relative flex justify-center items-center">
+          <section className="relative flex justify-center items-center">
             <motion.button 
               onClick={handlePrevCategory}
               whileHover={{ scale: 1.1 }}
@@ -203,16 +200,13 @@ const EducationSection = () => {
               <ChevronLeft className="w-5 h-5 text-accent" />
             </motion.button>
             
-            {/* Timeline Fixed Implementation */}
-            <div className="overflow-hidden relative w-full max-w-4xl mx-auto">
-              <div className="flex justify-center items-center relative px-12">
-                {/* Timeline line */}
-                <div className="absolute left-0 right-0 h-px bg-accent/10 top-12 z-0" />
-                
-                {/* Timeline Indicators */}
-                <div className="flex gap-16 md:gap-24 justify-center items-center relative">
+            <section className="overflow-hidden relative w-full max-w-4xl mx-auto">
+              <section className="flex justify-center items-center relative px-12">
+                <section className="absolute left-0 right-0 h-px bg-accent/10 top-12 z-0" />
+
+                <section className="flex gap-16 md:gap-24 justify-center items-center relative">
                   {educationItems.map((category, idx) => (
-                    <motion.div
+                    <motion.section
                       key={idx}
                       initial={{ opacity: 0.5, scale: 0.9 }}
                       animate={{ 
@@ -224,14 +218,14 @@ const EducationSection = () => {
                       className={`cursor-pointer transition-all duration-300 flex flex-col items-center ${
                         activeCategory === idx ? 'z-10' : 'z-0'
                       } ${
-                        // Show only active and adjacent elements on mobile
+
                         idx !== activeCategory && 
                         idx !== (activeCategory + 1) % educationItems.length && 
                         idx !== (activeCategory - 1 + educationItems.length) % educationItems.length
                         ? 'hidden md:flex' : ''
                       }`}
                     >
-                      <motion.div 
+                      <motion.section 
                         className={`p-3 rounded-full border shadow-lg mb-3 transition-all duration-300 ${
                           activeCategory === idx 
                             ? 'bg-deluge-50/50 dark:bg-deluge-950/50 border-accent/30' 
@@ -240,28 +234,26 @@ const EducationSection = () => {
                         whileHover={iconHoverVariants.hover}
                         initial="rest"
                       >
-                        <div className="bg-white dark:bg-deluge-950 rounded-full p-3 shadow-inner">
+                        <section className="bg-white dark:bg-deluge-950 rounded-full p-3 shadow-inner">
                           {React.cloneElement(category.icon, { className: `w-6 h-6 text-accent` })}
-                        </div>
-                      </motion.div>
-                      {/* Fixed width text to prevent layout shifts */}
-                      <div className="w-24 text-center">
+                        </section>
+                      </motion.section>
+                      <section className="w-24 text-center">
                         <span className={`font-medium text-sm transition-colors duration-300 ${
                           activeCategory === idx ? 'text-accent' : 'text-muted-foreground'
                         }`}>
                           {category.title}
                         </span>
-                      </div>
-                    </motion.div>
+                      </section>
+                    </motion.section>
                   ))}
-                </div>
-              </div>
+                </section>
+              </section>
               
-              {/* Position indicator */}
-              <div className="flex justify-center mt-4">
-                <div className="flex gap-2">
+              <section className="flex justify-center mt-4">
+                <section className="flex gap-2">
                   {educationItems.map((_, idx) => (
-                    <motion.div
+                    <motion.section
                       key={idx}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
                         activeCategory === idx ? 'bg-accent shadow-md' : 'bg-accent/20'
@@ -271,9 +263,9 @@ const EducationSection = () => {
                       transition={{ duration: 0.3 }}
                     />
                   ))}
-                </div>
-              </div>
-            </div>
+                </section>
+              </section>
+            </section>
             
             <motion.button 
               onClick={handleNextCategory}
@@ -284,18 +276,17 @@ const EducationSection = () => {
             >
               <ChevronRight className="w-5 h-5 text-accent" />
             </motion.button>
-          </div>
-        </motion.div>
+          </section>
+        </motion.section>
         
-        {/* Education Detail Panel - Fixed for iOS/macOS */}
-        <motion.div 
+        <motion.section 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="relative overflow-hidden"
         >
           <AnimatePresence mode="wait">
-            <motion.div
+            <motion.section
               key={`category-${activeCategory}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -304,19 +295,17 @@ const EducationSection = () => {
               className="relative"
             >
               
-              <div className="max-w-5xl mx-auto relative z-10">
-                <div className="bg-deluge-50/50 dark:bg-deluge-950/50 rounded-2xl shadow-xl p-8 border border-accent/10 relative overflow-hidden">
-                  {/* Background patterns */}
-                  <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
+              <section className="max-w-5xl mx-auto relative z-10">
+                <section className="bg-deluge-50/50 dark:bg-deluge-950/50 rounded-2xl shadow-xl p-8 border border-accent/10 relative overflow-hidden">
+                  <section className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
                     {Array(16).fill("education.details").map((text, idx) => (
                       <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
                     ))}
-                  </div>
+                  </section>
                   
-                  <div className="flex flex-col md:flex-row gap-8 relative z-10">
-                    {/* Left Column - Category Info */}
-                    <div className="md:w-1/3">
-                      <motion.div 
+                  <section className="flex flex-col md:flex-row gap-8 relative z-10">
+                    <section className="md:w-1/3">
+                      <motion.section 
                         className="p-4 rounded-xl bg-accent/10 mb-6 inline-flex shadow-sm"
                         whileHover={iconHoverVariants.hover}
                         initial="rest"
@@ -324,7 +313,7 @@ const EducationSection = () => {
                         {React.cloneElement(educationItems[activeCategory].icon, { 
                           className: "w-8 h-8 text-accent" 
                         })}
-                      </motion.div>
+                      </motion.section>
                       
                       <h3 className="text-2xl font-medium mb-3 text-accent">
                         {educationItems[activeCategory].title}
@@ -333,11 +322,9 @@ const EducationSection = () => {
                       <p className="text-muted-foreground mb-6">
                         {educationItems[activeCategory].description}
                       </p>
-                      
-                      {/* Mini Timeline */}
-                      <div className="space-y-2 mb-4">
+                      <section className="space-y-2 mb-4">
                         {educationItems[activeCategory].items.map((item, idx) => (
-                          <motion.div 
+                          <motion.section 
                             key={idx}
                             onClick={() => setActiveItem(idx)}
                             whileHover={{ x: 5 }}
@@ -348,7 +335,7 @@ const EducationSection = () => {
                                 : "hover:bg-accent/10 border-transparent hover:border-accent/20"
                             }`}
                           >
-                            <div 
+                            <section 
                               className={`w-2 h-2 rounded-full ${
                                 activeItem === idx 
                                   ? "bg-white" 
@@ -360,15 +347,14 @@ const EducationSection = () => {
                             }`}>
                               {item.name}
                             </span>
-                          </motion.div>
+                          </motion.section>
                         ))}
-                      </div>
-                    </div>
+                      </section>
+                    </section>
                     
-                    {/* Right Column - Item Detail */}
-                    <div className="md:w-2/3 relative overflow-hidden">
+                    <section className="md:w-2/3 relative overflow-hidden">
                       <AnimatePresence mode="wait">
-                        <motion.div
+                        <motion.section
                           key={`item-${activeItem}`}
                           initial={{ opacity: 0, x: 30 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -376,26 +362,25 @@ const EducationSection = () => {
                           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                           className="bg-deluge-50/50 dark:bg-deluge-950/70 p-6 rounded-xl border border-accent/10 h-full shadow-inner relative overflow-hidden"
                         >
-                          {/* Background pattern for item detail */}
-                          <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-5 text-xl font-mono text-accent/30 overflow-hidden p-4 select-none">
+                          <section className="absolute inset-0 flex flex-wrap content-center justify-center opacity-5 text-xl font-mono text-accent/30 overflow-hidden p-4 select-none">
                             {Array(8).fill(educationItems[activeCategory].items[activeItem].name).map((text, idx) => (
                               <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
                             ))}
-                          </div>
+                          </section>
                           
-                          <div className="relative z-10">
+                          <section className="relative z-10">
                             <h4 className="text-xl font-medium mb-2">
                               {educationItems[activeCategory].items[activeItem].name}
                             </h4>
                             
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
+                            <section className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
                               <span className="text-sm text-accent font-medium">
                                 {educationItems[activeCategory].items[activeItem].institution}
                               </span>
                               <span className="text-sm bg-accent/10 px-3 py-1 rounded-full inline-block w-fit">
                                 {educationItems[activeCategory].items[activeItem].year}
                               </span>
-                            </div>
+                            </section>
                             
                             <h5 className="text-sm font-medium mb-3 text-muted-foreground">Logros destacados:</h5>
                             <ul className="space-y-3">
@@ -407,14 +392,12 @@ const EducationSection = () => {
                                   transition={{ duration: 0.5, delay: 0.2 + hidx * 0.1 }}
                                   className="flex items-start gap-3"
                                 >
-                                  <div className="mt-1 w-3 h-3 rounded-full bg-accent flex-shrink-0 shadow-sm" />
+                                  <section className="mt-1 w-3 h-3 rounded-full bg-accent flex-shrink-0 shadow-sm" />
                                   <span>{highlight}</span>
                                 </motion.li>
                               ))}
                             </ul>
-                            
-                            {/* Interactive Element */}
-                            <motion.div 
+                            <motion.section 
                               className="mt-8 flex justify-end gap-2"
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
@@ -438,20 +421,18 @@ const EducationSection = () => {
                               >
                                 <ChevronRight className="w-4 h-4 text-accent" />
                               </motion.button>
-                            </motion.div>
-                          </div>
-                        </motion.div>
+                            </motion.section>
+                          </section>
+                        </motion.section>
                       </AnimatePresence>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                    </section>
+                  </section>
+                </section>
+              </section>
+            </motion.section>
           </AnimatePresence>
-        </motion.div>
-        
-        {/* Additional education note */}
-        <motion.div
+        </motion.section>
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -463,8 +444,8 @@ const EducationSection = () => {
             programa especializado en Inteligencia Artificial aplicada al diseño y desarrollo web, 
             explorando cómo estas tecnologías pueden potenciar la experiencia del usuario.
           </motion.p>
-        </motion.div>
-      </div>
+        </motion.section>
+      </section>
     </section>
   );
 };

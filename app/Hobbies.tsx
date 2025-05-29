@@ -97,19 +97,19 @@ const HobbiesSection = () => {
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975"
     >
-      <div className="container mx-auto px-4 md:px-8">
-        <motion.div
+      <section className="container mx-auto px-4 md:px-8">
+        <motion.section
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16 relative z-10"
         >
-          <motion.div variants={itemVariants} className="flex items-center mb-6">
+          <motion.section variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">09</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Pasatiempos</span>
-          </motion.div>
+          </motion.section>
           
           <style jsx global>{`
             @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
@@ -122,28 +122,28 @@ const HobbiesSection = () => {
             Mis <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>pasiones</span>
           </motion.h2>
           
-          <motion.div variants={itemVariants} className="text-lg max-w-3xl mb-8">
+          <motion.section variants={itemVariants} className="text-lg max-w-3xl mb-8">
             <p className="mb-4 text-muted-foreground">
               Fuera del ámbito profesional, cultivo diversas <span className="text-accent">pasiones creativas</span> que 
               enriquecen mi perspectiva y alimentan mi inspiración para el trabajo digital.
             </p>
-          </motion.div>
-        </motion.div>
+          </motion.section>
+        </motion.section>
         
-        <div className="flex flex-col md:flex-row gap-8">
+        <section className="flex flex-col md:flex-row gap-8">
           {/* Left Side - Hobby List */}
-          <div className="md:w-1/2 lg:w-6/12">
+          <section className="md:w-1/2 lg:w-6/12">
             <h3 className="text-xl font-medium mb-4 text-accent">Selecciona una pasión</h3>
-            <div className="space-y-2 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md rounded-xl p-3 border border-accent/20">
+            <section className="space-y-2 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md rounded-xl p-3 border border-accent/20">
               {hobbies.map((hobby, index) => (
-                <motion.div
+                <motion.section
                   key={hobby.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2, delay: index * 0.05 }}
                   className="rounded-lg overflow-hidden"
                 >
-                  <div 
+                  <section 
                     className={`
                       cursor-pointer py-3 px-4 flex justify-between items-center group
                       transition-all duration-200 
@@ -153,8 +153,8 @@ const HobbiesSection = () => {
                     onMouseEnter={() => setHoveredHobby(index)}
                     onMouseLeave={() => setHoveredHobby(null)}
                   >
-                    <div className="flex items-center">
-                      <div 
+                    <section className="flex items-center">
+                      <section 
                         className={`
                           flex items-center justify-center w-8 h-8 rounded-full mr-3
                           ${activeHobby === index ? 'bg-white/20' : 'bg-accent/10'}
@@ -163,15 +163,15 @@ const HobbiesSection = () => {
                         {hobby.icon && React.cloneElement(hobby.icon, { 
                           className: `w-4 h-4 ${activeHobby === index ? 'text-white' : 'text-accent'}` 
                         })}
-                      </div>
+                      </section>
                       <h3 className={`text-base font-medium ${activeHobby === index ? 'text-white' : ''}`}>
                         {hobby.title}
                       </h3>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="flex mr-3">
+                    </section>
+                    <section className="flex items-center">
+                      <section className="flex mr-3">
                         {[...Array(5)].map((_, i) => (
-                          <div 
+                          <section 
                             key={i} 
                             className={`w-1.5 h-1.5 rounded-full mx-0.5 ${
                               i < hobby.level 
@@ -180,20 +180,20 @@ const HobbiesSection = () => {
                             }`}
                           />
                         ))}
-                      </div>
+                      </section>
                       <ChevronRight className={`w-4 h-4 ${
                         activeHobby === index ? 'text-white opacity-100' : 'text-accent opacity-0 group-hover:opacity-100'
                       } transition-opacity`} />
-                    </div>
-                  </div>
-                </motion.div>
+                    </section>
+                  </section>
+                </motion.section>
               ))}
-            </div>
-          </div>
+            </section>
+          </section>
 
-          <div className="md:w-1/2 lg:w-6/12 mt-11">
+          <section className="md:w-1/2 lg:w-6/12 mt-11">
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.section
                 key={`hobby-${hoveredHobby !== null ? hoveredHobby : activeHobby}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -201,31 +201,31 @@ const HobbiesSection = () => {
                 transition={fastTransition}
                 className="h-full"
               >
-                <div className="bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md rounded-2xl shadow-md p-5 border border-accent/10 relative">
-                  <div className="flex items-center mb-4">
-                    <div className="p-2 rounded-xl bg-accent/10 mr-3">
+                <section className="bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md rounded-2xl shadow-md p-5 border border-accent/10 relative">
+                  <section className="flex items-center mb-4">
+                    <section className="p-2 rounded-xl bg-accent/10 mr-3">
                       {getCurrentHobby().icon && React.cloneElement(getCurrentHobby().icon, { 
                         className: "w-6 h-6 text-accent" 
                       })}
-                    </div>
+                    </section>
                     
                     <h3 className="text-xl font-medium text-accent">
                       {getCurrentHobby().title}
                     </h3>
                     
-                    <div className="ml-auto inline-flex items-center bg-accent/10 px-2 py-1 rounded-full text-xs">
+                    <section className="ml-auto inline-flex items-center bg-accent/10 px-2 py-1 rounded-full text-xs">
                       <Clock className="w-3 h-3 mr-1 text-accent" />
                       <span>{getCurrentHobby().timeInvested}</span>
-                    </div>
-                  </div>
+                    </section>
+                  </section>
                   
                   <p className="text-muted-foreground text-sm mb-4">
                     {getCurrentHobby().description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-2 mb-4">
+                  <section className="grid grid-cols-3 gap-2 mb-4">
                     {getCurrentHobby().gallery.map((item, idx) => (
-                      <motion.div
+                      <motion.section
                         key={idx}
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -234,16 +234,16 @@ const HobbiesSection = () => {
                       >
                         <h5 className="font-medium text-xs mb-1">{item.title}</h5>
                         <p className="text-xs text-muted-foreground">{item.details}</p>
-                      </motion.div>
+                      </motion.section>
                     ))}
-                  </div>
+                  </section>
                   
-                </div>
-              </motion.div>
+                </section>
+              </motion.section>
             </AnimatePresence>
-          </div>
-        </div>
-      </div>
+          </section>
+        </section>
+      </section>
     </section>
   );
 };
