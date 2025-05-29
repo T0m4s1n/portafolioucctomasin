@@ -20,8 +20,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const { theme, toggleTheme } = useTheme();
-    const [language, setLanguage] = useState('es');
-    const [isLanguageHovered, setIsLanguageHovered] = useState(false);
 
     // Update component state when prop changes
     useEffect(() => {
@@ -72,10 +70,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
         }
     };
 
-    const changeLanguage = (newLang: string) => {
-        setLanguage(newLang);
-    };
-
     const menuVariants = {
         closed: { 
             opacity: 0,
@@ -104,36 +98,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1]
             }
-        }
-    };
-    
-    const languageVariants = {
-        container: {
-            initial: { scale: 1 },
-            hover: { 
-                scale: 1.05,
-                transition: { duration: 0.3 } 
-            }
-        },
-        button: {
-            active: { 
-                backgroundColor: "var(--accent)",
-                color: "white",
-                transition: { duration: 0.3 }
-            },
-            inactive: { 
-                backgroundColor: "transparent",
-                color: "var(--accent)",
-                transition: { duration: 0.3 }
-            },
-            hover: {
-                backgroundColor: "var(--accent-10)",
-                transition: { duration: 0.3 }
-            }
-        },
-        underline: {
-            initial: { width: "0%" },
-            hover: { width: "100%", transition: { duration: 0.3 } }
         }
     };
 
@@ -233,80 +197,6 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                     </motion.div>
                     
                     <div className="flex items-center gap-2 md:gap-4">
-                        <motion.div 
-                            className="flex items-center border border-accent/30 rounded overflow-hidden h-8 relative"
-                            variants={headerControlsVariants}
-                            initial="hidden"
-                            whileHover="hover"
-                            custom={0}
-                            animate="visible"
-                            onHoverStart={() => setIsLanguageHovered(true)}
-                            onHoverEnd={() => setIsLanguageHovered(false)}
-                        >
-                            <motion.button
-                                className={`px-1 md:px-2 h-full flex items-center justify-center text-xs md:text-sm font-medium focus:outline-none relative overflow-hidden`}
-                                variants={languageVariants.button}
-                                animate={language === 'en' ? 'active' : 'inactive'}
-                                whileHover={language === 'en' ? undefined : 'hover'}
-                                onClick={() => changeLanguage('en')}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="Switch to English"
-                            >
-                                <motion.span
-                                    initial={{ y: 20 }}
-                                    animate={{ y: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                >
-                                    EN
-                                </motion.span>
-                                {language !== 'en' && (
-                                    <motion.div 
-                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60"
-                                        variants={languageVariants.underline}
-                                        initial="initial"
-                                        animate={isLanguageHovered ? "hover" : "initial"}
-                                    />
-                                )}
-                            </motion.button>
-                            <motion.button
-                                className={`px-1 md:px-2 h-full flex items-center justify-center text-xs md:text-sm font-medium focus:outline-none relative overflow-hidden`}
-                                variants={languageVariants.button}
-                                animate={language === 'es' ? 'active' : 'inactive'}
-                                whileHover={language === 'es' ? undefined : 'hover'}
-                                onClick={() => changeLanguage('es')}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="Switch to Spanish"
-                            >
-                                <motion.span
-                                    initial={{ y: 20 }}
-                                    animate={{ y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.1 }}
-                                >
-                                    ES
-                                </motion.span>
-                                {language !== 'es' && (
-                                    <motion.div 
-                                        className="absolute bottom-0 left-0 h-0.5 bg-accent/60"
-                                        variants={languageVariants.underline}
-                                        initial="initial"
-                                        animate={isLanguageHovered ? "hover" : "initial"}
-                                    />
-                                )}
-                            </motion.button>
-                            <motion.div 
-                                className="absolute bottom-0 h-0.5 bg-accent"
-                                initial={false}
-                                animate={{ 
-                                    left: language === 'en' ? '0%' : '50%',
-                                    width: '50%'
-                                }}
-                                transition={{ 
-                                    type: "spring", 
-                                    stiffness: 300, 
-                                    damping: 30 
-                                }}
-                            />
-                        </motion.div>
                         <motion.button
                             className="w-8 h-8 md:w-10 md:h-10 flex justify-center items-center text-accent hover:text-foreground focus:outline-none"
                             onClick={toggleTheme}
@@ -316,7 +206,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                                 transition: { duration: 0.5 }
                             }}
                             whileTap={{ scale: 0.9 }}
-                            custom={1}
+                            custom={0}
                             variants={headerControlsVariants}
                             initial="hidden"
                             animate="visible"
@@ -349,7 +239,7 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
                         <motion.button
                             className="relative w-10 h-10 md:w-12 md:h-12 flex flex-col justify-center items-center focus:outline-none z-50"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            custom={2}
+                            custom={1}
                             variants={headerControlsVariants}
                             initial="hidden"
                             animate="visible"

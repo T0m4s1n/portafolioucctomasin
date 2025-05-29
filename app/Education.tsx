@@ -150,7 +150,7 @@ const EducationSection = () => {
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       
       <div className="container mx-auto px-4 md:px-8">
-        {/* Section header with number */}
+        {/* Section header */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -177,14 +177,14 @@ const EducationSection = () => {
           
           <motion.div variants={itemVariants} className="text-lg max-w-3xl mb-8">
             <p className="mb-4 text-muted-foreground">
-              Mi trayectoria formativa combina <span className="text-accent">educación formal</span> con 
+              Mi trayectoria formativa combina <span className="text-accent">educación formal</span> con
               <span className="text-accent"> aprendizaje continuo</span>, permitiéndome mantenerme 
               a la vanguardia de las tecnologías y metodologías emergentes.
             </p>
           </motion.div>
         </motion.div>
         
-        {/* Timeline Navigation - CORREGIDO */}
+        {/* Timeline Navigation - Fixed for iOS/macOS */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -198,7 +198,7 @@ const EducationSection = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-deluge-50/5 dark:bg-deluge-950/30 border border-accent/10 p-2 rounded-full shadow-md hover:bg-accent/20 transition-colors z-10 backdrop-blur-md"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-deluge-50/50 dark:bg-deluge-950/50 border border-accent/10 p-2 rounded-full shadow-md hover:bg-accent/20 transition-colors z-10"
             >
               <ChevronLeft className="w-5 h-5 text-accent" />
             </motion.button>
@@ -224,7 +224,7 @@ const EducationSection = () => {
                       className={`cursor-pointer transition-all duration-300 flex flex-col items-center ${
                         activeCategory === idx ? 'z-10' : 'z-0'
                       } ${
-                        // Mostrar solo los elementos activos y adyacentes en móvil
+                        // Show only active and adjacent elements on mobile
                         idx !== activeCategory && 
                         idx !== (activeCategory + 1) % educationItems.length && 
                         idx !== (activeCategory - 1 + educationItems.length) % educationItems.length
@@ -232,17 +232,23 @@ const EducationSection = () => {
                       }`}
                     >
                       <motion.div 
-                        className={`p-3 rounded-full bg-deluge-50/5 dark:bg-deluge-950/30 border border-accent/10 backdrop-blur-md shadow-lg mb-3 ${activeCategory === idx ? 'bg-accent/10' : ''}`}
+                        className={`p-3 rounded-full border shadow-lg mb-3 transition-all duration-300 ${
+                          activeCategory === idx 
+                            ? 'bg-deluge-50/50 dark:bg-deluge-950/50 border-accent/30' 
+                            : 'bg-deluge-50/30 dark:bg-deluge-950/30 border-accent/10'
+                        }`}
                         whileHover={iconHoverVariants.hover}
                         initial="rest"
                       >
-                        <div className="bg-white dark:bg-deluge-950 rounded-full p-3">
+                        <div className="bg-white dark:bg-deluge-950 rounded-full p-3 shadow-inner">
                           {React.cloneElement(category.icon, { className: `w-6 h-6 text-accent` })}
                         </div>
                       </motion.div>
-                      {/* Texto alineado con width fijo y centrado para evitar saltos */}
+                      {/* Fixed width text to prevent layout shifts */}
                       <div className="w-24 text-center">
-                        <span className={`font-medium text-sm ${activeCategory === idx ? 'text-accent' : 'text-muted-foreground'}`}>
+                        <span className={`font-medium text-sm transition-colors duration-300 ${
+                          activeCategory === idx ? 'text-accent' : 'text-muted-foreground'
+                        }`}>
                           {category.title}
                         </span>
                       </div>
@@ -251,13 +257,15 @@ const EducationSection = () => {
                 </div>
               </div>
               
-              {/* Indicador de posición actual */}
+              {/* Position indicator */}
               <div className="flex justify-center mt-4">
                 <div className="flex gap-2">
                   {educationItems.map((_, idx) => (
                     <motion.div
                       key={idx}
-                      className={`w-2 h-2 rounded-full ${activeCategory === idx ? 'bg-accent' : 'bg-accent/20'}`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        activeCategory === idx ? 'bg-accent shadow-md' : 'bg-accent/20'
+                      }`}
                       initial={{ scale: 0.8 }}
                       animate={{ scale: activeCategory === idx ? 1.2 : 0.8 }}
                       transition={{ duration: 0.3 }}
@@ -272,14 +280,14 @@ const EducationSection = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-deluge-50/5 dark:bg-deluge-950/30 border border-accent/10 p-2 rounded-full shadow-md hover:bg-accent/20 transition-colors z-10 backdrop-blur-md"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-deluge-50/50 dark:bg-deluge-950/50 border border-accent/10 p-2 rounded-full shadow-md hover:bg-accent/20 transition-colors z-10"
             >
               <ChevronRight className="w-5 h-5 text-accent" />
             </motion.button>
           </div>
         </motion.div>
         
-        {/* Education Detail Panel */}
+        {/* Education Detail Panel - Fixed for iOS/macOS */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -295,16 +303,10 @@ const EducationSection = () => {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
-              <motion.div 
-                className="absolute inset-0 bg-accent/5 opacity-10 rounded-2xl blur-3xl"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 0.1 }}
-                transition={{ duration: 0.8 }}
-              />
               
               <div className="max-w-5xl mx-auto relative z-10">
-                <div className="bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-accent/10 relative overflow-hidden">
-                  {/* Background patterns like in Contact component */}
+                <div className="bg-deluge-50/50 dark:bg-deluge-950/50 rounded-2xl shadow-xl p-8 border border-accent/10 relative overflow-hidden">
+                  {/* Background patterns */}
                   <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
                     {Array(16).fill("education.details").map((text, idx) => (
                       <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
@@ -315,7 +317,7 @@ const EducationSection = () => {
                     {/* Left Column - Category Info */}
                     <div className="md:w-1/3">
                       <motion.div 
-                        className="p-4 rounded-xl bg-accent/10 backdrop-blur-md mb-6 inline-flex"
+                        className="p-4 rounded-xl bg-accent/10 mb-6 inline-flex shadow-sm"
                         whileHover={iconHoverVariants.hover}
                         initial="rest"
                       >
@@ -340,19 +342,22 @@ const EducationSection = () => {
                             onClick={() => setActiveItem(idx)}
                             whileHover={{ x: 5 }}
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                            className={`cursor-pointer p-2 rounded-lg transition-all duration-300 flex items-center gap-3
-                              ${activeItem === idx 
-                                ? "bg-accent text-white shadow-md" 
-                                : "hover:bg-accent/10"}`
-                            }
+                            className={`cursor-pointer p-3 rounded-lg transition-all duration-300 flex items-center gap-3 border ${
+                              activeItem === idx 
+                                ? "bg-accent text-white shadow-lg border-accent" 
+                                : "hover:bg-accent/10 border-transparent hover:border-accent/20"
+                            }`}
                           >
                             <div 
-                              className={`w-2 h-2 rounded-full ${activeItem === idx 
-                                ? "bg-white" 
-                                : "bg-accent opacity-60"}`
-                              }
+                              className={`w-2 h-2 rounded-full ${
+                                activeItem === idx 
+                                  ? "bg-white" 
+                                  : "bg-accent opacity-60"
+                              }`}
                             />
-                            <span className={`text-sm ${activeItem === idx ? "font-medium" : "text-muted-foreground"}`}>
+                            <span className={`text-sm ${
+                              activeItem === idx ? "font-medium" : "text-muted-foreground"
+                            }`}>
                               {item.name}
                             </span>
                           </motion.div>
@@ -369,8 +374,9 @@ const EducationSection = () => {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: -30 }}
                           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                          className="bg-deluge-50/5 dark:bg-deluge-950/50 backdrop-blur-md p-6 rounded-xl border border-accent/10 h-full"
+                          className="bg-deluge-50/50 dark:bg-deluge-950/70 p-6 rounded-xl border border-accent/10 h-full shadow-inner relative overflow-hidden"
                         >
+                          {/* Background pattern for item detail */}
                           <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-5 text-xl font-mono text-accent/30 overflow-hidden p-4 select-none">
                             {Array(8).fill(educationItems[activeCategory].items[activeItem].name).map((text, idx) => (
                               <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
@@ -382,16 +388,16 @@ const EducationSection = () => {
                               {educationItems[activeCategory].items[activeItem].name}
                             </h4>
                             
-                            <div className="flex justify-between items-center mb-6">
-                              <span className="text-sm text-accent">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2">
+                              <span className="text-sm text-accent font-medium">
                                 {educationItems[activeCategory].items[activeItem].institution}
                               </span>
-                              <span className="text-sm bg-accent/10 px-3 py-1 rounded-full">
+                              <span className="text-sm bg-accent/10 px-3 py-1 rounded-full inline-block w-fit">
                                 {educationItems[activeCategory].items[activeItem].year}
                               </span>
                             </div>
                             
-                            <h5 className="text-sm font-medium mb-2 text-muted-foreground">Logros destacados:</h5>
+                            <h5 className="text-sm font-medium mb-3 text-muted-foreground">Logros destacados:</h5>
                             <ul className="space-y-3">
                               {educationItems[activeCategory].items[activeItem].highlights.map((highlight, hidx) => (
                                 <motion.li 
@@ -401,7 +407,7 @@ const EducationSection = () => {
                                   transition={{ duration: 0.5, delay: 0.2 + hidx * 0.1 }}
                                   className="flex items-start gap-3"
                                 >
-                                  <div className="mt-1 w-3 h-3 rounded-full bg-accent flex-shrink-0 shadow" />
+                                  <div className="mt-1 w-3 h-3 rounded-full bg-accent flex-shrink-0 shadow-sm" />
                                   <span>{highlight}</span>
                                 </motion.li>
                               ))}
@@ -419,7 +425,7 @@ const EducationSection = () => {
                                 whileHover={{ scale: 1.1, x: -2 }}
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
+                                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors shadow-sm"
                               >
                                 <ChevronLeft className="w-4 h-4 text-accent" />
                               </motion.button>
@@ -428,7 +434,7 @@ const EducationSection = () => {
                                 whileHover={{ scale: 1.1, x: 2 }}
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors"
+                                className="p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors shadow-sm"
                               >
                                 <ChevronRight className="w-4 h-4 text-accent" />
                               </motion.button>
@@ -452,31 +458,12 @@ const EducationSection = () => {
           viewport={{ once: true }}
           className="mt-16 max-w-3xl mx-auto text-center"
         >
-          <motion.p variants={itemVariants} className="text-sm text-muted-foreground italic">
+          <motion.p variants={itemVariants} className="text-sm text-gray-600 dark:text-gray-400 italic">
             Mi filosofía educativa se basa en el aprendizaje continuo. Actualmente estoy cursando un 
             programa especializado en Inteligencia Artificial aplicada al diseño y desarrollo web, 
             explorando cómo estas tecnologías pueden potenciar la experiencia del usuario.
           </motion.p>
         </motion.div>
-        
-        {/* Quote */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden" 
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto text-center mt-12"
-        >
-        </motion.div>
-        
-        {/* Decorative elements */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute -bottom-10 left-0 w-32 h-32 bg-accent/5 blur-3xl rounded-full pointer-events-none"
-        />
       </div>
     </section>
   );
