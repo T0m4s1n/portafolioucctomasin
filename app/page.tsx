@@ -105,19 +105,7 @@ const PortfolioPage = () => {
                     <section ref={sectionRefs.skills} id="skills">
                         <Habilities />
                     </section>
-                    
-                    <section ref={sectionRefs.education} id="education">
-                        <Education />
-                    </section>
-                    
-                    <section ref={sectionRefs.hobbies} id="hobbies">
-                        <Hobbies />
-                    </section>
-                    
-                    <section ref={sectionRefs.games} id="games">
-                        <Games />
-                    </section>
-                    
+                                                                   
                     <section ref={sectionRefs.recommendations} id="recommendations">
                         <Recomendations />
                     </section>

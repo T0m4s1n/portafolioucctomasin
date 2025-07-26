@@ -142,7 +142,7 @@ const RecomendacionesSection = () => {
           className="mb-16"
         >
           <motion.section variants={itemVariants} className="flex items-center mb-6">
-            <span className="text-sm text-accent opacity-80 mr-2">10</span>
+            <span className="text-sm text-accent opacity-80 mr-2">08</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Recomendaciones</span>
           </motion.section>
