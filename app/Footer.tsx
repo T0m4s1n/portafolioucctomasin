@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Github, Linkedin, Mail, ArrowUp, Code, Heart } from 'lucide-react';
 
 interface FooterProps {
-  onSectionChange?: (sectionId: string) => void;
+  onSectionChange?: (sectionId: "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "recommendations") => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onSectionChange }) => {
@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ onSectionChange }) => {
 
   const handleNavigate = (sectionId: string) => {
     if (onSectionChange && typeof onSectionChange === 'function') {
-      onSectionChange(sectionId);
+      onSectionChange(sectionId as "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "recommendations");
     }
     
     const element = document.getElementById(sectionId);
@@ -38,9 +38,7 @@ const Footer: React.FC<FooterProps> = ({ onSectionChange }) => {
   const personalSections = [
     { id: 'about', name: 'Sobre Mí' },
     { id: 'skills', name: 'Habilidades' },
-    { id: 'education', name: 'Educación' },
-    { id: 'hobbies', name: 'Pasatiempos' },
-    { id: 'recomendations', name: 'Recomendaciones' }
+    { id: 'recommendations', name: 'Recomendaciones' }
   ];
 
   return (

@@ -30,13 +30,10 @@ const PortfolioPage = () => {
         contact: useRef(null),
         about: useRef(null),
         skills: useRef(null),
-        education: useRef(null),
-        hobbies: useRef(null),
-        games: useRef(null),
         recommendations: useRef(null)
     };
     
-    const handleSectionChange = (sectionId: keyof typeof sectionRefs) => {
+    const handleSectionChange = (sectionId: "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "recommendations") => {
         setActiveSection(sectionId);
         const sectionRef = sectionRefs[sectionId];
         
@@ -107,7 +104,7 @@ const PortfolioPage = () => {
                         <Recomendations />
                     </section>
                     
-                    <Footer />
+                    <Footer onSectionChange={handleSectionChange} />
                 </>
             )}
         </main>

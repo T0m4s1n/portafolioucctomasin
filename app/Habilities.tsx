@@ -1,27 +1,37 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Code, Palette, Globe } from 'lucide-react';
 
 const SkillsSection = () => {
   const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Fallback para asegurar visibilidad
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.1,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 60, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
@@ -66,62 +76,6 @@ const SkillsSection = () => {
     skills: { name: string; level: number }[];
   }
 
-  const SkillCard = ({ category }: { category: SkillCategory }) => {
-    return (
-      <motion.section
-        variants={itemVariants}
-        className="relative border border-accent/10 rounded-md p-6 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md shadow-md h-full overflow-hidden mx-auto"
-      >
-        <section className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
-          {Array(3).fill(category.title.toLowerCase().replace(/\s/g, "")).map((text, idx) => (
-            <span key={idx} className="block whitespace-nowrap">{text}</span>
-          ))}
-        </section>
-        
-        <section className="mb-4 flex items-center">
-          <section className="mr-4 bg-accent/10 p-3 rounded-md">
-            {category.icon}
-          </section>
-          <h3 className="text-xl font-light text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>
-            {category.title}
-          </h3>
-        </section>
-        
-        <p className="text-sm text-muted-foreground mb-5 line-clamp-3">
-          {category.description}
-        </p>
-        
-        <section className="space-y-4 relative z-10">
-          {category.skills.map((skill, idx) => (
-            <section key={idx} className="space-y-2">
-              <section className="flex justify-between text-sm">
-                <span>{skill.name}</span>
-                <span className="text-accent">{skill.level}%</span>
-              </section>
-              <section className="w-full h-2 bg-accent/10 rounded-full overflow-hidden">
-                <motion.section
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.2 + idx * 0.1 }}
-                  className="h-full bg-accent rounded-full"
-                />
-              </section>
-            </section>
-          ))}
-        </section>
-        
-        <motion.section
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="absolute -bottom-8 -right-8 w-24 h-24 bg-accent/5 blur-3xl rounded-full pointer-events-none"
-        />
-      </motion.section>
-    );
-  };
-
   return (
     <section 
       id="skills" 
@@ -136,7 +90,7 @@ const SkillsSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2, margin: "-50px" }}
           className="mb-16 relative z-10"
         >
           <motion.section variants={itemVariants} className="flex items-center mb-6">
@@ -168,11 +122,56 @@ const SkillsSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: false, amount: 0.2, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {skillCategories.map((category, idx) => (
-            <SkillCard key={idx} category={category} />
+            <motion.section
+              key={idx}
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.5, margin: "-20px" }}
+              animate={isVisible ? "visible" : "hidden"}
+              className="relative border border-accent/10 rounded-md p-6 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md shadow-md h-full overflow-hidden mx-auto"
+            >
+              <section className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
+                {Array(3).fill(category.title.toLowerCase().replace(/\s/g, "")).map((text, idx) => (
+                  <span key={idx} className="block whitespace-nowrap">{text}</span>
+                ))}
+              </section>
+              
+              <section className="mb-4 flex items-center">
+                <section className="mr-4 bg-accent/10 p-3 rounded-md">
+                  {category.icon}
+                </section>
+                <h3 className="text-xl font-light text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>
+                  {category.title}
+                </h3>
+              </section>
+              
+              <p className="text-sm text-muted-foreground mb-5 line-clamp-3">
+                {category.description}
+              </p>
+              
+              <section className="space-y-4 relative z-10">
+                {category.skills.map((skill, idx) => (
+                  <section key={idx} className="space-y-2">
+                    <section className="flex justify-between text-sm">
+                      <span>{skill.name}</span>
+                    </section>
+                  </section>
+                ))}
+              </section>
+              
+              <motion.section
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="absolute -bottom-8 -right-8 w-24 h-24 bg-accent/5 blur-3xl rounded-full pointer-events-none"
+              />
+            </motion.section>
           ))}
         </motion.section>
 
@@ -180,7 +179,7 @@ const SkillsSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3, margin: "-100px" }}
           className="mt-12 max-w-3xl mx-auto text-center"
         >
           <motion.p variants={itemVariants} className="text-sm text-muted-foreground italic">
@@ -193,8 +192,8 @@ const SkillsSection = () => {
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="absolute -bottom-10 right-0 w-32 h-32 bg-accent/5 blur-3xl rounded-full pointer-events-none"
         />
         
@@ -202,7 +201,7 @@ const SkillsSection = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.5 }}
           className="absolute bottom-8 left-6 text-accent/50 text-xs"
         >
           <motion.span variants={itemVariants}>© 2025</motion.span>

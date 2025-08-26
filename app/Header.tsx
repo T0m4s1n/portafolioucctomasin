@@ -10,7 +10,7 @@ interface PortfolioNavHeaderProps {
   activeSection: string;
   onSectionChange: (
     sectionId: "home" | "work" | "expertise" | "experience" | "contact" | 
-    "about" | "skills" | "education" | "hobbies" | "games" | "recommendations" | "recomendations"
+    "about" | "skills" | "recommendations"
   ) => void;
 }
 
@@ -52,16 +52,14 @@ const PortfolioNavHeader: React.FC<PortfolioNavHeaderProps> = ({ activeSection: 
     const personalSections = [
         { id: 'about', name: 'Sobre Mí', number: '06' },
         { id: 'skills', name: 'Habilidades', number: '07' },
-        { id: 'education', name: 'Educación', number: '08' },
-        { id: 'hobbies', name: 'Pasatiempos', number: '09' },
-        { id: 'recomendations', name: 'Recomendaciones', number: '10' }
+        { id: 'recommendations', name: 'Recomendaciones', number: '08' }
     ];
 
     const handleSectionChange = (sectionId: string) => {
         setActiveSection(sectionId);
         setIsMenuOpen(false);
         
-        onSectionChange(sectionId as "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "education" | "hobbies" | "games" | "recommendations" | "recomendations");
+        onSectionChange(sectionId as "home" | "work" | "expertise" | "experience" | "contact" | "about" | "skills" | "recommendations");
         
         const element = document.getElementById(sectionId);
         if (element) {
