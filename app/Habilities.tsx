@@ -68,13 +68,7 @@ const SkillsSection = () => {
     }
   ];
 
-  interface SkillCategory {
-    title: string;
-    //@ts-expect-error: Avatar property is dynamically assigned and may not match strict type checks
-    icon: JSX.Element;
-    description: string;
-    skills: { name: string; level: number }[];
-  }
+
 
   return (
     <section 

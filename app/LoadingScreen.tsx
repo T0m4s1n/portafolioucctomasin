@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 interface LoadingScreenProps {
@@ -56,14 +56,14 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
     }
   }, [progress, terminalLines, visibleLineIndex]);
 
-  const goToPortfolio = () => {
+  const goToPortfolio = useCallback(() => {
     if (!loadingComplete) return;
     
     setShowContent(false);
     setTimeout(() => {
       if (onLoadingComplete) onLoadingComplete();
     }, 500);
-  };
+  }, [loadingComplete, onLoadingComplete]);
 
   useEffect(() => {
     if (!loadingComplete) return;
@@ -74,7 +74,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [loadingComplete, onLoadingComplete]);
+  }, [loadingComplete, goToPortfolio]);
 
   const getASCIIProgressBar = (value: number) => {
     const totalLength = 30;

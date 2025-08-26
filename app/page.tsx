@@ -68,8 +68,6 @@ const PortfolioPage = () => {
             {!isLoading && (
                 <>
                     <CustomCursor />
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-expect-error: Icon property is dynamically assigned and may not match strict type checks */}
                     <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
                     
                     <section ref={sectionRefs.home} id="home">
