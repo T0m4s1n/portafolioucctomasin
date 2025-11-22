@@ -27,8 +27,8 @@ const RecomendacionesSection = () => {
   const recomendacionesItems = [
     {
       id: 1,
-      name: "Sara Enriquez",
-      position: "CEO de ArquiSolutions",
+      name: "Andres Camilo Duarte",
+      position: "Devops & Secops",
       quote: "Tomás demostró un profundo conocimiento técnico y creatividad excepcional. Entregó soluciones que superaron nuestras expectativas.",
       avatar: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
