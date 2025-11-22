@@ -26,6 +26,17 @@
   --deluge-950: hsl(254, 28%, 23%);
   --deluge-975: hsl(254, 28%, 15%);
 
+  --purple-50: hsl(270, 50%, 98%);
+  --purple-100: hsl(270, 50%, 95%);
+  --purple-200: hsl(270, 50%, 90%);
+  --purple-300: hsl(270, 50%, 80%);
+  --purple-400: hsl(270, 50%, 70%);
+  --purple-500: hsl(270, 60%, 60%);
+  --purple-600: hsl(270, 65%, 50%);
+  --purple-700: hsl(270, 70%, 45%);
+  --purple-800: hsl(270, 75%, 40%);
+  --purple-900: hsl(270, 80%, 35%);
+
   --accent: var(--deluge-800);
   --accent-light: var(--deluge-300);
   --accent-dark: var(--deluge-700);
@@ -46,6 +57,11 @@
   --card-background: var(--deluge-950);
   --muted-foreground: var(--deluge-300);
   --border: var(--deluge-800);
+
+  /* Dark mode purple adjustments */
+  --purple-500: hsl(270, 65%, 55%);
+  --purple-600: hsl(270, 70%, 50%);
+  --purple-700: hsl(270, 75%, 45%);
 }
 
 

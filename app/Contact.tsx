@@ -48,21 +48,34 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormState({ ...formState, isSubmitting: true });
+    setFormState({ ...formState, isSubmitting: true, error: null });
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al enviar el mensaje');
+      }
+
       setFormState({
         isSubmitting: false,
         isSubmitted: true,
         error: null
       });
       setFormData({ name: '', email: '', message: '' });
-    } catch {
+    } catch (error) {
       setFormState({
         isSubmitting: false,
         isSubmitted: false,
-        error: 'Ha ocurrido un error. Por favor, intenta nuevamente.'
+        error: error instanceof Error ? error.message : 'Ha ocurrido un error. Por favor, intenta nuevamente.'
       });
     }
   };
@@ -94,10 +107,12 @@ const ContactSection = () => {
 
   const buttonHoverVariants = {
     rest: { 
-      boxShadow: "0 0 0 rgba(var(--deluge), 0)"
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      scale: 1
     },
     hover: { 
-      boxShadow: "0 0 20px rgba(var(--deluge), 0.5)",
+      boxShadow: "0 8px 20px rgba(147, 51, 234, 0.4), 0 0 0 1px rgba(147, 51, 234, 0.1)",
+      scale: 1.02,
       transition: { 
         duration: 0.3, 
         ease: "easeOut" 
@@ -378,26 +393,44 @@ const ContactSection = () => {
                     <motion.button
                       initial="rest"
                       whileHover="hover"
+                      whileTap={{ scale: 0.98 }}
                       variants={buttonHoverVariants}
                       type="submit"
                       disabled={formState.isSubmitting}
-                      className="flex items-center px-8 py-4 bg-deluge-500 dark:bg-deluge-600 text-white transition-all duration-300 rounded-lg group overflow-hidden relative shadow-lg"
+                      className="flex items-center justify-center gap-2 px-8 py-4 text-white transition-all duration-300 rounded-lg group overflow-hidden relative shadow-lg border-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{
+                        backgroundColor: 'var(--purple-600)',
+                        borderColor: 'var(--purple-500)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--purple-700)';
+                        e.currentTarget.style.borderColor = 'var(--purple-400)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!formState.isSubmitting) {
+                          e.currentTarget.style.backgroundColor = 'var(--purple-600)';
+                          e.currentTarget.style.borderColor = 'var(--purple-500)';
+                        }
+                      }}
                     >
                       {formState.isSubmitting ? (
-                        <span className="flex items-center justify-center">
+                        <span className="flex items-center justify-center gap-2">
                           <motion.section
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           >
-                            <Loader className="mr-2 h-4 w-4" />
+                            <Loader className="h-4 w-4" />
                           </motion.section>
                           Enviando...
                         </span>
                       ) : (
                         <>
-                          <span className="relative z-10 font-medium text-accent">Enviar mensaje</span>
+                          <span className="relative z-10">Enviar mensaje</span>
                           <motion.section 
-                            className="relative z-10 ml-2"
+                            className="relative z-10"
+                            initial={{ x: 0 }}
+                            whileHover={{ x: 4 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
                           >
                             <ArrowRight className="w-4 h-4" />
                           </motion.section>
@@ -405,7 +438,8 @@ const ContactSection = () => {
                             initial={{ width: "0%" }}
                             whileHover={{ width: "110%" }}
                             transition={{ duration: 0.3 }}
-                            className="absolute top-0 left-0 h-full bg-deluge-600 dark:bg-deluge-500"
+                            className="absolute top-0 left-0 h-full opacity-90"
+                            style={{ backgroundColor: 'var(--purple-700)' }}
                           />
                         </>
                       )}

@@ -12,14 +12,12 @@ import Contact from './Contact';
 import About from './About';
 import Habilities from './Habilities';
 import Recomendations from './Recomendations';
-import LoadingScreen from './LoadingScreen';
 import Footer from './Footer';
 
 import { ThemeManager, useTheme } from './themeutils';
 
 const PortfolioPage = () => {
     useTheme(); 
-    const [isLoading, setIsLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('home');
     
     const sectionRefs = {
@@ -46,65 +44,48 @@ const PortfolioPage = () => {
     
     useEffect(() => {
         ThemeManager.initTheme();
-        const handleKeyDown = () => {
-            if (isLoading) setIsLoading(false);
-        };
-        
-        window.addEventListener('keydown', handleKeyDown);
-        
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isLoading]);
+    }, []);
 
     return (
         <main className="min-h-screen text-foreground font-sans overflow-hidden relative">
             <SpaceBackground />
             
-            {isLoading && (
-                <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
-            )}
+            <CustomCursor />
+            <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
             
-            {!isLoading && (
-                <>
-                    <CustomCursor />
-                    <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
-                    
-                    <section ref={sectionRefs.home} id="home">
-                        <Home />
-                    </section>
-                    
-                    <section ref={sectionRefs.work} id="work">
-                        <Inside />
-                    </section>
-                    
-                    <section ref={sectionRefs.expertise} id="expertise">
-                        <Expertise />
-                    </section>
-                    
-                    <section ref={sectionRefs.experience} id="experience">
-                        <Experience />
-                    </section>
-                    
-                    <section ref={sectionRefs.contact} id="contact">
-                        <Contact />
-                    </section>
-                    
-                    <section ref={sectionRefs.about} id="about">
-                        <About />
-                    </section>
-                    
-                    <section ref={sectionRefs.skills} id="skills">
-                        <Habilities />
-                    </section>
-                                                                   
-                    <section ref={sectionRefs.recommendations} id="recommendations">
-                        <Recomendations />
-                    </section>
-                    
-                    <Footer onSectionChange={handleSectionChange} />
-                </>
-            )}
+            <section ref={sectionRefs.home} id="home">
+                <Home />
+            </section>
+            
+            <section ref={sectionRefs.work} id="work">
+                <Inside />
+            </section>
+            
+            <section ref={sectionRefs.expertise} id="expertise">
+                <Expertise />
+            </section>
+            
+            <section ref={sectionRefs.experience} id="experience">
+                <Experience />
+            </section>
+            
+            <section ref={sectionRefs.contact} id="contact">
+                <Contact />
+            </section>
+            
+            <section ref={sectionRefs.about} id="about">
+                <About />
+            </section>
+            
+            <section ref={sectionRefs.skills} id="skills">
+                <Habilities />
+            </section>
+                                                       
+            <section ref={sectionRefs.recommendations} id="recommendations">
+                <Recomendations />
+            </section>
+            
+            <Footer onSectionChange={handleSectionChange} />
         </main>
     );
 };
