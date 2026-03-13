@@ -121,9 +121,9 @@ const ContactSection = () => {
   };
 
   const inputFocusVariants = {
-    rest: { borderColor: "rgba(var(--deluge), 0.2)" },
+    rest: { borderColor: "rgb(var(--deluge) / 0.2)" },
     focus: { 
-      borderColor: "rgba(var(--deluge), 0.8)",
+      borderColor: "rgb(var(--deluge) / 0.8)",
       transition: { duration: 0.2 }
     }
   };

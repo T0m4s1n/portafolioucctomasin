@@ -12,6 +12,7 @@
   --background: var(--deluge-100);
   --foreground: hsl(0, 0%, 20%);
 
+  --deluge: 128, 113, 183;
   --deluge-50: hsl(240, 33%, 98%);
   --deluge-100: hsl(252, 36%, 95%);
   --deluge-150: hsl(249, 37%, 89%);

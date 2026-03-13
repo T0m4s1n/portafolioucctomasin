@@ -131,13 +131,13 @@ const GamesSection = () => {
   };
 
   return (
-    <section 
+    <div 
       id="games" 
       ref={sectionRef}
       className="py-24 bg-deluge-50 dark:bg-deluge-950"
     >
-      <section className="container mx-auto px-4 md:px-8">
-        <motion.section
+      <div className="container mx-auto px-4 md:px-8">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -153,24 +153,24 @@ const GamesSection = () => {
             Mis <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>videojuegos</span>
           </motion.h2>
           
-          <motion.section variants={itemVariants} className="text-lg max-w-3xl mx-auto mb-8">
+          <motion.div variants={itemVariants} className="text-lg max-w-3xl mx-auto mb-8">
             <p className="mb-4 text-muted-foreground">
               El gaming es más que un pasatiempo para mí; es una <span className="text-accent">forma de arte interactiva</span> que 
               me permite sumergirme en narrativas inmersivas y desafíos estratégicos.
             </p>
-          </motion.section>
-        </motion.section>
+          </motion.div>
+        </motion.div>
         
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {games.map((game, index) => (
-            <motion.section
+            <motion.div
               key={game.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               className="relative"
             >
-              <section 
+              <div 
                 className={`
                   bg-deluge-50/5 dark:bg-deluge-950/30 
                   backdrop-blur-md rounded-2xl shadow-md 
@@ -186,31 +186,31 @@ const GamesSection = () => {
                 onMouseEnter={() => setHoveredGame(index)}
                 onMouseLeave={() => setHoveredGame(null)}
               >
-                <section 
+                <div 
                   className="p-5 cursor-pointer"
                   onClick={() => toggleExpand(index)}
                 >
-                  <section className="flex items-center justify-between">
-                    <section className="flex items-center">
-                      <section className="p-2 rounded-xl bg-accent/10 mr-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className="p-2 rounded-xl bg-accent/10 mr-3">
                         {game.icon}
-                      </section>
+                      </div>
                       <h3 className="text-xl font-medium text-accent">{game.title}</h3>
-                    </section>
+                    </div>
                     
-                    <motion.section
+                    <motion.div
                       animate={{ rotate: expandedGame === index ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                       className="bg-accent/10 p-1 rounded-full"
                     >
                       <ChevronDown className="w-4 h-4 text-accent" />
-                    </motion.section>
-                  </section>
+                    </motion.div>
+                  </div>
                   
-                  <section className="flex items-center mt-3">
-                    <section className="flex mr-3">
+                  <div className="flex items-center mt-3">
+                    <div className="flex mr-3">
                       {[...Array(5)].map((_, i) => (
-                        <section 
+                        <div 
                           key={i} 
                           className={`w-2 h-2 rounded-full mx-0.5 ${
                             i < game.level 
@@ -219,33 +219,33 @@ const GamesSection = () => {
                           }`}
                         />
                       ))}
-                    </section>
-                    <section className="ml-auto inline-flex items-center bg-accent/10 px-2 py-1 rounded-full text-xs">
+                    </div>
+                    <div className="ml-auto inline-flex items-center bg-accent/10 px-2 py-1 rounded-full text-xs">
                       <Clock className="w-3 h-3 mr-1 text-accent" />
                       <span>{game.timeInvested}</span>
-                    </section>
-                  </section>
-                </section>
+                    </div>
+                  </div>
+                </div>
                 
 
                 <AnimatePresence>
                   {expandedGame === index && (
-                    <motion.section
+                    <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
                       className="px-5 pb-5"
                     >
-                      <section className="h-px w-full bg-accent/10 mb-4"></section>
+                      <div className="h-px w-full bg-accent/10 mb-4"></div>
                       
                       <p className="text-muted-foreground text-sm mb-4">
                         {game.description}
                       </p>
                       
-                      <section className="grid grid-cols-1 gap-2 mb-4">
+                      <div className="grid grid-cols-1 gap-2 mb-4">
                         {game.details.map((item, idx) => (
-                          <motion.section
+                          <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -254,31 +254,31 @@ const GamesSection = () => {
                           >
                             <h5 className="font-medium text-xs">{item.title}</h5>
                             <p className="text-xs text-muted-foreground">{item.details}</p>
-                          </motion.section>
+                          </motion.div>
                         ))}
-                      </section>
+                      </div>
                       
-                      <section className="flex items-center text-sm bg-accent/10 p-3 rounded-lg">
+                      <div className="flex items-center text-sm bg-accent/10 p-3 rounded-lg">
                         <Trophy className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
                         <span className="text-muted-foreground">{game.achievements}</span>
-                      </section>
-                    </motion.section>
+                      </div>
+                    </motion.div>
                   )}
                 </AnimatePresence>
 
                 {expandedGame !== index && (
-                  <section className="px-5 pb-5">
+                  <div className="px-5 pb-5">
                     <p className="text-muted-foreground text-sm">
                       {game.description}
                     </p>
-                  </section>
+                  </div>
                 )}
-              </section>
-            </motion.section>
+              </div>
+            </motion.div>
           ))}
-        </section>
-      </section>
-    </section>
+        </div>
+      </div>
+    </div>
   );
 };
 
