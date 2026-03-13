@@ -82,6 +82,8 @@ const Footer: React.FC<FooterProps> = ({ onSectionChange }) => {
               </a>
               <a
                 href="https://github.com/T0m4s1n"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-deluge-200 dark:bg-deluge-800 p-2 rounded-full text-deluge-600 dark:text-deluge-400 hover:shadow-lg transition-all duration-300 hover:scale-115 hover:bg-deluge-300 dark:hover:bg-deluge-700 hover:text-deluge-800 dark:hover:text-deluge-200 hover:rotate-6"
                 aria-label="GitHub"
               >
@@ -89,6 +91,8 @@ const Footer: React.FC<FooterProps> = ({ onSectionChange }) => {
               </a>
               <a
                 href="https://www.linkedin.com/in/tomas-benavides-calderon-81936632b/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-deluge-200 dark:bg-deluge-800 p-2 rounded-full text-deluge-600 dark:text-deluge-400 hover:shadow-lg transition-all duration-300 hover:scale-115 hover:bg-deluge-300 dark:hover:bg-deluge-700 hover:text-deluge-800 dark:hover:text-deluge-200 hover:rotate-6"
                 aria-label="LinkedIn"
               >
