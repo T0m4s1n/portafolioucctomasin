@@ -111,9 +111,6 @@ const HobbiesSection = () => {
             <span className="text-sm text-accent font-light">Pasatiempos</span>
           </motion.section>
           
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-          `}</style>
           <motion.h2
             variants={itemVariants}
             className="text-3xl md:text-5xl font-light mb-6"

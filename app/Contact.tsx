@@ -129,32 +129,28 @@ const ContactSection = () => {
   };
 
   return (
-    <section 
-      id="contact" 
+    <div 
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975 relative"
     >
-      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <section className="absolute top-0 right-0 w-1/2 h-1/2 bg-deluge-300 dark:bg-deluge-700 opacity-10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-      <section className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-deluge-300 dark:bg-deluge-700 opacity-10 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-deluge-300 dark:bg-deluge-700 opacity-10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-deluge-300 dark:bg-deluge-700 opacity-10 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
       
-      <section className="container mx-auto px-4 md:px-8 relative z-10">
-        <motion.section
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16"
         >
-          <motion.section variants={itemVariants} className="flex items-center mb-6">
+          <motion.div variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">05</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Contacto</span>
-          </motion.section>
+          </motion.div>
           
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-          `}</style>
           <motion.h2
             variants={itemVariants}
             className="text-3xl md:text-5xl font-light mb-6"
@@ -166,22 +162,22 @@ const ContactSection = () => {
           <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
             Estoy aquí para transformar tus ideas en realidades digitales impactantes que conectan, inspiran y producen resultados.
           </motion.p>
-        </motion.section>
+        </motion.div>
         
-        <section className="flex flex-col md:flex-row gap-8">
-          <motion.section
+        <div className="flex flex-col md:flex-row gap-8">
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             className="md:w-1/3"
           >
-            <motion.section
+            <motion.div
               variants={itemVariants}
               className="border border-deluge-300 dark:border-deluge-700 rounded-lg p-8 bg-deluge-50/50 dark:bg-deluge-900/50 backdrop-blur-md relative overflow-hidden h-full shadow-lg"
             >
               
-              <section className="mb-10 relative z-10">
+              <div className="mb-10 relative z-10">
                 <h3 className="text-xl font-mono mb-4 text-deluge-600 dark:text-deluge-400">
                   <motion.span 
                     initial={{ x: 0 }} 
@@ -198,12 +194,12 @@ const ContactSection = () => {
                   whileHover="hover"
                   className="flex items-center text-lg group"
                 >
-                  <motion.section 
+                  <motion.div 
                     variants={iconHoverVariants}
                     className="bg-deluge-200 dark:bg-deluge-800 p-2 rounded-full"
                   >
                     <Mail className="text-deluge-600 dark:text-deluge-400 mr-0 w-5 h-5" />
-                  </motion.section>
+                  </motion.div>
                   <motion.span 
                     variants={linkHoverVariants}
                     className="ml-4 hover:underline hover:text-deluge-600 dark:hover:text-deluge-400 transition-colors duration-300"
@@ -211,9 +207,9 @@ const ContactSection = () => {
                     thriftytomas@gmail.com
                   </motion.span>
                 </motion.a>
-              </section>
+              </div>
               
-              <section className="relative z-10">
+              <div className="relative z-10">
                 <h3 className="text-xl font-mono mb-4 text-deluge-600 dark:text-deluge-400">
                   <motion.span 
                     initial={{ x: 0 }} 
@@ -224,19 +220,21 @@ const ContactSection = () => {
                     SOCIAL MEDIAS
                   </motion.span>
                 </h3>
-                <section className="space-y-4">
+                <div className="space-y-4">
                   <motion.a 
-                    href="#linkedin" 
+                    href="https://www.linkedin.com/in/tomas-benavides-calderon-81936632b/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     initial="rest"
                     whileHover="hover"
                     className="flex items-center text-lg group"
                   >
-                    <motion.section 
+                    <motion.div 
                       variants={iconHoverVariants}
                       className="bg-deluge-200 dark:bg-deluge-800 p-2 rounded-full"
                     >
                       <Linkedin className="text-deluge-600 dark:text-deluge-400 mr-0 w-5 h-5" />
-                    </motion.section>
+                    </motion.div>
                     <motion.span 
                       variants={linkHoverVariants}
                       className="ml-4 hover:underline hover:text-deluge-600 dark:hover:text-deluge-400 transition-colors duration-300"
@@ -245,17 +243,19 @@ const ContactSection = () => {
                     </motion.span>
                   </motion.a>
                   <motion.a 
-                    href="#github" 
+                    href="https://github.com/T0m4s1n"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     initial="rest"
                     whileHover="hover"
                     className="flex items-center text-lg group"
                   >
-                    <motion.section 
+                    <motion.div 
                       variants={iconHoverVariants}
                       className="bg-deluge-200 dark:bg-deluge-800 p-2 rounded-full"
                     >
                       <Github className="text-deluge-600 dark:text-deluge-400 mr-0 w-5 h-5" />
-                    </motion.section>
+                    </motion.div>
                     <motion.span 
                       variants={linkHoverVariants}
                       className="ml-4 hover:underline hover:text-deluge-600 dark:hover:text-deluge-400 transition-colors duration-300"
@@ -263,39 +263,39 @@ const ContactSection = () => {
                       github.com/tomasin
                     </motion.span>
                   </motion.a>
-                </section>
-              </section>
+                </div>
+              </div>
               
-              <motion.section
+              <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="absolute -bottom-8 -right-8 w-32 h-32 bg-deluge-300 dark:bg-deluge-700 opacity-20 blur-xl rounded-full pointer-events-none"
               />
-            </motion.section>
-          </motion.section>
+            </motion.div>
+          </motion.div>
           
-          <motion.section
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             className="md:w-2/3"
           >
-            <motion.section
+            <motion.div
               variants={itemVariants}
               className="border border-deluge-300 dark:border-deluge-700 rounded-lg p-8 md:p-10 bg-deluge-50/50 dark:bg-deluge-900/50 backdrop-blur-md relative overflow-hidden shadow-lg"
             >
               
-              <section className="relative z-10">
+              <div className="relative z-10">
                 {formState.isSubmitted ? (
-                  <motion.section
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="p-4 text-center"
                   >
-                    <motion.section
+                    <motion.div
                       initial={{ scale: 0 }}
                       animate={{ 
                         scale: 1, 
@@ -308,19 +308,19 @@ const ContactSection = () => {
                       }}
                       className="flex justify-center"
                     >
-                      <section className="bg-deluge-200 dark:bg-deluge-800 p-4 rounded-full">
+                      <div className="bg-deluge-200 dark:bg-deluge-800 p-4 rounded-full">
                         <Check className="w-12 h-12 text-deluge-600 dark:text-deluge-400" />
-                      </section>
-                    </motion.section>
+                      </div>
+                    </motion.div>
                     <h4 className="text-2xl mt-6 mb-3">¡Mensaje enviado con éxito!</h4>
                     <p className="text-muted-foreground">Gracias por contactarme. Me pondré en contacto contigo a la brevedad posible.</p>
-                  </motion.section>
+                  </motion.div>
                 ) : (
                   <motion.form 
                     onSubmit={handleSubmit}
                     className="space-y-8"
                   >
-                    <motion.section 
+                    <motion.div 
                       initial="rest"
                       whileHover="focus"
                       whileFocus="focus"
@@ -338,9 +338,9 @@ const ContactSection = () => {
                         required
                         className="w-full p-2 bg-transparent focus:outline-none text-lg placeholder:text-muted-foreground/50"
                       />
-                    </motion.section>
+                    </motion.div>
                     
-                    <motion.section 
+                    <motion.div 
                       initial="rest"
                       whileHover="focus"
                       whileFocus="focus"
@@ -358,9 +358,9 @@ const ContactSection = () => {
                         required
                         className="w-full p-2 bg-transparent focus:outline-none text-lg placeholder:text-muted-foreground/50"
                       />
-                    </motion.section>
+                    </motion.div>
                     
-                    <motion.section 
+                    <motion.div 
                       initial="rest"
                       whileHover="focus"
                       whileFocus="focus"
@@ -378,16 +378,16 @@ const ContactSection = () => {
                         rows={4}
                         className="w-full p-2 bg-transparent focus:outline-none text-lg placeholder:text-muted-foreground/50 resize-none"
                       />
-                    </motion.section>
+                    </motion.div>
                     
                     {formState.error && (
-                      <motion.section 
+                      <motion.div 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-sm text-red-500"
                       >
                         {formState.error}
-                      </motion.section>
+                      </motion.div>
                     )}
                     
                     <motion.button
@@ -415,26 +415,26 @@ const ContactSection = () => {
                     >
                       {formState.isSubmitting ? (
                         <span className="flex items-center justify-center gap-2">
-                          <motion.section
+                          <motion.span
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           >
                             <Loader className="h-4 w-4" />
-                          </motion.section>
+                          </motion.span>
                           Enviando...
                         </span>
                       ) : (
                         <>
                           <span className="relative z-10">Enviar mensaje</span>
-                          <motion.section 
+                          <motion.span 
                             className="relative z-10"
                             initial={{ x: 0 }}
                             whileHover={{ x: 4 }}
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                           >
                             <ArrowRight className="w-4 h-4" />
-                          </motion.section>
-                          <motion.section 
+                          </motion.span>
+                          <motion.span 
                             initial={{ width: "0%" }}
                             whileHover={{ width: "110%" }}
                             transition={{ duration: 0.3 }}
@@ -446,19 +446,19 @@ const ContactSection = () => {
                     </motion.button>
                   </motion.form>
                 )}
-              </section>
-              <motion.section
+              </div>
+              <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="absolute -bottom-16 -right-16 w-48 h-48 bg-deluge-300 dark:bg-deluge-700 opacity-20 blur-xl rounded-full pointer-events-none"
               />
-            </motion.section>
-          </motion.section>
-        </section>
-      </section>
-    </section>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 
 const AboutSection = () => {
   const sectionRef = useRef(null);
@@ -26,39 +27,35 @@ const AboutSection = () => {
   };
 
   return (
-    <section 
-      id="about" 
+    <div 
       ref={sectionRef}
       className="py-24 relative bg-deluge-100 dark:bg-deluge-975"
     >
-      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <section className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
       
-      <section className="container mx-auto px-8 relative">
-        <motion.section
+      <div className="container mx-auto px-8 relative">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="mb-6 relative z-10"
         >
-          <motion.section variants={itemVariants} className="flex items-center mb-6">
+          <motion.div variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">06</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Sobre mí</span>
-          </motion.section>
-        </motion.section>
+          </motion.div>
+        </motion.div>
         
-        <section className="flex flex-col-reverse md:flex-row relative">
-          <section className="w-full md:w-2/3 relative z-10 md:pr-12">
-            <motion.section 
+        <div className="flex flex-col-reverse md:flex-row relative">
+          <div className="w-full md:w-2/3 relative z-10 md:pr-12">
+            <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               className="mb-8"
             >
-              <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-              `}</style>
               <motion.h1
                 variants={itemVariants}
                 className="text-5xl md:text-6xl font-light mb-2"
@@ -74,9 +71,9 @@ const AboutSection = () => {
               >
                 Soy desarrollador, diseñador y solucionador de problemas.
               </motion.h2>
-            </motion.section>
+            </motion.div>
             
-            <motion.section
+            <motion.div
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
@@ -89,40 +86,43 @@ const AboutSection = () => {
               <motion.p variants={itemVariants} className="text-base">
                 Lo que más me emociona de ser Desarrollador es poder diseñar y crear cosas que tienen un propósito y resuelven problemas reales. Va más allá de diseñar botones y sitios web e implica tener pasión por diseñar cosas que realmente importan.
               </motion.p>
-            </motion.section>
-          </section>
-          <section className="w-full md:w-1/3 mb-8 md:mb-0 relative">
-            <motion.section 
+            </motion.div>
+          </div>
+          <div className="w-full md:w-1/3 mb-8 md:mb-0 relative">
+            <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               className="md:absolute md:top-0 md:-left-6"
             >
-              <motion.section 
+              <motion.div 
                 variants={itemVariants}
                 className="border border-accent/10 rounded-md p-2 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md overflow-hidden shadow-md relative mx-auto md:mx-0"
                 style={{ maxWidth: "250px" }}
               >
-                <img 
-                  src="./ar.jpg" 
+                <Image 
+                  src="/ar.jpg" 
                   alt="Profile photo" 
+                  width={250}
+                  height={300}
                   className="w-full h-auto object-cover rounded-sm"
+                  priority
                 />
-                <section className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
-              </motion.section>
-            </motion.section>
-          </section>
-        </section>
-        <motion.section 
+                <div className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+        <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="absolute bottom-8 left-6 text-accent/50 text-xs"
         >
           <motion.span variants={itemVariants}>© 2025</motion.span>
-        </motion.section>
-      </section>
-    </section>
+        </motion.div>
+      </div>
+    </div>
   );
 };
 

@@ -71,31 +71,27 @@ const SkillsSection = () => {
 
 
   return (
-    <section 
-      id="skills" 
+    <div 
       ref={sectionRef}
       className="py-24 relative bg-deluge-50 dark:bg-deluge-950"
     >
-      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <section className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
       
-      <section className="container mx-auto px-8">
-        <motion.section
+      <div className="container mx-auto px-8">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2, margin: "-50px" }}
           className="mb-16 relative z-10"
         >
-          <motion.section variants={itemVariants} className="flex items-center mb-6">
+          <motion.div variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">07</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Habilidades</span>
-          </motion.section>
+          </motion.div>
           
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-          `}</style>
           <motion.h2
             variants={itemVariants}
             className="text-3xl md:text-5xl font-light mb-6"
@@ -104,15 +100,15 @@ const SkillsSection = () => {
             Mis <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>habilidades</span>
           </motion.h2>
           
-          <motion.section variants={itemVariants} className="text-lg max-w-3xl mb-8">
+          <motion.div variants={itemVariants} className="text-lg max-w-3xl mb-8">
             <p className="mb-4 text-muted-foreground">
               A lo largo de mi carrera, he desarrollado un conjunto diverso de habilidades que me permiten abordar 
               proyectos digitales de forma integral.
             </p>
-          </motion.section>
-        </motion.section>
+          </motion.div>
+        </motion.div>
         
-        <motion.section
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -120,7 +116,7 @@ const SkillsSection = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {skillCategories.map((category, idx) => (
-            <motion.section
+            <motion.div
               key={idx}
               variants={itemVariants}
               initial="hidden"
@@ -129,47 +125,47 @@ const SkillsSection = () => {
               animate={isVisible ? "visible" : "hidden"}
               className="relative border border-accent/10 rounded-md p-6 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md shadow-md h-full overflow-hidden mx-auto"
             >
-              <section className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
+              <div className="absolute top-0 right-0 opacity-10 text-xl font-mono text-accent/20 overflow-hidden p-4 select-none">
                 {Array(3).fill(category.title.toLowerCase().replace(/\s/g, "")).map((text, idx) => (
                   <span key={idx} className="block whitespace-nowrap">{text}</span>
                 ))}
-              </section>
+              </div>
               
-              <section className="mb-4 flex items-center">
-                <section className="mr-4 bg-accent/10 p-3 rounded-md">
+              <div className="mb-4 flex items-center">
+                <div className="mr-4 bg-accent/10 p-3 rounded-md">
                   {category.icon}
-                </section>
+                </div>
                 <h3 className="text-xl font-light text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>
                   {category.title}
                 </h3>
-              </section>
+              </div>
               
               <p className="text-sm text-muted-foreground mb-5 line-clamp-3">
                 {category.description}
               </p>
               
-              <section className="space-y-4 relative z-10">
+              <div className="space-y-4 relative z-10">
                 {category.skills.map((skill, idx) => (
-                  <section key={idx} className="space-y-2">
-                    <section className="flex justify-between text-sm">
+                  <div key={idx} className="space-y-2">
+                    <div className="flex justify-between text-sm">
                       <span>{skill.name}</span>
-                    </section>
-                  </section>
+                    </div>
+                  </div>
                 ))}
-              </section>
+              </div>
               
-              <motion.section
+              <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: false, amount: 0.5 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="absolute -bottom-8 -right-8 w-24 h-24 bg-accent/5 blur-3xl rounded-full pointer-events-none"
               />
-            </motion.section>
+            </motion.div>
           ))}
-        </motion.section>
+        </motion.div>
 
-        <motion.section
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -181,9 +177,9 @@ const SkillsSection = () => {
             incluyendo desarrollo backend con Node.js y metodologías ágiles para 
             gestión de proyectos.
           </motion.p>
-        </motion.section>
+        </motion.div>
         
-        <motion.section
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.5 }}
@@ -191,7 +187,7 @@ const SkillsSection = () => {
           className="absolute -bottom-10 right-0 w-32 h-32 bg-accent/5 blur-3xl rounded-full pointer-events-none"
         />
         
-        <motion.section
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -199,9 +195,9 @@ const SkillsSection = () => {
           className="absolute bottom-8 left-6 text-accent/50 text-xs"
         >
           <motion.span variants={itemVariants}>© 2025</motion.span>
-        </motion.section>
-      </section>
-    </section>
+        </motion.div>
+      </div>
+    </div>
   );
 };
 

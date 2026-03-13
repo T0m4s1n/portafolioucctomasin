@@ -53,37 +53,37 @@ const PortfolioPage = () => {
             <CustomCursor />
             <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
             
-            <section ref={sectionRefs.home} id="home">
+            <div ref={sectionRefs.home} id="home">
                 <Home />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.work} id="work">
+            <div ref={sectionRefs.work} id="work">
                 <Inside />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.expertise} id="expertise">
+            <div ref={sectionRefs.expertise} id="expertise">
                 <Expertise />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.experience} id="experience">
+            <div ref={sectionRefs.experience} id="experience">
                 <Experience />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.contact} id="contact">
+            <div ref={sectionRefs.contact} id="contact">
                 <Contact />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.about} id="about">
+            <div ref={sectionRefs.about} id="about">
                 <About />
-            </section>
+            </div>
             
-            <section ref={sectionRefs.skills} id="skills">
+            <div ref={sectionRefs.skills} id="skills">
                 <Habilities />
-            </section>
+            </div>
                                                        
-            <section ref={sectionRefs.recommendations} id="recommendations">
+            <div ref={sectionRefs.recommendations} id="recommendations">
                 <Recomendations />
-            </section>
+            </div>
             
             <Footer onSectionChange={handleSectionChange} />
         </main>

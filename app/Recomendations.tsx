@@ -84,7 +84,7 @@ const RecomendacionesSection = () => {
     const isCardInView = useInView(ref, { once: true, amount: 0.3 });
 
     return (
-      <motion.section
+      <motion.div
         ref={ref}
         key={item.id}
         variants={itemVariants}
@@ -92,11 +92,11 @@ const RecomendacionesSection = () => {
         animate={isCardInView ? "visible" : "hidden"}
         className="border border-accent/10 rounded-md p-8 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md relative overflow-hidden"
       >
-        <section className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
+        <div className="absolute inset-0 flex flex-wrap content-center justify-center opacity-10 text-2xl font-mono text-accent/30 overflow-hidden p-4 select-none">
           {Array(8).fill(item.bgText).map((text, idx) => (
             <span key={idx} className="m-2 whitespace-nowrap">{text}</span>
           ))}
-        </section>
+        </div>
         
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-accent/30 mb-6">
           <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
@@ -107,50 +107,47 @@ const RecomendacionesSection = () => {
           &quot;{item.quote}&quot;
         </p>
         
-        <section className="flex items-center mt-4 relative z-10">
-          <section className="text-accent mr-4">
+        <div className="flex items-center mt-4 relative z-10">
+          <div className="text-accent mr-4">
             {item.avatar}
-          </section>
-          <section>
+          </div>
+          <div>
             <h3 className="text-base font-medium text-accent">
               {item.name}
             </h3>
             <p className="text-xs text-muted-foreground">
               {item.position}
             </p>
-          </section>
-        </section>
-      </motion.section>
+          </div>
+        </div>
+      </motion.div>
     );
   };
 
   return (
-    <section 
+    <div 
       id="recomendaciones" 
       ref={sectionRef}
       className="py-24 bg-deluge-100 dark:bg-deluge-975 relative"
     >
-      <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-      <section className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full translate-y-1/4 -translate-x-1/4 pointer-events-none" />
       
-      <section className="container mx-auto px-8">
-        <motion.section
+      <div className="container mx-auto px-8">
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="mb-16"
         >
-          <motion.section variants={itemVariants} className="flex items-center mb-6">
+          <motion.div variants={itemVariants} className="flex items-center mb-6">
             <span className="text-sm text-accent opacity-80 mr-2">08</span>
             <span className="text-sm text-accent mr-2">{'//'}</span>
             <span className="text-sm text-accent font-light">Recomendaciones</span>
-          </motion.section>
+          </motion.div>
           
           <>
-          <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-          `}</style>
           <motion.h2
             variants={itemVariants}
             className="text-3xl md:text-5xl font-light mb-6"
@@ -163,15 +160,15 @@ const RecomendacionesSection = () => {
           <motion.p variants={itemVariants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
             Comentarios de clientes y colegas con quienes he tenido el placer de colaborar en proyectos desafiantes y emocionantes.
           </motion.p>
-        </motion.section>
+        </motion.div>
         
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {recomendacionesItems.map((item) => (
             <TestimonialCard key={item.id} item={item} />
           ))}
-        </section>
-      </section>
-    </section>
+        </div>
+      </div>
+    </div>
   );
 };
 

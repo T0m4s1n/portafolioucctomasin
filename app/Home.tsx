@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const PortfolioHomeSection = () => {
 
@@ -10,25 +11,25 @@ const PortfolioHomeSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen md:min-h-screen pt-20 md:pt-0 relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
-        <section className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
-        <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+    <div className="min-h-screen md:min-h-screen pt-20 md:pt-0 relative flex flex-col justify-center bg-deluge-100 dark:bg-deluge-975">
+        <div className="absolute inset-0 opacity-5 dark:opacity-10 bg-grid-pattern pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
           <h1 className="text-[20vw] font-bold text-stroke text-transparent opacity-5 whitespace-nowrap tracking-tighter"
             style={{ 
-            WebkitTextStroke: '2px var(--accent)'
+            textShadow: '2px 0 0 var(--accent), -2px 0 0 var(--accent), 0 2px 0 var(--accent), 0 -2px 0 var(--accent)'
             }}>
             TOMASIN
           </h1>
-        </section>
+        </div>
       
-      <section className="container mx-auto px-8 relative z-10">
-        <section className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <section className="max-w-3xl flex-1">
-            <section className="flex items-center mb-6">
+      <div className="container mx-auto px-8 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="max-w-3xl flex-1">
+            <div className="flex items-center mb-6">
               <span className="text-sm text-accent opacity-80 mr-2">01</span>
               <span className="text-sm text-accent mr-2">{'//'}</span>
               <span className="text-sm text-accent font-light">introduccion</span>
-            </section>
+            </div>
             
             <h1 className="text-3xl md:text-6xl lg:text-7xl font-light mb-6">
             Me llamo <span className="text-accent" style={{ fontFamily: "'Dancing Script', cursive" }}>Tomasin</span><br />
@@ -39,7 +40,7 @@ const PortfolioHomeSection = () => {
               Desarrollador frontend y diseñador especializado en crear aplicaciones web elegantes, funcionales y accesibles con un enfoque en movimiento y experiencia de usuario.
             </p>
             
-            <section className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4">
               <button
                 onClick={() => scrollToSection('contact')}
                 className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
@@ -53,31 +54,34 @@ const PortfolioHomeSection = () => {
               >
                 Ver proyectos
               </button>
-            </section>
-          </section>
+            </div>
+          </div>
           
-          <section className="flex-shrink-0 flex flex-col items-center justify-center md:mx-auto md:pr-16">
-            <section 
+          <div className="flex-shrink-0 flex flex-col items-center justify-center md:mx-auto md:pr-16">
+            <div 
               className="border border-accent/10 rounded-md p-2 bg-deluge-50/5 dark:bg-deluge-950/30 backdrop-blur-md overflow-hidden shadow-md relative"
               style={{ maxWidth: "350px" }}
             >
-              <img 
-                src="./ar2.jpg" 
+              <Image 
+                src="/ar2.jpg" 
                 alt="Profile photo" 
+                width={350}
+                height={400}
                 className="w-full h-auto object-cover rounded-sm"
+                priority
               />
-              <section className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
-            </section>
-          </section>
-        </section>
-      </section>
+              <div className="absolute inset-0 border border-accent/20 rounded-sm pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      </div>
       
-      <section className="absolute bottom-12 left-8 md:bottom-16 md:left-16">
-        <section className="flex gap-6">
+      <div className="absolute bottom-12 left-8 md:bottom-16 md:left-16">
+        <div className="flex gap-6">
           <a
             href="https://github.com/T0m4s1n"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-accent transition-colors"
             aria-label="GitHub Profile"
           >
@@ -89,7 +93,7 @@ const PortfolioHomeSection = () => {
           <a
             href="https://www.linkedin.com/in/tomas-benavides-calderon-81936632b/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-accent transition-colors"
             aria-label="LinkedIn Profile"
           >
@@ -99,19 +103,14 @@ const PortfolioHomeSection = () => {
               <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </a>
-        </section>
-      </section>
+        </div>
+      </div>
       
-      <section className="absolute bottom-8 right-8 md:bottom-16 md:right-16 flex flex-col items-center">
+      <div className="absolute bottom-8 right-8 md:bottom-16 md:right-16 flex flex-col items-center">
         <span className="text-xs text-muted-foreground mb-2 rotate-90 origin-bottom-right">scrollea</span>
-        <section className="w-px h-16 bg-accent/30" />
-      </section>
-      
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+HU:wght@100..400&display=swap');
-      `}</style>
-    </section>
+        <div className="w-px h-16 bg-accent/30" />
+      </div>
+    </div>
   );
 };
 
