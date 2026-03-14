@@ -4,7 +4,6 @@ module.exports = {
     "postcss-remove-at-rules": {
       rules: ["property"],
     },
-    "./postcss-fix-tailwind-v4.js": {},
     "postcss-preset-env": {
       stage: 1,
       features: {
@@ -20,5 +19,6 @@ module.exports = {
       },
       preserve: false,
     },
+    "./postcss-fix-tailwind-v4.js": {},
   },
 };

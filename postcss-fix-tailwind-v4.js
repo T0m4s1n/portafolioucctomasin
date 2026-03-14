@@ -12,22 +12,31 @@ module.exports = (opts = {}) => {
             .join(", ");
         }
       }
-      // Fix colors that might have failed to transform correctly or are using non-standard notation
-      if (decl.value.includes("color(display-p3")) {
-        // If postcss-preset-env didn't catch it, it might be in a place it doesn't look.
-        // But preset-env should have handled it.
+      // Fix colors: manually handle remaining color-mix and display-p3 if needed
+      if (decl.value.includes("color(display-p3") || decl.value.includes("color-mix(")) {
+        // Fix display-p3
+        decl.value = decl.value.replace(/color\(display-p3\s+([^)]+)\)/g, (match, p1) => {
+          const parts = p1.trim().split(/\s+/);
+          if (parts.length >= 3) {
+            return `rgb(${parts.slice(0, 3).join(", ")})`;
+          }
+          return "currentColor";
+        });
+        
+        // Fix color-mix for the validator
+        // We look for the first color argument after 'in <colorspace>,'
+        decl.value = decl.value.replace(/color-mix\(\s*in\s+[^,]+,\s*([^,/%]+)(?:\s+[\d.]+%|var\([^)]+\))?\s*,[^)]+\)/g, "$1");
       }
     },
     Rule(rule) {
       // Fix specificity hacks: remove :not(#\#)
-      // Tailwind v4 uses this to ensure its utilities override base styles
-      if (rule.selector.includes(":not(#\\#)")) {
-        rule.selector = rule.selector.replace(/:not\(#\\#\)/g, "");
+      if (rule.selector.includes(":not(#")) {
+        rule.selector = rule.selector.replace(/:not\(#[^)]+\)/g, "");
       }
     },
     AtRule(atRule) {
-      // Ensure @property is gone (redundant if postcss-remove-at-rules is used, but safe)
-      if (atRule.name === "property") {
+      // Ensure @property and @layer are gone
+      if (atRule.name === "property" || atRule.name === "layer") {
         atRule.remove();
       }
     },
