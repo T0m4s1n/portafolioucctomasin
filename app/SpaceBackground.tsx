@@ -59,6 +59,8 @@ const GranularBackground = () => {
     const width = container.clientWidth;
     const height = container.clientHeight;
 
+    if (width <= 0 || height <= 0) return;
+
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
@@ -182,6 +184,8 @@ const GranularBackground = () => {
 
       const width = containerRef.current.clientWidth;
       const height = containerRef.current.clientHeight;
+
+      if (width <= 0 || height <= 0) return;
 
       canvasRef.current.width = width;
       canvasRef.current.height = height;

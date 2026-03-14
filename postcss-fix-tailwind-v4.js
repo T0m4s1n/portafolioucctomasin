@@ -24,7 +24,6 @@ module.exports = (opts = {}) => {
         });
         
         // Fix color-mix for the validator
-        // We look for the first color argument after 'in <colorspace>,'
         decl.value = decl.value.replace(/color-mix\(\s*in\s+[^,]+,\s*([^,/%]+)(?:\s+[\d.]+%|var\([^)]+\))?\s*,[^)]+\)/g, "$1");
       }
     },
@@ -35,8 +34,8 @@ module.exports = (opts = {}) => {
       }
     },
     AtRule(atRule) {
-      // Ensure @property and @layer are gone
-      if (atRule.name === "property" || atRule.name === "layer") {
+      // Only remove @property, NOT @layer
+      if (atRule.name === "property") {
         atRule.remove();
       }
     },
